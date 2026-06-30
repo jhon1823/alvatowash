@@ -9,6 +9,7 @@ node_modules/
 *.env
 
 # Credenciales / tokens (nunca al repo)
+config.js
 config.local.js
 *credentials*
 *service-account*.json

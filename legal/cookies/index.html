@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Política de Cookies · Alvatowash</title>
+<meta name="description" content="Política de cookies de Alvatowash. Información sobre las cookies que usamos y cómo configurarlas.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="../../icon.svg">
+<link rel="stylesheet" href="../style.css">
+<script src="../../config.js"></script>
+</head>
+<body>
+<nav class="legal-nav">
+  <a href="../../" class="brand">Alvatowash</a>
+  <a href="../aviso-legal/">Aviso Legal</a>
+  <a href="../privacidad/">Privacidad</a>
+  <a href="../cookies/">Cookies</a>
+</nav>
+
+<main class="legal-wrap">
+  <div class="legal-kicker">Documento legal</div>
+  <h1 class="legal-title">Política de Cookies.</h1>
+  <p class="legal-updated">Última actualización: <span id="lastUpdated">21 de junio de 2026</span></p>
+
+  <div class="legal-content">
+    <h2>¿Qué son las cookies?</h2>
+    <p>Las cookies son pequeños archivos de texto que se descargan en tu dispositivo al acceder a determinadas páginas web. Permiten reconocer tu navegador en futuras visitas y almacenar información sobre tus preferencias.</p>
+
+    <h2>¿Qué cookies utilizamos?</h2>
+
+    <div class="legal-card">
+      <div class="legal-card-label">Estrictamente necesarias</div>
+      <p>Imprescindibles para el funcionamiento del sitio. No requieren tu consentimiento.</p>
+      <ul>
+        <li><strong>session</strong> — Mantiene tu sesión activa en el área cliente. Duración: sesión.</li>
+        <li><strong>vip_email</strong> — Recuerda tu email para no pedirlo en cada visita al área VIP. Duración: 30 días.</li>
+        <li><strong>__stripe_*</strong> — Necesarias para el procesamiento seguro de pagos. Las gestiona Stripe directamente.</li>
+      </ul>
+    </div>
+
+    <div class="legal-card">
+      <div class="legal-card-label">Funcionales (opcionales)</div>
+      <p>Mejoran tu experiencia pero no son imprescindibles.</p>
+      <ul>
+        <li><strong>preferences</strong> — Recuerda tu centro habitual y vehículo predeterminado. Duración: 1 año.</li>
+        <li><strong>last_booking</strong> — Recuerda los datos de tu última reserva para acelerar la siguiente. Duración: 6 meses.</li>
+      </ul>
+    </div>
+
+    <div class="legal-card">
+      <div class="legal-card-label">Analíticas (opcionales)</div>
+      <p>Nos ayudan a entender cómo se usa el sitio. Solo se activan con tu consentimiento.</p>
+      <ul>
+        <li><strong>_ga, _ga_*</strong> — Google Analytics 4: medición agregada de visitas. Duración: hasta 2 años.</li>
+        <li><strong>_fbp</strong> — Meta Pixel: medición de campañas de Instagram/Facebook. Duración: 90 días.</li>
+      </ul>
+    </div>
+
+    <h2>¿Cómo gestionar las cookies?</h2>
+    <p>Puedes aceptar o rechazar las cookies opcionales en el banner que aparece la primera vez que visitas el sitio. Para cambiar tu elección posteriormente, pulsa el botón "Configurar cookies" al pie de cualquier página.</p>
+    <p>También puedes bloquear o eliminar las cookies desde la configuración de tu navegador:</p>
+    <ul>
+      <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+      <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+      <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+      <li><a href="https://support.microsoft.com/es-es/microsoft-edge" target="_blank" rel="noopener">Microsoft Edge</a></li>
+    </ul>
+
+    <h2>Cookies de terceros</h2>
+    <p>Algunos servicios externos que usamos pueden instalar sus propias cookies:</p>
+    <ul>
+      <li><strong>Stripe</strong> (procesador de pagos): cookies de seguridad anti-fraude.</li>
+      <li><strong>Google Fonts</strong> (tipografías): no instala cookies sin tu interacción.</li>
+      <li><strong>Google Analytics</strong> (solo con consentimiento): cookies analíticas anonimizadas.</li>
+    </ul>
+
+    <h2>Cambios en esta política</h2>
+    <p>Podemos modificar esta política para adaptarla a cambios legislativos o en nuestros servicios. Te recomendamos revisarla periódicamente. La fecha de la última actualización aparece al inicio de este documento.</p>
+  </div>
+</main>
+
+<footer class="legal-footer">
+  © <span id="yr"></span> <span class="dCompanyR">Alvatowash, S.L.</span> · Todos los derechos reservados
+  <div style="margin-top:8px">
+    <a href="../aviso-legal/">Aviso Legal</a>
+    <a href="../privacidad/">Política de Privacidad</a>
+    <a href="../cookies/">Cookies</a>
+  </div>
+</footer>
+
+<script>
+(function fillLegal(){
+  const c = (window.CONFIG && window.CONFIG.legal) || {};
+  if (c.last_updated) {
+    const el = document.getElementById('lastUpdated');
+    if (el) el.textContent = new Date(c.last_updated).toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' });
+  }
+  if (c.company_name) document.querySelectorAll('.dCompanyR').forEach(el => el.textContent = c.company_name);
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

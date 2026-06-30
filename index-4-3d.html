@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Alvatowash · Prueba B · Modelos 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Anton&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0A0A0B;--bg-2:#0F0F11;--bg-3:#16161A;
+  --ink:#F5F5F7;--ink-2:#A1A1A8;--ink-3:#6B6B72;
+  --line:rgba(255,255,255,.06);--line-2:rgba(255,255,255,.12);
+  --accent:#E53E3E;--accent-2:#FF6363;--accent-dk:#B91C1C;
+  --display:'Anton','Inter',sans-serif;
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+
+/* ── NAV ── */
+.nav{background:rgba(10,10,11,.88);backdrop-filter:saturate(180%) blur(18px);
+  border-bottom:1px solid var(--line);flex-shrink:0}
+.nav-inner{max-width:1320px;margin:0 auto;padding:13px 24px;
+  display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:var(--display);font-size:22px;letter-spacing:2px;text-transform:uppercase}
+.nav-r{display:flex;align-items:center;gap:12px}
+.badge{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  padding:5px 12px;border-radius:99px;background:var(--accent);color:#fff}
+.nav-link{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--line-2);padding:5px 12px;transition:color .15s}
+.nav-link:hover{color:var(--ink)}
+
+/* ── CHIPS ── */
+.chips-bar{background:var(--bg-2);border-bottom:1px solid var(--line);
+  padding:12px 24px;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.chips-bar::-webkit-scrollbar{display:none}
+.chips{display:flex;gap:7px;max-width:1320px;margin:0 auto;min-width:max-content}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:9px 17px;
+  border:1px solid var(--line-2);background:transparent;color:var(--ink-2);
+  font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  white-space:nowrap;transition:all .18s;cursor:pointer;position:relative}
+.chip:hover{border-color:var(--accent);color:var(--ink);background:rgba(229,62,62,.07)}
+.chip.active{background:var(--accent);border-color:var(--accent);color:#fff;
+  box-shadow:0 4px 20px rgba(229,62,62,.32)}
+.chip-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chip-ico svg{width:18px;height:18px}
+/* Indicador "sin modelo" */
+.chip[data-no-model]::after{
+  content:'SVG';font-size:8px;font-weight:700;letter-spacing:.8px;
+  background:rgba(255,255,255,.12);color:var(--ink-3);
+  padding:2px 5px;border-radius:99px;margin-left:2px
+}
+.chip.active[data-no-model]::after{background:rgba(255,255,255,.2);color:rgba(255,255,255,.7)}
+
+/* ── STAGE ── */
+.stage{flex:1;display:grid;grid-template-columns:1.35fr 1fr;min-height:0;overflow:hidden}
+@media(max-width:860px){
+  .stage{grid-template-columns:1fr;overflow:auto}
+}
+
+/* ── MODEL PANEL ── */
+.model-panel{
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 30%,#16161E 0%,#0A0A0C 65%);
+  display:flex;align-items:stretch;flex-direction:column
+}
+@media(max-width:860px){.model-panel{min-height:60vw;max-height:72vw;flex-shrink:0}}
+
+/* Canvas Three.js */
+#canvas3d{
+  position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;
+}
+
+/* Loading spinner */
+.mv-loading{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;z-index:4;
+  background:rgba(10,10,12,.5);backdrop-filter:blur(6px)
+}
+.mv-loading.show{display:flex}
+.mv-spinner{width:28px;height:28px;border:2.5px solid rgba(255,255,255,.12);
+  border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mv-loading-lbl{font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--ink-3)}
+
+/* Grid decorativo de fondo */
+.mv-grid{
+  position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.06;
+  background-image:
+    linear-gradient(rgba(255,255,255,.4) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse at center,black 35%,transparent 72%);
+}
+
+/* Sin modelo: placeholder */
+.no-model{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;
+  background:radial-gradient(ellipse at 50% 30%,#18181E 0%,#0A0A0C 65%);
+  z-index:5;text-align:center;padding:28px
+}
+.no-model.show{display:flex}
+.no-model-ico{width:64px;height:64px;opacity:.35;display:flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.no-model-ico svg{width:64px;height:64px}
+.no-model-label{font-family:var(--display);font-size:clamp(20px,3vw,32px);
+  text-transform:uppercase;color:var(--ink-2);line-height:1}
+.no-model-sub{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--line-2);padding:7px 16px;border-radius:99px}
+
+/* Hint de interacción */
+.mv-hint{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:6;
+  pointer-events:none;white-space:nowrap;
+  font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--ink-3);background:rgba(10,10,12,.6);backdrop-filter:blur(10px);
+  border:1px solid var(--line);padding:7px 16px;border-radius:99px;
+  transition:opacity .4s;
+}
+.mv-hint.hidden{opacity:0}
+
+/* Nombre de la zona sobre el modelo */
+.mv-zone{
+  position:absolute;top:18px;left:18px;z-index:6;pointer-events:none;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink);background:rgba(0,0,0,.45);backdrop-filter:blur(10px);
+  border:1px solid var(--line-2);padding:6px 13px;border-radius:99px;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.mv-zone::before{content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 10px var(--accent);
+  animation:pulse 1.8s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── DESC PANEL ── */
+.desc-panel{background:var(--bg-3);border-left:1px solid var(--line);
+  overflow-y:auto;display:flex;flex-direction:column}
+@media(max-width:860px){
+  .desc-panel{border-left:none;border-top:1px solid var(--line);overflow-y:visible}
+}
+
+.desc-body{padding:32px;display:flex;flex-direction:column;gap:20px;flex:1;
+  animation:slideUp .36s var(--ease) both}
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.d-hdr{display:flex;align-items:center;gap:13px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.d-ico{width:50px;height:50px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(229,62,62,.9);
+  background:linear-gradient(135deg,rgba(229,62,62,.18),rgba(229,62,62,.04));
+  border:1px solid rgba(229,62,62,.28)}
+.d-ico svg{width:24px;height:24px}
+.d-kicker{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:5px}
+.d-title{font-family:var(--display);font-size:25px;line-height:1;
+  text-transform:uppercase;color:var(--ink);letter-spacing:.5px}
+
+.d-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.d-lbl::before{content:'';width:12px;height:1px;background:var(--accent)}
+.d-txt{font-size:13.5px;color:var(--ink-2);line-height:1.65}
+.d-txt strong{color:var(--ink);font-weight:600}
+
+.phases{display:flex;flex-direction:column;gap:8px}
+.phase{display:flex;gap:12px;background:rgba(255,255,255,.025);
+  padding:11px 14px;border-radius:6px;border-left:2px solid var(--accent)}
+.phase-n{font-family:var(--display);font-size:12.5px;color:var(--accent-2);
+  text-transform:uppercase;letter-spacing:.5px;min-width:56px;flex-shrink:0}
+.phase-d{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+.benefit{background:linear-gradient(135deg,rgba(229,62,62,.07),rgba(229,62,62,.02));
+  border:1px solid rgba(229,62,62,.22);padding:15px 17px;border-radius:6px}
+.benefit-t{font-size:13px;color:var(--ink);line-height:1.6}
+
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:15px 20px;background:var(--accent);color:#fff;
+  border:1px solid var(--accent);font-size:12.5px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  transition:background .15s,border-color .15s;text-decoration:none;margin-top:auto}
+.cta:hover{background:var(--accent-dk);border-color:var(--accent-dk)}
+.arr{transition:transform .2s}
+.cta:hover .arr{transform:translateX(3px)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="brand">Alvatowash</span>
+    <div class="nav-r">
+      <span class="badge">Prueba B · Modelos 3D</span>
+      <a class="nav-link" href="index-4-img.html">← Imágenes</a>
+      <a class="nav-link" href="index-4.html">SVG →</a>
+    </div>
+  </div>
+</nav>
+
+<div class="chips-bar">
+  <div class="chips" id="chips"></div>
+</div>
+
+<div class="stage">
+
+  <!-- Visor 3D -->
+  <div class="model-panel" id="modelPanel">
+    <div class="mv-grid"></div>
+
+    <canvas id="canvas3d"></canvas>
+
+    <div class="mv-loading" id="mvLoading">
+      <div class="mv-spinner"></div>
+      <div class="mv-loading-lbl">Cargando modelo…</div>
+    </div>
+
+    <!-- Placeholder para zonas sin modelo -->
+    <div class="no-model" id="noModel">
+      <div class="no-model-ico" id="noModelIco"></div>
+      <div class="no-model-label" id="noModelLabel">Modelo 3D</div>
+      <div class="no-model-sub">Próximamente disponible</div>
+    </div>
+
+    <div class="mv-zone" id="mvZone">Cargando…</div>
+    <div class="mv-hint" id="mvHint">Arrastra para rotar · Pellizca para zoom</div>
+  </div>
+
+  <!-- Panel descripción -->
+  <div class="desc-panel" id="descPanel"></div>
+
+</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+
+/* ─── Iconos SVG profesionales ─── */
+const ICONS = {
+  carroceria: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15.5v-.8c0-2 1.4-3.5 3-4.3L8.5 8C9.8 7 11 6.5 12 6.5h1c1 0 2.2.5 3.5 1.5l3 2.9c1.6 1 2.5 2.5 2.5 4v.6H2Z"/><circle cx="6.5" cy="17" r="1.9"/><circle cx="17.5" cy="17" r="1.9"/></svg>`,
+  cristales: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17q0-6 3.5-7.5L9.5 7h5l3 2.5Q21 11 21 17H3Z"/><path d="M5.5 14.5L9 12.5M18.5 14.5L15 12.5"/><circle cx="10" cy="13.2" r=".9" fill="currentColor" stroke="none"/><circle cx="14" cy="13.2" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r=".9" fill="currentColor" stroke="none"/></svg>`,
+  asientos: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="8" height="11" rx="1.5"/><rect x="2" y="15" width="16" height="5" rx="1.5"/><path d="M12 7.5h6a2.5 2.5 0 012.5 2.5V20"/></svg>`,
+  plasticos: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="2"/><circle cx="7" cy="13" r="2.3"/><path d="M12.5 10.5h6M12.5 13h5M12.5 15.5h3.5"/></svg>`,
+  ozono: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3"/><circle cx="6" cy="17" r="2.5"/><circle cx="18" cy="17" r="2.5"/><path d="M9.5 10.2L7.5 14.6M14.5 10.2L16.5 14.6"/></svg>`,
+  llantas: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><circle cx="12" cy="12" r="3.5"/><path d="M12 8.5V2.8M15 10.3l5.2-3M15 13.7l5.2 3M12 15.5V21.2M9 13.7l-5.2 3M9 10.3l-5.2-3"/></svg>`
+};
+
+/* ─── Datos de servicios ─── */
+const S = {
+  carroceria:{
+    label:'Carrocería', icon:ICONS.carroceria, kicker:'Pintura y barniz',
+    title:'Carrocería · Pintura',
+    model:'3d/carroceria.glb',
+    diagnostico:'Vista capa por capa: barniz, color, imprimación. Identificamos <strong>microrayaduras</strong> (swirl marks) y oxidación superficial.',
+    phases:[
+      {fase:'Fase 1',desc:'Lavado de dos cubos con guante de microfibra para evitar arañazos.'},
+      {fase:'Fase 2',desc:'Descontaminación química (Iron Remover) + arcilla descontaminante.'},
+      {fase:'Fase 3',desc:'Sellador de pintura o cera de carnauba. Hidrofóbico por meses.'}
+    ],
+    beneficio:'Pintura con brillo espejo. Protegida contra lluvia ácida, pájaros y contaminación ambiental.'
+  },
+  cristales:{
+    label:'Cristales', icon:ICONS.cristales, kicker:'Visibilidad y seguridad',
+    title:'Cristales · Tratamiento',
+    model:null,
+    diagnostico:'Vista expandida de los <strong>6 paneles de cristal</strong> del coche — desde dentro y desde fuera. Cada uno con su tratamiento específico.',
+    phases:[
+      {fase:'Fase 1',desc:'Eliminación de cera, restos y suciedad incrustada con vinilo descontaminante.'},
+      {fase:'Fase 2',desc:'Microfibra premium + limpiacristales sin amoníaco (cero residuos).'},
+      {fase:'Fase 3',desc:'Tratamiento hidrofóbico que repele el agua a 90°+ y mejora visibilidad bajo lluvia.'}
+    ],
+    beneficio:'Conducción más segura bajo lluvia. El agua perla y resbala sola. Sin manchas ni residuos durante semanas.'
+  },
+  asientos:{
+    label:'Asientos', icon:ICONS.asientos, kicker:'Cuero o tela',
+    title:'Asientos · Tapicería',
+    model:'3d/asientos.glb',
+    diagnostico:'Aislamos visualmente las butacas y abrimos las puertas. Cada plaza recibe atención individual según el material — <strong>cuero o tela</strong>.',
+    phases:[
+      {fase:'Si cuero',desc:'Jabón específico para cuero + cepillo de crin de caballo. Crema nutridora hidratante de poro.'},
+      {fase:'Si tela',desc:'Inyección-extracción de suciedad + protector textil antimanchas.'},
+      {fase:'Final',desc:'Aplicación de protector según material + desinfección con ozono.'}
+    ],
+    beneficio:'Aspecto original recuperado. Tapicería resistente a manchas durante meses. Vida útil prolongada.'
+  },
+  plasticos:{
+    label:'Plásticos', icon:ICONS.plasticos, kicker:'Salpicadero y consola',
+    title:'Plásticos Interiores',
+    model:'3d/plasticos interiores.glb',
+    diagnostico:'Hacemos zoom hacia el <strong>salpicadero, consola central y aireadores</strong> — las zonas que más acumulan polvo, huellas y residuos térmicos.',
+    phases:[
+      {fase:'Fase 1',desc:'Pinceles de cerdas suaves + limpiador APC de pH neutro en cada relieve.'},
+      {fase:'Fase 2',desc:'Aire comprimido para rejillas de ventilación y rincones inaccesibles.'},
+      {fase:'Fase 3',desc:'Acondicionador con protección UV. Acabado mate satinado original.'}
+    ],
+    beneficio:'Plásticos protegidos del sol durante meses. Acabado de salón sin reflejos molestos al conducir.'
+  },
+  llantas:{
+    label:'Llantas', icon:ICONS.llantas, kicker:'Rines y neumáticos',
+    title:'Llantas · Neumáticos',
+    model:null,
+    diagnostico:'Despiece de la rueda: <strong>llanta, neumático y pinza de freno</strong>. El polvo del freno y la suciedad acumulada se revelan en detalle.',
+    phases:[
+      {fase:'Fase 1',desc:'Desincrustante de polvo de freno que cambia de color al activar reacción química.'},
+      {fase:'Fase 2',desc:'Cepillado independiente: uno para llanta, otro para neumático. Nunca mezclamos.'},
+      {fase:'Fase 3',desc:'Dressing de larga duración no graso para el negro profundo del neumático.'}
+    ],
+    beneficio:'Llantas como recién entregadas. Neumático con el negro profundo de coche nuevo, sin manchar la carrocería.'
+  },
+  ozono:{
+    label:'Ozono', icon:ICONS.ozono, kicker:'Desinfección y purificación',
+    title:'Tratamiento de Ozono',
+    model:'3d/ozono.glb',
+    diagnostico:'El generador de O₃ actúa desde el interior del habitáculo, alcanzando cada rincón — <strong>asientos, tapicería, aireadores y sistema de climatización</strong>.',
+    phases:[
+      {fase:'Fase 1',desc:'Sellado del habitáculo y activación del generador de O₃ a concentración controlada.'},
+      {fase:'Fase 2',desc:'El ozono penetra en tapicerías, moqueta y conductos de climatización durante 30 min.'},
+      {fase:'Fase 3',desc:'Ventilación y disipación completa. El O₃ se descompone en oxígeno puro, sin residuos.'}
+    ],
+    beneficio:'Elimina al 99,9% bacterias, virus, ácaros y malos olores (tabaco, mascotas, humedad). Habitáculo completamente saneado.'
+  }
+};
+
+/* ─── Three.js setup ─── */
+const canvas = document.getElementById('canvas3d');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, 1, 0.001, 1000);
+camera.position.set(0, 0.8, 3.5);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.07;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 1.6;
+controls.enablePan = false;
+controls.minDistance = 0.5;
+controls.maxDistance = 12;
+
+// Lighting
+const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+scene.add(ambient);
+const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
+keyLight.position.set(4, 6, 5);
+keyLight.castShadow = true;
+scene.add(keyLight);
+const fillLight = new THREE.DirectionalLight(0x8090CC, 0.5);
+fillLight.position.set(-5, 2, -3);
+scene.add(fillLight);
+const rimLight = new THREE.DirectionalLight(0xFFCC88, 0.25);
+rimLight.position.set(0, -3, -5);
+scene.add(rimLight);
+
+function resize(){
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if(!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+resize();
+
+(function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+})();
+
+/* ─── Model loader ─── */
+const loader = new GLTFLoader();
+let currentObj = null;
+
+function loadModel(path){
+  if(currentObj){ scene.remove(currentObj); currentObj = null; }
+  document.getElementById('mvLoading').classList.add('show');
+  loader.load(
+    path,
+    (gltf)=>{
+      document.getElementById('mvLoading').classList.remove('show');
+      const model = gltf.scene;
+      const box = new THREE.Box3().setFromObject(model);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z);
+      model.position.sub(center);
+      model.scale.setScalar(2.2 / maxDim);
+      scene.add(model);
+      currentObj = model;
+      controls.reset();
+      camera.position.set(0, 0.6, 3.5);
+    },
+    undefined,
+    (err)=>{
+      console.error('Error cargando modelo:', err);
+      document.getElementById('mvLoading').classList.remove('show');
+    }
+  );
+}
+
+/* ─── State ─── */
+let active = null;
+let hintTimer = null;
+
+/* ─── Chips ─── */
+function renderChips(key){
+  const c = document.getElementById('chips');
+  c.innerHTML = Object.keys(S).map(k=>{
+    const hasModel = !!S[k].model;
+    return `<button class="chip${k===key?' active':''}"
+      data-k="${k}" ${hasModel?'':'data-no-model'}
+      title="${hasModel?'Modelo 3D disponible':'Modelo 3D en desarrollo'}">
+      <span class="chip-ico">${S[k].icon}</span>${S[k].label}
+    </button>`;
+  }).join('');
+  c.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>go(b.dataset.k)));
+}
+
+/* ─── Visor 3D ─── */
+function setModel(key){
+  const s = S[key];
+  const noM  = document.getElementById('noModel');
+  const zone = document.getElementById('mvZone');
+  const hint = document.getElementById('mvHint');
+
+  zone.textContent = s.label;
+
+  if(s.model){
+    noM.classList.remove('show');
+    canvas.style.display = '';
+    loadModel(s.model);
+
+    hint.classList.remove('hidden');
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(()=>hint.classList.add('hidden'), 5000);
+    canvas.addEventListener('pointerdown', ()=>hint.classList.add('hidden'), {once:true});
+  } else {
+    canvas.style.display = 'none';
+    noM.classList.add('show');
+    document.getElementById('noModelIco').innerHTML = s.icon;
+    document.getElementById('noModelLabel').textContent = s.title;
+    hint.classList.add('hidden');
+    if(currentObj){ scene.remove(currentObj); currentObj = null; }
+    document.getElementById('mvLoading').classList.remove('show');
+  }
+}
+
+/* ─── Descripción ─── */
+function renderDesc(key){
+  const s = S[key];
+  const panel = document.getElementById('descPanel');
+  panel.innerHTML = `<div class="desc-body">
+    <div class="d-hdr">
+      <div class="d-ico">${s.icon}</div>
+      <div>
+        <div class="d-kicker">${s.kicker}</div>
+        <div class="d-title">${s.title}</div>
+      </div>
+    </div>
+    <div>
+      <div class="d-lbl">Diagnóstico Visual</div>
+      <div class="d-txt">${s.diagnostico}</div>
+    </div>
+    <div>
+      <div class="d-lbl">El Proceso · Paso a Paso</div>
+      <div class="phases">
+        ${s.phases.map(p=>`<div class="phase">
+          <div class="phase-n">${p.fase}</div>
+          <div class="phase-d">${p.desc}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="d-lbl">El Beneficio Real</div>
+      <div class="benefit-t">${s.beneficio}</div>
+    </div>
+    <a href="reserva/?svc=${key}" class="cta">
+      Reservar este servicio <span class="arr">→</span>
+    </a>
+  </div>`;
+}
+
+/* ─── Seleccionar zona ─── */
+function go(key){
+  if(key === active) return;
+  active = key;
+  renderChips(key);
+  setModel(key);
+  renderDesc(key);
+}
+
+go('carroceria');
+</script>
+</body>
+</html>

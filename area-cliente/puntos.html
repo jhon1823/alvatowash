@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Cómo ganar puntos · Alvatowash VIP</title>
+<meta name="robots" content="noindex, follow"/>
+<meta name="theme-color" content="#0A0A0B"/>
+<link rel="icon" type="image/svg+xml" href="../icon.svg"/>
+<script src="../config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0A0A0B; --bg-2:#0F0F11; --bg-3:#16161A; --bg-4:#1E1E23;
+  --ink:#F5F5F7; --ink-2:#A1A1A8; --ink-3:#6B6B72;
+  --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.14);
+  --accent:#E53E3E; --gold:#C9B679; --gold-2:#D9C892;
+  --serif:'Instrument Serif',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(10,10,11,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:14px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13.5px;font-weight:500;padding:8px 12px;border-radius:99px;transition:background .15s}
+.back-btn:hover{background:rgba(255,255,255,.06);color:var(--ink)}
+.back-btn svg{width:14px;height:14px}
+.brand{margin-left:auto;font-family:var(--serif);font-style:italic;font-size:22px;letter-spacing:-.01em}
+.user-chip{display:inline-flex;align-items:center;gap:8px;background:var(--bg-3);border:1px solid var(--line);padding:7px 14px;border-radius:99px;font-size:13px;color:var(--ink-2)}
+.user-chip-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+.container{max-width:780px;margin:0 auto;padding:0 24px}
+.hero{padding:64px 0 32px;text-align:center}
+.eye{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:inline-block}
+h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(44px,7vw,76px);line-height:1.04;letter-spacing:-.025em;margin-bottom:16px}
+h1 em{color:var(--gold-2)}
+.hero p{color:var(--ink-2);font-size:16px;max-width:520px;margin:0 auto;line-height:1.55}
+
+.section{padding:48px 0 32px}
+.section-h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:28px;line-height:1.1;margin-bottom:6px;letter-spacing:-.015em}
+.section-h2 em{color:var(--gold-2)}
+.section-sub{color:var(--ink-3);font-size:13.5px;margin-bottom:22px;line-height:1.5}
+
+/* Lista limpia estilo Apple Settings */
+.list{background:var(--bg-3);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.list-row{display:grid;grid-template-columns:1fr auto;gap:16px;padding:16px 22px;border-bottom:1px solid var(--line);align-items:center}
+.list-row:last-child{border-bottom:none}
+.list-row:hover{background:var(--bg-4)}
+.list-row-name{font-weight:500;font-size:14.5px;color:var(--ink);line-height:1.35}
+.list-row-cap{font-size:12.5px;color:var(--ink-3);margin-top:3px;line-height:1.4}
+.list-row-amount{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--gold-2);letter-spacing:-.03em;text-align:right;white-space:nowrap;line-height:1}
+.list-row-amount.bonus::after{content:' ★';font-size:14px;color:var(--accent);vertical-align:1px}
+.list-row-amount-unit{font-family:'Inter';font-style:normal;font-size:12px;color:var(--ink-3);margin-left:2px;font-weight:500}
+
+/* Bloque referidos */
+.ref-block{background:var(--bg-3);border:1px solid var(--line);border-radius:14px;padding:6px 0}
+.ref-row{display:grid;grid-template-columns:1fr auto auto;gap:24px;padding:18px 22px;border-bottom:1px solid var(--line);align-items:center}
+.ref-row:last-child{border-bottom:none}
+@media(max-width:560px){.ref-row{grid-template-columns:1fr;gap:10px}}
+.ref-row-name{font-weight:500;font-size:14px;color:var(--ink);line-height:1.4}
+.ref-row-desc{font-size:12.5px;color:var(--ink-3);margin-top:3px;line-height:1.45}
+.ref-pts{font-family:var(--serif);font-style:italic;font-size:24px;text-align:center;line-height:1;letter-spacing:-.03em;white-space:nowrap}
+.ref-pts.you{color:var(--accent)}
+.ref-pts.friend{color:var(--gold-2)}
+.ref-pts-lbl{font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-top:4px;text-align:center}
+
+.tip{background:transparent;border:1px solid rgba(34,197,94,.18);border-radius:12px;padding:14px 18px;margin-top:18px;font-size:13.5px;color:var(--ink-2);line-height:1.55;display:flex;align-items:flex-start;gap:12px}
+.tip svg{width:18px;height:18px;color:#22C55E;flex-shrink:0;margin-top:1px}
+.tip strong{color:var(--ink);font-weight:600}
+
+.bottom-cta{padding:48px 24px 80px;text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:99px;font-weight:500;font-size:14.5px;transition:transform .15s;font-family:inherit;letter-spacing:-.1px}
+.btn:active{transform:scale(.98)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:#C72E2E}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Volver al área
+  </a>
+  <span class="brand">Cómo ganar puntos</span>
+  <span class="user-chip"><span class="user-chip-dot"></span><span id="userName">Invitado</span></span>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eye">Programa VIP</div>
+    <h1>Cada acción <em>suma.</em></h1>
+    <p>Tabla completa de cómo se ganan puntos. Sin letra chica.</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <section class="section">
+    <h2 class="section-h2">Por <em>cada servicio</em></h2>
+    <p class="section-sub">Los puntos se acreditan cuando tu reserva queda marcada como completada.</p>
+    <div class="list" id="tableServices"></div>
+    <div class="tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div>Los servicios marcados con <strong>★</strong> dan más puntos por euro. Combo Verano y Nanodiamond son las mejores apuestas.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-h2">Por <em>compartir en redes</em></h2>
+    <p class="section-sub">Si publicás sobre nosotros y nos etiquetás, sumás puntos extra.</p>
+    <div class="list" id="tableEngagement"></div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-h2">Por <em>traer a un amigo</em></h2>
+    <p class="section-sub">Tu amigo también gana. Ganan los dos.</p>
+    <div class="ref-block" id="refBlock"></div>
+    <div style="text-align:center;margin-top:18px">
+      <a href="invitar.html" class="btn btn-accent">Conseguir mi link de invitación</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-h2">Por <em>hitos especiales</em></h2>
+    <p class="section-sub">Regalos automáticos en fechas importantes.</p>
+    <div class="list" id="tableEvents"></div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-h2">Niveles <em>VIP</em></h2>
+    <p class="section-sub">Cuanto más alto tu nivel, más valen tus puntos (multiplicador).</p>
+    <div class="list" id="tableTiers"></div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-h2">Qué <em>canjeás</em></h2>
+    <p class="section-sub">Convertí tus puntos en servicios gratis o con descuento.</p>
+    <div class="list" id="tableRewards"></div>
+  </section>
+
+</main>
+
+<section class="bottom-cta">
+  <a href="../reserva/?express=1" class="btn btn-accent">Reservar y sumar puntos</a>
+</section>
+
+<script>
+const CFG = window.CONFIG || {};
+const RULES = (CFG.loyalty && CFG.loyalty.points_rules) || {};
+
+try {
+  const vip = JSON.parse(localStorage.getItem('alvato_vip_session') || 'null');
+  if (vip && vip.nombre) document.getElementById('userName').textContent = vip.nombre.split(' ')[0];
+} catch(e){}
+
+function renderList(id, items, mapper){
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = items.map(mapper).join('');
+}
+
+renderList('tableServices', RULES.services || [], s => `
+  <div class="list-row">
+    <div>
+      <div class="list-row-name">${s.name}</div>
+      ${s.bonus ? '<div class="list-row-cap">Servicio bonus · más puntos por euro</div>' : ''}
+    </div>
+    <div class="list-row-amount ${s.bonus?'bonus':''}">${s.points}<span class="list-row-amount-unit">pts</span></div>
+  </div>
+`);
+
+renderList('tableEngagement', RULES.engagement || [], s => `
+  <div class="list-row">
+    <div>
+      <div class="list-row-name">${s.name}</div>
+      ${s.cap ? `<div class="list-row-cap">${s.cap}</div>` : ''}
+    </div>
+    <div class="list-row-amount">${s.points}<span class="list-row-amount-unit">pts</span></div>
+  </div>
+`);
+
+renderList('tableEvents', RULES.events || [], s => `
+  <div class="list-row">
+    <div>
+      <div class="list-row-name">${s.name}</div>
+      <div class="list-row-cap">${s.frequency}${s.extra ? ' · '+s.extra : ''}</div>
+    </div>
+    <div class="list-row-amount">${s.points}<span class="list-row-amount-unit">pts</span></div>
+  </div>
+`);
+
+const refs = (RULES.referrals) || {};
+const refSteps = [
+  { ...refs.on_signup,        label:'Tu amigo se da de alta con tu link' },
+  { ...refs.on_first_booking, label:'Tu amigo hace su primer lavado pagado' },
+  { ...refs.on_friend_silver, label:'Tu amigo llega a nivel Plata' }
+];
+document.getElementById('refBlock').innerHTML = refSteps.map((s,i) => `
+  <div class="ref-row">
+    <div>
+      <div class="ref-row-name">${i+1}. ${s.label}</div>
+      ${s.desc?`<div class="ref-row-desc">${s.desc}</div>`:''}
+    </div>
+    <div>
+      <div class="ref-pts you">+${s.client_gets}</div>
+      <div class="ref-pts-lbl">Para vos</div>
+    </div>
+    <div>
+      <div class="ref-pts friend">+${s.friend_gets||0}</div>
+      <div class="ref-pts-lbl">Tu amigo</div>
+    </div>
+  </div>
+`).join('');
+
+const TIERS = (CFG.loyalty && CFG.loyalty.levels) || [];
+renderList('tableTiers', TIERS, t => `
+  <div class="list-row">
+    <div>
+      <div class="list-row-name" style="color:${t.color}">${t.name}</div>
+      <div class="list-row-cap">${t.perks ? t.perks.join(' · ') : ''}</div>
+    </div>
+    <div class="list-row-amount" style="color:${t.color}">${t.min_points.toLocaleString('es-ES')}<span class="list-row-amount-unit">pts</span></div>
+  </div>
+`);
+
+const REWARDS = (CFG.loyalty && CFG.loyalty.rewards) || [];
+renderList('tableRewards', REWARDS, r => `
+  <div class="list-row">
+    <div>
+      <div class="list-row-name">${r.name}</div>
+      <div class="list-row-cap">${r.desc || ''}</div>
+    </div>
+    <div class="list-row-amount">${r.cost.toLocaleString('es-ES')}<span class="list-row-amount-unit">pts</span></div>
+  </div>
+`);
+</script>
+<script src="../legal/footer.js"></script>
+</body>
+</html>

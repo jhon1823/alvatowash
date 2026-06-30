@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Albarán de Servicio · Alvatowash</title>
+  <script src="/config.js" onerror=""></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;background:#F5F5F7;min-height:100vh;color:#1D1D1F}
+    .page{max-width:680px;margin:0 auto;padding:24px 16px 60px}
+
+    /* Header */
+    .alb-header{background:linear-gradient(135deg,#DC2626,#991B1B);color:#fff;border-radius:20px;padding:28px 24px;margin-bottom:20px;position:relative;overflow:hidden}
+    .alb-header::before{content:'';position:absolute;right:-30px;top:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.06)}
+    .alb-logo{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:4px}
+    .alb-logo span{opacity:.7;font-weight:400;font-size:14px;margin-left:8px}
+    .alb-sub{font-size:13px;opacity:.75;margin-bottom:16px}
+    .alb-id{font-size:22px;font-weight:700;letter-spacing:-.5px}
+    .alb-date{font-size:13px;opacity:.75;margin-top:3px}
+
+    /* Status badge */
+    .alb-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(48,209,88,.2);border:1px solid rgba(48,209,88,.4);color:#30D158;padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-top:14px}
+    .alb-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:#30D158}
+
+    /* Card */
+    .alb-card{background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,.07);overflow:hidden;margin-bottom:14px;box-shadow:0 2px 16px rgba(0,0,0,.06)}
+    .alb-card-head{padding:14px 18px;border-bottom:1px solid rgba(0,0,0,.06);font-size:11px;font-weight:700;color:#86868B;letter-spacing:.5px;text-transform:uppercase}
+    .alb-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(0,0,0,.04);font-size:13.5px}
+    .alb-row:last-child{border-bottom:none}
+    .alb-row-label{color:#86868B;font-weight:500}
+    .alb-row-value{font-weight:600;color:#1D1D1F;text-align:right;max-width:60%}
+
+    /* Total */
+    .alb-total{background:#1D1D1F;color:#fff;border-radius:16px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .alb-total-label{font-size:12px;opacity:.6;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
+    .alb-total-amount{font-size:34px;font-weight:700;letter-spacing:-1.2px}
+
+    /* Firma */
+    .alb-firma-wrap{background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,.07);padding:18px;margin-bottom:14px}
+    .alb-firma-label{font-size:11px;font-weight:700;color:#86868B;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+    .alb-firma-img{max-width:100%;border:1px dashed rgba(0,0,0,.1);border-radius:8px;display:block}
+
+    /* QR / acciones */
+    .alb-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .alb-btn{flex:1;min-width:140px;padding:13px;border:none;border-radius:12px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;transition:opacity .12s}
+    .alb-btn:hover{opacity:.85}
+    .alb-btn-primary{background:#DC2626;color:#fff}
+    .alb-btn-ghost{background:#fff;color:#1D1D1F;border:1.5px solid rgba(0,0,0,.1)}
+
+    /* Footer */
+    .alb-footer{text-align:center;padding:20px;color:#86868B;font-size:12px;line-height:1.7}
+
+    /* Loading / error */
+    .alb-state{text-align:center;padding:60px 20px;color:#86868B}
+    .alb-state h2{font-size:22px;font-weight:700;color:#1D1D1F;margin-bottom:8px}
+
+    @media print{
+      .alb-actions,.alb-footer{display:none}
+      body{background:#fff}
+      .alb-card,.alb-total,.alb-firma-wrap{box-shadow:none;border:1px solid #d2d2d7}
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div id="root"><div class="alb-state"><div style="font-size:40px;margin-bottom:12px">⏳</div><h2>Cargando albarán…</h2></div></div>
+</div>
+
+<script>
+/* ── helpers ── */
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function fmtEUR(n){ return '€' + (Number(n)||0).toFixed(2); }
+
+function row(label, value){
+  return `<div class="alb-row"><span class="alb-row-label">${esc(label)}</span><strong class="alb-row-value">${esc(value||'—')}</strong></div>`;
+}
+
+function render(a){
+  const extras = (() => {
+    try { const e = typeof a['Extras']==='string' ? JSON.parse(a['Extras']||'{}') : (a['Extras']||{}); return Object.keys(e).filter(k=>e[k]).join(', ') || '—'; } catch{ return a['Extras']||'—'; }
+  })();
+
+  document.getElementById('root').innerHTML = `
+    <div class="alb-header">
+      <div class="alb-logo">Alvatowash <span>Detailing & Car Wash</span></div>
+      <div class="alb-sub">Albarán de servicio</div>
+      <div class="alb-id">${esc(a['ID'])}</div>
+      <div class="alb-date">${esc(a['Fecha'])}</div>
+      <div class="alb-badge">Servicio completado</div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="alb-actions">
+      <button class="alb-btn alb-btn-primary" onclick="window.print()">🖨 Imprimir / PDF</button>
+      <button class="alb-btn alb-btn-ghost" onclick="compartir()">📤 Compartir</button>
+    </div>
+
+    <!-- Cliente -->
+    <div class="alb-card">
+      <div class="alb-card-head">Datos del cliente</div>
+      ${row('Nombre', a['Nombre'])}
+      ${row('Teléfono', a['Teléfono'])}
+      ${a['Email'] ? row('Email', a['Email']) : ''}
+      ${a['Matricula'] ? row('Matrícula', a['Matricula']) : ''}
+    </div>
+
+    <!-- Servicio -->
+    <div class="alb-card">
+      <div class="alb-card-head">Servicio realizado</div>
+      ${row('Servicio', a['Servicio'])}
+      ${row('Extras', extras)}
+      ${row('Centro', a['Centro'])}
+      ${row('Empleado', a['Empleado'])}
+      ${row('Fecha', a['Fecha'])}
+    </div>
+
+    <!-- Total -->
+    <div class="alb-total">
+      <div>
+        <div class="alb-total-label">Total cobrado</div>
+        <div style="font-size:12px;opacity:.55">IVA no incluido (exento art. 20 LIVA)</div>
+      </div>
+      <div class="alb-total-amount">${fmtEUR(a['Total'])}</div>
+    </div>
+
+    <!-- Firma -->
+    ${a['FirmaData'] ? `
+    <div class="alb-firma-wrap">
+      <div class="alb-firma-label">Firma del cliente</div>
+      <img src="${esc(a['FirmaData'])}" class="alb-firma-img" alt="Firma"/>
+    </div>` : ''}
+
+    <!-- Footer legal -->
+    <div class="alb-footer">
+      <strong>Alvatowash, S.L.</strong> · NIF: B-XXXXXXXX<br/>
+      Este documento acredita la realización del servicio descrito.<br/>
+      Para reclamaciones: <a href="mailto:info@alvatowash.com" style="color:#DC2626">info@alvatowash.com</a>
+    </div>
+  `;
+  document.title = 'Albarán ' + a['ID'] + ' · Alvatowash';
+}
+
+function renderError(msg){
+  document.getElementById('root').innerHTML = `
+    <div class="alb-state">
+      <div style="font-size:40px;margin-bottom:12px">❌</div>
+      <h2>Albarán no encontrado</h2>
+      <p>${esc(msg)}</p>
+    </div>`;
+}
+
+async function compartir(){
+  const url = location.href;
+  if (navigator.share) {
+    try { await navigator.share({ title: 'Albarán Alvatowash', url }); return; } catch(e){}
+  }
+  try { await navigator.clipboard.writeText(url); alert('Enlace copiado al portapapeles'); } catch(e){}
+}
+
+/* ── Cargar albarán desde backend ── */
+(function(){
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  if (!id) { renderError('Falta el parámetro id en la URL'); return; }
+
+  const cfg = window.CONFIG || {};
+  if (!cfg.script_url) { renderError('Backend no configurado (falta config.js con script_url)'); return; }
+
+  const cbName = '_alb_' + Date.now();
+  window[cbName] = function(data){
+    delete window[cbName];
+    if (data && data.ok && data.albaran) {
+      render(data.albaran);
+    } else {
+      renderError(data?.error || 'Albarán no encontrado');
+    }
+  };
+  const s = document.createElement('script');
+  s.src = cfg.script_url + '?action=getAlbaran&albaranId=' + encodeURIComponent(id) + '&token=' + encodeURIComponent(cfg.script_token||'') + '&callback=' + cbName;
+  s.onerror = () => renderError('Error de conexión con el backend');
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aviso Legal · Alvatowash</title>
+<meta name="description" content="Aviso legal y condiciones generales de uso de Alvatowash.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="../../icon.svg">
+<link rel="stylesheet" href="../style.css">
+<script src="../../config.js"></script>
+</head>
+<body>
+<nav class="legal-nav">
+  <a href="../../" class="brand">Alvatowash</a>
+  <a href="../aviso-legal/">Aviso Legal</a>
+  <a href="../privacidad/">Privacidad</a>
+  <a href="../cookies/">Cookies</a>
+</nav>
+
+<main class="legal-wrap">
+  <div class="legal-kicker">Documento legal</div>
+  <h1 class="legal-title">Aviso Legal.</h1>
+  <p class="legal-updated">Última actualización: <span id="lastUpdated">21 de junio de 2026</span></p>
+
+  <div class="legal-content">
+    <div class="legal-card">
+      <div class="legal-card-label">Datos del responsable</div>
+      <p><strong id="dCompany">Alvatowash, S.L.</strong></p>
+      <p>NIF: <span id="dNif">B00000000</span></p>
+      <p>Domicilio: <span id="dDom">Av. Ejemplo 1, 28000 Madrid</span></p>
+      <p>Email: <a id="dEmail" href="mailto:info@lavadoybrillo.com">info@lavadoybrillo.com</a></p>
+      <p>Teléfono: <span id="dTel">+34 600 000 000</span></p>
+      <p>Inscrita en el <span id="dReg">Registro Mercantil de Madrid, Tomo 0000, Folio 000, Hoja M-000000</span></p>
+    </div>
+
+    <h2>1. Objeto</h2>
+    <p>El presente Aviso Legal regula el uso del sitio web <strong id="dDomain">lavadoybrillo.com</strong> (en adelante, el "Sitio Web"), del que es titular <strong class="dCompanyR">Alvatowash, S.L.</strong> El acceso al Sitio Web atribuye la condición de usuario e implica la aceptación plena y sin reservas de todas las cláusulas de este Aviso Legal.</p>
+
+    <h2>2. Servicios</h2>
+    <p>A través del Sitio Web ofrecemos a los usuarios la posibilidad de reservar servicios de lavado y detailing de vehículos en cualquiera de nuestros centros físicos. La reserva queda confirmada en el momento en que el usuario recibe el correo de confirmación. El pago puede realizarse online (tarjeta vía Stripe) o en el centro al recoger el vehículo.</p>
+
+    <h2>3. Condiciones de uso</h2>
+    <p>El usuario se compromete a hacer un uso lícito del Sitio Web y a no:</p>
+    <ul>
+      <li>Realizar reservas falsas o de prueba sin intención real de utilizar el servicio.</li>
+      <li>Introducir o difundir contenidos contrarios a la ley, la moral o el orden público.</li>
+      <li>Causar daños a los sistemas del titular o de terceros.</li>
+      <li>Realizar acciones de spam, scraping masivo o ingeniería inversa.</li>
+    </ul>
+
+    <h2>4. Propiedad intelectual e industrial</h2>
+    <p>Todos los contenidos del Sitio Web (textos, fotografías, gráficos, imágenes, iconos, tecnología, software, así como su diseño gráfico y códigos fuente) son propiedad intelectual de <strong class="dCompanyR">Alvatowash, S.L.</strong> o de terceros, sin que pueda entenderse que el uso del Sitio Web atribuye al usuario derecho alguno sobre los mismos.</p>
+
+    <h2>5. Política de cancelación</h2>
+    <p>El usuario podrá cancelar su reserva sin coste con una antelación mínima de <strong>24 horas</strong> respecto a la hora prevista. Cancelaciones con menor antelación o no presentaciones (no-show) pueden conllevar la pérdida del depósito abonado, si lo hubiera. Las cancelaciones se gestionan respondiendo al correo de confirmación o por WhatsApp.</p>
+
+    <h2>6. Pagos online</h2>
+    <p>Los pagos con tarjeta se procesan a través de <a href="https://stripe.com" target="_blank" rel="noopener">Stripe Payments Europe, Ltd.</a>, proveedor PCI-DSS Level 1. <strong class="dCompanyR">Alvatowash, S.L.</strong> no almacena en sus servidores los datos de la tarjeta del usuario.</p>
+
+    <h2>7. Exclusión de garantías y responsabilidad</h2>
+    <p>El titular no garantiza la disponibilidad y continuidad del funcionamiento del Sitio Web, ni se responsabiliza de los daños o perjuicios que puedan derivarse del acceso o uso de la información contenida en el mismo, incluyendo virus o cualquier otro elemento dañino.</p>
+
+    <h2>8. Modificaciones</h2>
+    <p>El titular se reserva el derecho a efectuar, sin previo aviso, las modificaciones que considere oportunas en su Sitio Web, pudiendo cambiar, suprimir o añadir tanto los contenidos y servicios que presta, como la forma en la que éstos aparezcan presentados.</p>
+
+    <h2>9. Legislación aplicable y jurisdicción</h2>
+    <p>La relación entre el titular y el usuario se regirá por la normativa española vigente. Para la resolución de cualquier conflicto las partes se someten a los Juzgados y Tribunales del domicilio del usuario consumidor.</p>
+  </div>
+</main>
+
+<footer class="legal-footer">
+  © <span id="yr"></span> <span class="dCompanyR">Alvatowash, S.L.</span> · Todos los derechos reservados
+  <div style="margin-top:8px">
+    <a href="../aviso-legal/">Aviso Legal</a>
+    <a href="../privacidad/">Política de Privacidad</a>
+    <a href="../cookies/">Cookies</a>
+  </div>
+</footer>
+
+<script>
+/* Inyectar datos desde config.js (mismo patrón para los 3 documentos legales) */
+(function fillLegal(){
+  const c = (window.CONFIG && window.CONFIG.legal) || {};
+  const set = (id, v) => { const el = document.getElementById(id); if (el && v) el.textContent = v; };
+  set('dCompany', c.company_name);
+  set('dNif', c.cif);
+  set('dDom', c.domicilio_social);
+  set('dTel', c.telefono);
+  set('dReg', c.registro_mercantil);
+  set('dDomain', (window.CONFIG && window.CONFIG.domain) || 'lavadoybrillo.com');
+  if (c.last_updated) set('lastUpdated', new Date(c.last_updated).toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' }));
+  if (c.email_contacto) {
+    const e = document.getElementById('dEmail');
+    if (e) { e.textContent = c.email_contacto; e.href = 'mailto:' + c.email_contacto; }
+  }
+  if (c.company_name) document.querySelectorAll('.dCompanyR').forEach(el => el.textContent = c.company_name);
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

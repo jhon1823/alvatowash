@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Tarjeta de Miembro · Alvatowash</title>
+<meta name="robots" content="noindex, follow"/>
+<meta name="theme-color" content="#0A0A0B"/>
+<link rel="icon" type="image/svg+xml" href="../icon.svg"/>
+<script src="../config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0A0A0B; --bg-2:#0F0F11; --bg-3:#16161A; --bg-4:#1E1E23;
+  --ink:#F5F5F7; --ink-2:#A1A1A8; --ink-3:#6B6B72;
+  --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.14);
+  --accent:#E53E3E; --gold:#C9B679; --gold-2:#D9C892; --gold-deep:#8A7544;
+  --serif:'Instrument Serif',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(10,10,11,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:14px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:13.5px;font-weight:500;padding:8px 12px;border-radius:99px;transition:background .15s}
+.back-btn:hover{background:rgba(255,255,255,.06);color:var(--ink)}
+.back-btn svg{width:14px;height:14px}
+.brand{margin-left:auto;font-family:var(--serif);font-style:italic;font-size:22px;letter-spacing:-.01em}
+.user-chip{display:inline-flex;align-items:center;gap:8px;background:var(--bg-3);border:1px solid var(--line);padding:7px 14px;border-radius:99px;font-size:13px;color:var(--ink-2)}
+.user-chip-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+.container{max-width:680px;margin:0 auto;padding:0 24px}
+
+.hero{padding:48px 0 24px;text-align:center;position:relative}
+.eye{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:inline-block}
+h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(40px,6.5vw,68px);line-height:1.04;letter-spacing:-.025em;margin-bottom:14px}
+h1 em{color:var(--gold-2)}
+.hero p{color:var(--ink-2);font-size:15px;max-width:520px;margin:0 auto;line-height:1.6}
+.hero p strong{color:var(--ink);font-weight:600}
+
+/* ════════════════════════════════════════════════════════════════
+   BLACK CARD · Tarjeta de Miembro premium estilo Amex Centurion
+   ════════════════════════════════════════════════════════════════ */
+.card-stage{
+  perspective:1200px;padding:48px 0 32px;
+  display:flex;justify-content:center;align-items:center;
+}
+.black-card{
+  width:100%;max-width:380px;aspect-ratio:1.586/1;
+  background:
+    linear-gradient(135deg,#1C1C1F 0%,#0A0A0B 50%,#1C1C1F 100%);
+  border-radius:18px;
+  position:relative;overflow:hidden;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 60px 80px -40px rgba(0,0,0,.8),
+    0 24px 60px -10px rgba(0,0,0,.6),
+    0 0 0 1px rgba(201,182,121,.1);
+  color:var(--ink);
+  transform:rotateY(-8deg) rotateX(4deg);
+  transition:transform .8s var(--ease);
+  animation:cardReveal 1.4s var(--ease) backwards;
+}
+.black-card:hover{transform:rotateY(0) rotateX(0)}
+@keyframes cardReveal{
+  0%{opacity:0;transform:rotateY(-25deg) rotateX(8deg) translateY(40px)}
+  100%{opacity:1;transform:rotateY(-8deg) rotateX(4deg) translateY(0)}
+}
+.black-card::before{
+  /* Sutil patrón de líneas diagonales (carbon-style) */
+  content:'';position:absolute;inset:0;border-radius:18px;
+  background-image:
+    repeating-linear-gradient(135deg,
+      transparent 0px,
+      transparent 6px,
+      rgba(255,255,255,.012) 6px,
+      rgba(255,255,255,.012) 7px);
+  pointer-events:none;
+}
+.black-card::after{
+  /* Reflejo diagonal premium */
+  content:'';position:absolute;top:0;left:-30%;width:30%;height:100%;
+  background:linear-gradient(105deg,
+    transparent 30%,
+    rgba(255,255,255,.04) 50%,
+    transparent 70%);
+  animation:cardShine 6s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes cardShine{0%,100%{left:-30%}50%{left:120%}}
+
+.card-inner{
+  position:relative;z-index:1;padding:24px 26px;
+  height:100%;display:flex;flex-direction:column;justify-content:space-between;
+}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start}
+.card-brand{
+  font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;
+  letter-spacing:-.02em;line-height:1;
+  background:linear-gradient(135deg,var(--gold-2) 0%,var(--gold) 50%,var(--gold-deep) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.card-brand-sub{
+  font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(201,182,121,.55);margin-top:3px;font-weight:600;font-family:'Inter';
+}
+.card-chip{
+  width:38px;height:30px;border-radius:5px;
+  background:linear-gradient(135deg,#8A7544,#C9B679,#8A7544);
+  position:relative;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.2),inset 0 -1px 1px rgba(0,0,0,.3);
+}
+.card-chip::before,.card-chip::after{
+  content:'';position:absolute;background:rgba(0,0,0,.35);
+}
+.card-chip::before{top:9px;left:4px;right:4px;height:1px}
+.card-chip::after{top:18px;left:4px;right:4px;height:1px}
+.card-chip-side{
+  position:absolute;left:14px;right:14px;top:4px;bottom:4px;
+  border-left:1px solid rgba(0,0,0,.3);border-right:1px solid rgba(0,0,0,.3);
+}
+
+.card-mid{padding:20px 0;flex:1;display:flex;align-items:center}
+.card-tier{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:30px;line-height:1;color:var(--gold-2);letter-spacing:-.02em;
+}
+
+.card-number{
+  font-family:var(--mono);font-size:14px;letter-spacing:2px;color:rgba(245,245,247,.85);
+  margin-bottom:10px;
+}
+
+.card-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
+.card-name{
+  font-size:11.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(245,245,247,.92);line-height:1.2;
+}
+.card-since{
+  font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(201,182,121,.6);font-weight:600;margin-top:4px;
+}
+.card-since strong{color:var(--gold-2);font-weight:700}
+.card-mark{
+  font-family:var(--serif);font-style:italic;font-size:32px;
+  color:rgba(201,182,121,.5);line-height:1;letter-spacing:-.05em;
+}
+
+@media(max-width:480px){
+  .card-stage{padding:32px 0 24px}
+  .black-card{max-width:340px}
+  .card-inner{padding:20px 22px}
+  .card-brand{font-size:20px}
+  .card-tier{font-size:26px}
+}
+
+/* ────────────────────────────────────────────────────────────────
+   RESTO DE LA PÁGINA · estilo Apple sobrio
+   ──────────────────────────────────────────────────────────────── */
+.card-caption{text-align:center;font-size:13.5px;color:var(--ink-3);max-width:480px;margin:0 auto 8px;line-height:1.55}
+.card-caption strong{color:var(--ink);font-weight:600}
+
+.reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:40px 0 32px}
+.reward-card{background:var(--bg-3);border:1px solid var(--line);border-radius:14px;padding:24px 20px;text-align:center}
+.reward-card-pts{font-family:var(--serif);font-style:italic;font-weight:400;font-size:46px;line-height:1;letter-spacing:-.04em;margin-bottom:8px}
+.reward-card-pts.you{color:var(--accent)}
+.reward-card-pts.friend{color:var(--gold-2)}
+.reward-card-lbl{font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:1.8px;font-weight:600}
+.reward-card-desc{font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.45}
+
+.share-box{background:var(--bg-3);border:1px solid var(--line);border-radius:14px;padding:24px}
+.share-label{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.share-link-wrap{display:flex;gap:8px;margin-bottom:22px}
+.share-link{flex:1;padding:14px 16px;background:var(--bg);border:1px solid var(--line-2);border-radius:10px;color:var(--ink);font-family:var(--mono);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn-copy{padding:14px 18px;background:var(--ink);color:var(--bg);border-radius:10px;font-weight:600;font-size:13.5px;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
+.btn-copy.copied{background:var(--gold);color:#1A1410}
+.btn-copy svg{width:14px;height:14px}
+
+.share-channels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:480px){.share-channels{grid-template-columns:repeat(2,1fr)}}
+.share-channel{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 8px;background:var(--bg);border:1px solid var(--line-2);border-radius:10px;font-size:11.5px;font-weight:500;color:var(--ink-2);text-decoration:none;transition:all .15s}
+.share-channel:hover{background:var(--bg-4);color:var(--ink);border-color:var(--line-2)}
+.share-channel-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg-3)}
+.share-channel-icon svg{width:18px;height:18px;color:var(--ink-2)}
+.share-channel:hover .share-channel-icon svg{color:var(--ink)}
+
+.history{margin-top:32px;padding:24px;background:var(--bg-3);border:1px solid var(--line);border-radius:14px}
+.history-h{font-family:var(--serif);font-style:italic;font-size:24px;margin-bottom:6px;letter-spacing:-.015em}
+.history-sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+.invite-row{display:grid;grid-template-columns:1fr auto auto;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.invite-row:last-child{border-bottom:none}
+.invite-info{font-size:14px;color:var(--ink);font-weight:500}
+.invite-meta{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.invite-status{font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.invite-status.completed{background:rgba(34,197,94,.1);color:#86EFAC}
+.invite-status.pending{background:rgba(201,182,121,.08);color:var(--gold-2)}
+.invite-pts{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--accent);line-height:1;letter-spacing:-.02em}
+.invite-empty{text-align:center;padding:24px 12px;color:var(--ink-3);font-size:13.5px;line-height:1.5}
+
+.how-section{padding:48px 0 80px}
+.how-h{font-family:var(--serif);font-style:italic;font-size:30px;text-align:center;margin-bottom:28px;letter-spacing:-.02em}
+.how-h em{color:var(--gold-2)}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.how-steps{grid-template-columns:1fr}}
+.how-step{background:var(--bg-3);border:1px solid var(--line);border-radius:12px;padding:22px 20px}
+.how-step-num{font-family:var(--serif);font-style:italic;font-weight:400;font-size:32px;color:var(--accent);line-height:1;margin-bottom:10px;letter-spacing:-.04em}
+.how-step-h{font-weight:600;font-size:14.5px;margin-bottom:6px;color:var(--ink)}
+.how-step-p{font-size:13px;color:var(--ink-2);line-height:1.55}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Volver al área
+  </a>
+  <span class="brand">Invitar amigos</span>
+  <span class="user-chip"><span class="user-chip-dot"></span><span id="userName">Invitado</span></span>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eye">Tarjeta de miembro · acceso reservado</div>
+    <h1>Pasale tu <em>llave.</em></h1>
+    <p>Estás invitando a alguien a un grupo selecto. Cada amigo que entre recibe su propia tarjeta. <strong>Ganan los dos.</strong></p>
+  </div>
+</section>
+
+<!-- ════════ BLACK CARD ════════ -->
+<div class="card-stage">
+  <div class="black-card">
+    <div class="card-inner">
+      <div class="card-top">
+        <div>
+          <div class="card-brand">Alvatowash</div>
+          <div class="card-brand-sub">Member Circle</div>
+        </div>
+        <div class="card-chip"><div class="card-chip-side"></div></div>
+      </div>
+      <div class="card-mid">
+        <div class="card-tier" id="cardTier">Bronce</div>
+      </div>
+      <div>
+        <div class="card-number" id="cardNumber">····  ····  ····  ····</div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-name" id="cardName">MIEMBRO INVITADO</div>
+            <div class="card-since">Member since <strong id="cardSince">2026</strong></div>
+          </div>
+          <div class="card-mark">A</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <p class="card-caption">Esta es tu credencial. Compartila únicamente con quienes valoren <strong>el detalle</strong>.</p>
+</div>
+
+<main class="container">
+
+  <div class="reward-grid">
+    <div class="reward-card">
+      <div class="reward-card-pts you" id="totalYou">350</div>
+      <div class="reward-card-lbl">Para vos</div>
+      <div class="reward-card-desc">Cuando tu amigo se da de alta + hace su primer lavado</div>
+    </div>
+    <div class="reward-card">
+      <div class="reward-card-pts friend" id="totalFriend">100</div>
+      <div class="reward-card-lbl">Para tu amigo</div>
+      <div class="reward-card-desc">Bonus de bienvenida + bonus primer lavado</div>
+    </div>
+  </div>
+
+  <div class="share-box">
+    <div class="share-label">Tu link único de invitación</div>
+    <div class="share-link-wrap">
+      <div class="share-link" id="refLink">https://lavadoybrillo.com/?ref=…</div>
+      <button class="btn-copy" id="btnCopy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span id="copyTxt">Copiar</span>
+      </button>
+    </div>
+    <div class="share-label" style="margin-top:8px">Compartí en</div>
+    <div class="share-channels">
+      <a href="#" class="share-channel" id="shareWA">
+        <div class="share-channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        WhatsApp
+      </a>
+      <a href="#" class="share-channel" id="shareIG">
+        <div class="share-channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        Instagram
+      </a>
+      <a href="#" class="share-channel" id="shareTG">
+        <div class="share-channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+        Telegram
+      </a>
+      <a href="#" class="share-channel" id="shareEmail">
+        <div class="share-channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        Email
+      </a>
+    </div>
+  </div>
+
+  <div class="history">
+    <div class="history-h">Tus amigos invitados</div>
+    <div class="history-sub">Seguí el progreso de cada uno y los puntos ganados.</div>
+    <div id="inviteHistory">
+      <div class="invite-empty">Todavía no invitaste a nadie. Compartí tu link arriba para empezar.</div>
+    </div>
+  </div>
+
+  <section class="how-section">
+    <div class="how-h">Cómo <em>funciona</em></div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">01</div>
+        <div class="how-step-h">Compartís tu link</div>
+        <div class="how-step-p">Por WhatsApp, Instagram o como prefieras.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">02</div>
+        <div class="how-step-h">Tu amigo se da de alta</div>
+        <div class="how-step-p">Recibe 50 puntos de bienvenida. Vos ganás 50.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">03</div>
+        <div class="how-step-h">Hace su primer lavado</div>
+        <div class="how-step-p">Vos ganás 200 puntos extra. Tu amigo 50 más.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const CFG = window.CONFIG || {};
+const REFS = (CFG.loyalty && CFG.loyalty.points_rules && CFG.loyalty.points_rules.referrals) || {};
+
+const totalYou = (REFS.on_signup?.client_gets || 0) + (REFS.on_first_booking?.client_gets || 0) + (REFS.on_friend_silver?.client_gets || 0);
+const totalFriend = (REFS.on_signup?.friend_gets || 0) + (REFS.on_first_booking?.friend_gets || 0);
+document.getElementById('totalYou').textContent = totalYou;
+document.getElementById('totalFriend').textContent = totalFriend;
+
+let vipUser = null;
+try { vipUser = JSON.parse(localStorage.getItem('alvato_vip_session') || 'null'); } catch(e){}
+
+let refCode = '00000000';
+if (vipUser && vipUser.id) refCode = String(vipUser.id).toUpperCase().padEnd(8,'0').slice(0,8);
+else if (vipUser && vipUser.nombre) refCode = (vipUser.nombre.replace(/[^a-zA-Z0-9]/g,'').toUpperCase() + Math.floor(Math.random()*9000+1000)).slice(0,8);
+
+/* ─── Datos de la BLACK CARD ─── */
+const cardTier = (vipUser && vipUser.nivel) ? vipUser.nivel : 'Bronce';
+const cardName = (vipUser && vipUser.nombre) ? vipUser.nombre.toUpperCase() : 'MIEMBRO INVITADO';
+const cardYear = (vipUser && vipUser.alta_year) ? vipUser.alta_year : new Date().getFullYear();
+document.getElementById('cardTier').textContent = cardTier;
+document.getElementById('cardName').textContent = cardName;
+document.getElementById('cardSince').textContent = cardYear;
+/* Formato número tipo 4242 4242 4242 XXXX usando refCode */
+const formatted = (refCode + '00000000').slice(0,12).match(/.{1,4}/g).join(' · ') + ' · ' + (refCode.slice(-4) || '0000');
+document.getElementById('cardNumber').textContent = formatted.slice(0,29);
+
+if (vipUser && vipUser.nombre) document.getElementById('userName').textContent = vipUser.nombre.split(' ')[0];
+
+const refLink = (REFS.link_template || 'https://lavadoybrillo.com/?ref={REFCODE}').replace('{REFCODE}', refCode);
+document.getElementById('refLink').textContent = refLink;
+
+document.getElementById('btnCopy').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(refLink);
+    const btn = document.getElementById('btnCopy');
+    const txt = document.getElementById('copyTxt');
+    btn.classList.add('copied');
+    txt.textContent = 'Copiado';
+    setTimeout(() => { btn.classList.remove('copied'); txt.textContent = 'Copiar'; }, 2000);
+  } catch(e){
+    const tmp = document.createElement('textarea');
+    tmp.value = refLink; document.body.appendChild(tmp);
+    tmp.select(); document.execCommand('copy');
+    document.body.removeChild(tmp);
+  }
+});
+
+const msg = encodeURIComponent(`Te invito al Member Circle de Alvatowash. 19 centros en España. Tu código: ${refLink}`);
+document.getElementById('shareWA').href = `https://wa.me/?text=${msg}`;
+document.getElementById('shareTG').href = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${msg}`;
+document.getElementById('shareEmail').href = `mailto:?subject=${encodeURIComponent('Invitación · Alvatowash Member Circle')}&body=${msg}`;
+document.getElementById('shareIG').addEventListener('click', e => {
+  e.preventDefault();
+  navigator.clipboard.writeText(refLink).then(() => {
+    const el = document.getElementById('shareIG');
+    const html = el.innerHTML;
+    el.innerHTML = el.innerHTML.replace('Instagram','Copiado · Pegalo en tu story');
+    setTimeout(() => { el.innerHTML = html; }, 2200);
+  });
+});
+
+function renderHistory(){
+  const stored = JSON.parse(localStorage.getItem('alvato_invites') || '[]');
+  if (!stored.length) return;
+  document.getElementById('inviteHistory').innerHTML = stored.map(i => `
+    <div class="invite-row">
+      <div>
+        <div class="invite-info">${i.name}</div>
+        <div class="invite-meta">Invitado el ${i.date}</div>
+      </div>
+      <div class="invite-status ${i.completed?'completed':'pending'}">${i.completed?'Reservó':'Pendiente'}</div>
+      <div class="invite-pts">+${i.points || 0}</div>
+    </div>
+  `).join('');
+}
+renderHistory();
+</script>
+<script src="../legal/footer.js"></script>
+</body>
+</html>

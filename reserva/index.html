@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Reserva tu lavado · Alvatowash</title>
+<meta name="description" content="Reserva en 60 segundos. 19 centros en España y Andorra. Combo Verano 89€. Vuelve antes de 30 días y vale 45€."/>
+<meta name="robots" content="index, follow"/>
+<meta name="theme-color" content="#0A0A0B"/>
+<link rel="canonical" href="https://lavadoybrillo.com/reserva/"/>
+<link rel="icon" type="image/svg+xml" href="../icon.svg"/>
+<link rel="apple-touch-icon" href="../icon.svg"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="es_ES"/>
+<meta property="og:site_name" content="Alvatowash"/>
+<meta property="og:title" content="Alvatowash · Reserva tu lavado en 60 segundos"/>
+<meta property="og:description" content="Combo Verano 89€. Vuelve en 30 días y el mantenimiento vale 45€. 19 centros."/>
+<meta property="og:url" content="https://lavadoybrillo.com/reserva/"/>
+<meta property="og:image" content="https://lavadoybrillo.com/og-cover.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Alvatowash · Reserva tu lavado"/>
+<meta name="twitter:description" content="Reserva en 60 segundos. 19 centros."/>
+<meta name="twitter:image" content="https://lavadoybrillo.com/og-cover.jpg"/>
+
+<script src="../config.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+
+<style>
+/* ════════════════════════════════════════════════════════════
+   ALVATOWASH · DESIGN SYSTEM (Apple-inspired, refined luxury)
+═══════════════════════════════════════════════════════════════ */
+:root{
+  --bg:           #0A0A0B;
+  --bg-elev-1:    #131315;
+  --bg-elev-2:    #1A1A1D;
+  --bg-elev-3:    #25252A;
+  --ink:          #F5F5F7;
+  --ink-2:        #C7C7CC;
+  --ink-3:        #8E8E93;
+  --muted:        #636368;
+  --line:         rgba(255,255,255,.07);
+  --line-strong:  rgba(255,255,255,.14);
+  --line-soft:    rgba(255,255,255,.04);
+  --accent:       #E53E3E;
+  --accent-soft:  #FF6363;
+  --accent-deep:  #B91C1C;
+  --gold:         #C0A872;
+  --gold-soft:    #D4BC85;
+  --green:        #34C759;
+  --shadow-sm:    0 1px 3px rgba(0,0,0,.4);
+  --shadow-md:    0 6px 24px rgba(0,0,0,.45);
+  --shadow-lg:    0 24px 60px rgba(0,0,0,.6);
+  --shadow-glow:  0 12px 40px rgba(229,62,62,.28);
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-pill:99px;
+  --ease:cubic-bezier(.32,.72,0,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',sans-serif;
+  font-feature-settings:'ss01','cv11','tnum';
+  min-height:100dvh;line-height:1.5;
+  letter-spacing:-.012em;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-style:italic;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink)}
+svg{display:block;flex-shrink:0}
+
+/* ════════════════ NAV ════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  padding:14px 24px;
+  background:rgba(10,10,11,.72);
+  backdrop-filter:saturate(180%) blur(24px);
+  -webkit-backdrop-filter:saturate(180%) blur(24px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(135deg,#1a1a1d 0%,#2a2a2e 100%);
+  border:1px solid var(--line-strong);
+  display:flex;align-items:center;justify-content:center;color:var(--ink);
+  font-weight:700;font-size:14px;letter-spacing:-.5px;
+  position:relative;overflow:hidden;
+}
+.brand-mark::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 20%,rgba(229,62,62,.4),transparent 60%);
+}
+.brand-name{font-size:14.5px;font-weight:600;letter-spacing:-.2px}
+.brand-sub{font-size:10.5px;color:var(--ink-3);font-weight:500;letter-spacing:.5px;margin-top:1px}
+.nav-back{
+  font-size:13px;color:var(--ink-2);font-weight:500;
+  padding:8px 16px;border-radius:var(--r-pill);
+  background:var(--bg-elev-2);border:1px solid var(--line);
+  transition:background .2s var(--ease),color .2s var(--ease);
+  display:inline-flex;align-items:center;gap:5px;
+}
+.nav-back:hover{background:var(--bg-elev-3);color:var(--ink)}
+.nav-back svg{width:13px;height:13px;stroke-width:2.2}
+
+/* ════════════════ HERO ════════════════ */
+.hero{
+  min-height:100dvh;display:flex;align-items:center;
+  padding:120px 24px 60px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 20%, rgba(229,62,62,.18), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 80% 80%, rgba(192,168,114,.06), transparent 70%);
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.015) 1px, transparent 1.5px),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,.015) 1px, transparent 1.5px);
+  background-size:80px 80px,120px 120px;
+}
+.hero-inner{max-width:680px;margin:0 auto;text-align:center;position:relative;z-index:1}
+
+.hero-eye{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  padding:6px 14px;border-radius:var(--r-pill);
+  font-size:11.5px;font-weight:600;letter-spacing:.3px;color:var(--ink-2);
+  margin-bottom:32px;
+  animation:fadeUp .8s var(--ease) both;
+}
+.hero-eye-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.hero h1{
+  font-size:clamp(48px,8vw,92px);
+  font-weight:600;letter-spacing:-.04em;line-height:1;
+  margin-bottom:24px;
+  animation:fadeUp 1s var(--ease) .1s both;
+}
+.hero h1 .accent{
+  display:block;
+  background:linear-gradient(180deg,var(--accent-soft) 0%,var(--accent) 60%,var(--accent-deep) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  letter-spacing:-.045em;
+}
+.hero h1 .serif{font-size:.96em;line-height:1.05}
+.hero-sub{
+  font-size:clamp(16px,2vw,19px);color:var(--ink-2);
+  max-width:480px;margin:0 auto 40px;line-height:1.6;
+  font-weight:400;
+  animation:fadeUp 1s var(--ease) .2s both;
+}
+
+.hero-cta-row{display:flex;flex-direction:column;gap:14px;align-items:center;animation:fadeUp 1s var(--ease) .3s both}
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:17px 36px;
+  background:var(--ink);color:#000;
+  font-size:15px;font-weight:600;letter-spacing:-.2px;
+  border-radius:var(--r-pill);
+  transition:transform .2s var(--ease),background .2s var(--ease),box-shadow .25s var(--ease);
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 16px 40px rgba(0,0,0,.4);
+  cursor:pointer;border:none;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 24px 56px rgba(0,0,0,.5)}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary svg{width:15px;height:15px;stroke-width:2.4;transition:transform .2s var(--ease)}
+.btn-primary:hover svg{transform:translateX(3px)}
+.btn-secondary{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:13px 24px;background:transparent;color:var(--ink-2);
+  font-size:13.5px;font-weight:500;letter-spacing:-.1px;
+  border-radius:var(--r-pill);
+  transition:color .2s var(--ease);
+}
+.btn-secondary:hover{color:var(--ink)}
+.btn-secondary svg{width:13px;height:13px;stroke-width:2}
+
+/* ─── Combo Verano spotlight card ─── */
+/* Spotlights grid — 3 cards */
+.spotlights-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  margin-top:56px;
+}
+@media(max-width:920px){.spotlights-row{grid-template-columns:1fr}}
+.spotlight{
+  background:linear-gradient(135deg,var(--bg-elev-2) 0%,var(--bg-elev-1) 100%);
+  border:1px solid var(--line-strong);
+  border-radius:24px;padding:26px 24px 20px;
+  position:relative;overflow:hidden;
+  animation:fadeUp 1s var(--ease) .4s both;
+  box-shadow:var(--shadow-md);
+}
+.spotlight.featured{
+  background:linear-gradient(135deg,rgba(229,62,62,.1) 0%,var(--bg-elev-2) 100%);
+  border-color:rgba(229,62,62,.35);
+  box-shadow:0 8px 40px rgba(229,62,62,.2);
+}
+.spotlight.gold{
+  background:linear-gradient(135deg,rgba(192,168,114,.08) 0%,var(--bg-elev-2) 100%);
+  border-color:rgba(192,168,114,.3);
+}
+.spotlight-tag.gold{
+  color:var(--gold);
+  background:rgba(192,168,114,.1);
+  border-color:rgba(192,168,114,.25);
+}
+.spotlight-cta.gold{
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-soft) 100%);
+  color:#1A1413;box-shadow:0 8px 24px rgba(192,168,114,.3);
+}
+.spotlight::before{
+  content:'';position:absolute;top:0;right:-30px;width:200px;height:200px;
+  background:radial-gradient(circle,rgba(229,62,62,.16),transparent 60%);
+  pointer-events:none;
+}
+.spotlight-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--accent-soft);
+  background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.25);
+  padding:4px 11px;border-radius:var(--r-pill);margin-bottom:14px;
+}
+.spotlight-h{font-size:22px;font-weight:600;letter-spacing:-.5px;line-height:1.15;margin-bottom:6px}
+.spotlight-sub{font-size:13px;color:var(--ink-3);margin-bottom:16px;line-height:1.55}
+.spotlight-price{display:flex;align-items:baseline;gap:11px;margin-bottom:18px;position:relative;z-index:1}
+.spotlight-price-was{font-size:18px;color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:1.5px;font-weight:500;font-variant-numeric:tabular-nums}
+.spotlight-price-num{
+  font-size:54px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.spotlight-price-num small{font-size:22px;color:var(--ink-3);font-weight:500;margin-right:2px;vertical-align:top;display:inline-block;margin-top:9px}
+.spotlight-save{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;
+  background:rgba(52,199,89,.12);color:var(--green);
+  padding:3px 10px;border-radius:var(--r-pill);margin-left:6px;
+}
+.spotlight-includes{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;margin-bottom:20px;position:relative;z-index:1}
+.spotlight-includes-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.spotlight-includes-item svg{width:11px;height:11px;color:var(--accent-soft);stroke-width:2.5;flex-shrink:0}
+.spotlight-cta{
+  display:flex;width:100%;align-items:center;justify-content:center;gap:7px;
+  background:var(--accent);color:#fff;
+  padding:14px 22px;border-radius:var(--r-pill);
+  font-size:14px;font-weight:600;letter-spacing:-.15px;
+  transition:background .2s var(--ease),transform .15s var(--ease),box-shadow .25s var(--ease);
+  position:relative;z-index:1;
+  box-shadow:var(--shadow-glow);
+}
+.spotlight-cta:hover{background:var(--accent-soft);transform:translateY(-1px)}
+.spotlight-cta svg{width:13px;height:13px;stroke-width:2.4}
+
+/* ════════════════ TRUST BAR ════════════════ */
+.trust{
+  padding:50px 24px;border-top:1px solid var(--line-soft);
+  text-align:center;
+}
+.trust-inner{max-width:980px;margin:0 auto}
+.trust-eye{font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:16px}
+.trust-row{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:36px}
+.trust-item{display:flex;flex-direction:column;align-items:center}
+.trust-num{font-size:34px;font-weight:600;letter-spacing:-.03em;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+.trust-num small{font-size:18px;color:var(--ink-3);font-weight:500}
+.trust-lbl{font-size:11.5px;color:var(--ink-3);margin-top:5px;letter-spacing:.2px;text-transform:uppercase;font-weight:500}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ════════════════ MODAL FLOW (Apple-style sheet) ════════════════ */
+.sheet-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,.4);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  display:none;align-items:flex-end;justify-content:center;
+  animation:fadeIn .25s var(--ease);
+}
+.sheet-overlay.open{display:flex}
+@media(min-width:768px){.sheet-overlay{align-items:center;padding:24px}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.sheet{
+  background:var(--bg-elev-1);
+  border-top:1px solid var(--line-strong);
+  width:100%;max-width:480px;max-height:94dvh;
+  border-radius:24px 24px 0 0;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  animation:sheetUp .42s var(--ease);
+  position:relative;
+}
+@media(min-width:768px){.sheet{border-radius:24px;max-height:88dvh;border:1px solid var(--line-strong)}}
+@keyframes sheetUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.sheet-handle{
+  width:38px;height:5px;border-radius:99px;background:var(--bg-elev-3);
+  margin:10px auto 0;flex-shrink:0;
+}
+@media(min-width:768px){.sheet-handle{display:none}}
+
+.sheet-head{
+  display:flex;align-items:center;padding:14px 22px 14px;gap:14px;
+  border-bottom:1px solid var(--line-soft);flex-shrink:0;
+}
+.sheet-progress{flex:1;height:4px;background:var(--bg-elev-3);border-radius:99px;overflow:hidden}
+.sheet-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-soft));border-radius:99px;width:0;transition:width .5s var(--ease)}
+.sheet-step{font-size:11px;color:var(--ink-3);font-weight:500;letter-spacing:.3px;font-variant-numeric:tabular-nums;min-width:42px;text-align:center}
+.sheet-close{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--bg-elev-3);color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .15s var(--ease),color .15s var(--ease);border:none;cursor:pointer;
+}
+.sheet-close:hover{background:#363639;color:var(--ink)}
+.sheet-close svg{width:13px;height:13px;stroke-width:2.6}
+
+.sheet-body{flex:1;overflow-y:auto;padding:28px 24px 12px;-webkit-overflow-scrolling:touch}
+.sheet-foot{padding:14px 22px calc(14px + env(safe-area-inset-bottom,0));border-top:1px solid var(--line-soft);flex-shrink:0;display:flex;gap:10px;background:rgba(10,10,11,.6);backdrop-filter:blur(20px)}
+
+.step-eye{display:inline-block;font-size:10.5px;color:var(--ink-3);font-weight:600;letter-spacing:.4px;text-transform:uppercase;margin-bottom:10px;animation:stepIn .4s var(--ease) both}
+.step-title{font-size:28px;font-weight:600;letter-spacing:-.025em;line-height:1.1;margin-bottom:8px;animation:stepIn .4s var(--ease) .05s both}
+.step-title .serif{display:block;font-size:.95em;color:var(--ink-2)}
+.step-desc{font-size:14px;color:var(--ink-3);line-height:1.55;margin-bottom:24px;animation:stepIn .4s var(--ease) .1s both}
+
+@keyframes stepIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Inputs */
+.field{margin-bottom:14px;animation:stepIn .4s var(--ease) .15s both}
+.field-label{display:block;font-size:11.5px;color:var(--ink-3);font-weight:500;margin-bottom:6px;letter-spacing:.1px}
+.input{
+  width:100%;padding:15px 17px;
+  background:var(--bg-elev-2);border:1.5px solid transparent;
+  border-radius:var(--r-md);color:var(--ink);font-size:16px;outline:none;
+  transition:background .15s var(--ease),border-color .2s var(--ease);
+}
+.input:focus{border-color:var(--accent);background:var(--bg-elev-1)}
+.input::placeholder{color:var(--muted)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* Option list (cards) */
+.opt-list{display:flex;flex-direction:column;gap:9px;margin-bottom:6px;animation:stepIn .4s var(--ease) .15s both}
+.opt{
+  width:100%;display:flex;align-items:center;gap:14px;padding:16px 18px;
+  background:var(--bg-elev-2);border:1.5px solid var(--line);
+  border-radius:var(--r-md);text-align:left;cursor:pointer;
+  transition:border-color .2s var(--ease),background .2s var(--ease),transform .15s var(--ease);
+}
+.opt:hover{border-color:var(--line-strong);background:var(--bg-elev-3)}
+.opt:active{transform:scale(.992)}
+.opt.selected{border-color:var(--accent);background:rgba(229,62,62,.06);box-shadow:0 0 0 4px rgba(229,62,62,.08)}
+.opt-info{flex:1;min-width:0}
+.opt-name{font-size:14.5px;font-weight:600;letter-spacing:-.15px;color:var(--ink);line-height:1.25;margin-bottom:2px}
+.opt-meta{font-size:12.5px;color:var(--ink-3);line-height:1.4}
+.opt-meta strong{color:var(--ink);font-weight:600}
+.opt-price{
+  font-size:18px;font-weight:600;letter-spacing:-.02em;color:var(--ink);flex-shrink:0;
+  font-variant-numeric:tabular-nums;
+}
+.opt-price small{font-size:13px;color:var(--ink-3);font-weight:500;margin-right:1px}
+.opt-arrow{color:var(--muted);flex-shrink:0;transition:transform .2s var(--ease),color .2s var(--ease)}
+.opt-arrow svg{width:14px;height:14px;stroke-width:2.2}
+.opt:hover .opt-arrow{transform:translateX(3px);color:var(--ink-2)}
+.opt-badge{
+  position:absolute;top:14px;right:14px;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:3px 8px;border-radius:var(--r-pill);background:var(--accent);color:#fff;
+}
+.opt-badge.gold{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-soft) 100%);color:#000}
+.opt.featured{background:linear-gradient(135deg,rgba(229,62,62,.06) 0%,var(--bg-elev-2) 100%);border-color:rgba(229,62,62,.2);position:relative}
+
+/* Checkboxes (extras) */
+.check{
+  display:flex;align-items:flex-start;gap:13px;padding:15px 16px;
+  background:var(--bg-elev-2);border:1.5px solid var(--line);
+  border-radius:var(--r-md);cursor:pointer;
+  transition:border-color .2s var(--ease),background .2s var(--ease);
+}
+.check:hover{border-color:var(--line-strong)}
+.check.checked{border-color:var(--accent);background:rgba(229,62,62,.04)}
+.check-box{
+  width:22px;height:22px;border-radius:7px;border:1.5px solid var(--bg-elev-3);
+  background:transparent;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+  transition:background .15s var(--ease),border-color .15s var(--ease);
+}
+.check.checked .check-box{background:var(--accent);border-color:var(--accent)}
+.check-box svg{width:13px;height:13px;color:#fff;opacity:0;transition:opacity .15s var(--ease);stroke-width:3}
+.check.checked .check-box svg{opacity:1}
+.check-info{flex:1;min-width:0}
+.check-name{font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.1px;margin-bottom:2px}
+.check-desc{font-size:12px;color:var(--ink-3);line-height:1.45}
+.check-cost{font-size:12.5px;font-weight:600;color:var(--accent-soft);margin-top:5px;letter-spacing:-.1px}
+
+/* Buttons */
+.btn-action{
+  flex:1;padding:14px 22px;border-radius:var(--r-pill);
+  font-size:14.5px;font-weight:600;letter-spacing:-.15px;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  transition:transform .15s var(--ease),background .2s var(--ease),opacity .15s var(--ease);
+  cursor:pointer;border:none;
+}
+.btn-action:active{transform:scale(.97)}
+.btn-action svg{width:14px;height:14px;stroke-width:2.3}
+.btn-action.primary{background:var(--ink);color:#000}
+.btn-action.primary:hover{background:#fff}
+.btn-action.primary:disabled{background:var(--bg-elev-3);color:var(--muted);cursor:not-allowed}
+.btn-action.ghost{background:var(--bg-elev-2);color:var(--ink-2);border:1px solid var(--line)}
+.btn-action.ghost:hover{background:var(--bg-elev-3);color:var(--ink)}
+.btn-action.accent{background:var(--accent);color:#fff;box-shadow:var(--shadow-glow)}
+.btn-action.accent:hover{background:var(--accent-soft)}
+.btn-action.wa{background:#25D366;color:#fff}
+.btn-action.wa:hover{background:#1FB958}
+
+/* Centro option (mejor que el genérico) */
+.centro-list{max-height:none}
+.centro-opt{padding:14px 17px}
+.centro-city{font-size:11px;color:var(--ink-3);font-weight:500;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
+.centro-name{font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:-.15px;margin-bottom:2px}
+.centro-addr{font-size:12px;color:var(--ink-3);line-height:1.4}
+
+/* SUMMARY */
+.summary-section{margin-bottom:18px;animation:stepIn .4s var(--ease) .15s both}
+.price-card{
+  background:linear-gradient(135deg,var(--bg-elev-2) 0%,var(--bg-elev-1) 100%);
+  border:1px solid var(--line-strong);border-radius:var(--r-lg);
+  padding:24px;margin-bottom:14px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.price-card::before{
+  content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;
+  background:radial-gradient(circle,rgba(229,62,62,.18),transparent 60%);
+  pointer-events:none;
+}
+.price-eye{font-size:11px;color:var(--ink-3);font-weight:500;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;position:relative;z-index:1}
+.price-num{
+  font-size:60px;font-weight:600;letter-spacing:-.04em;line-height:.95;color:var(--ink);
+  position:relative;z-index:1;font-variant-numeric:tabular-nums;
+}
+.price-num small{font-size:26px;color:var(--ink-3);font-weight:500;margin-right:3px;vertical-align:top;display:inline-block;margin-top:10px}
+.price-note{font-size:12.5px;color:var(--ink-3);margin-top:10px;position:relative;z-index:1}
+
+.summary-card{background:var(--bg-elev-2);border:1px solid var(--line);border-radius:var(--r-md);padding:6px 18px;margin-bottom:14px}
+.summary-row{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;font-size:13.5px;border-bottom:1px solid var(--line-soft);gap:14px}
+.summary-row:last-child{border-bottom:none}
+.summary-row span{color:var(--ink-3);font-weight:500}
+.summary-row strong{color:var(--ink);font-weight:500;text-align:right;max-width:65%}
+
+.breakdown{margin-bottom:14px}
+.breakdown-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;color:var(--ink-3);border-bottom:1px dashed var(--line-soft)}
+.breakdown-row strong{color:var(--ink);font-weight:600}
+.breakdown-row.total{padding-top:11px;font-size:14.5px;color:var(--ink);font-weight:600;border-bottom:none}
+
+.promo-note{
+  display:flex;gap:11px;
+  background:linear-gradient(135deg,rgba(192,168,114,.08) 0%,rgba(192,168,114,.02) 100%);
+  border:1px solid rgba(192,168,114,.18);
+  padding:14px 16px;border-radius:var(--r-md);font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-bottom:14px;
+}
+.promo-note svg{width:16px;height:16px;color:var(--gold);flex-shrink:0;margin-top:1px}
+.promo-note strong{color:var(--gold);font-weight:600}
+
+.disclaimer{display:flex;gap:9px;background:rgba(255,255,255,.025);border:1px solid var(--line);padding:11px 14px;border-radius:var(--r-md);font-size:11.5px;color:var(--ink-3);line-height:1.5}
+.disclaimer svg{width:13px;height:13px;color:var(--ink-3);flex-shrink:0;margin-top:1px}
+
+/* SUCCESS */
+.success{padding:30px 18px 8px;text-align:center;animation:fadeUp .5s var(--ease) both}
+.success-icon{
+  width:84px;height:84px;border-radius:50%;
+  background:linear-gradient(135deg,#1d7c3a 0%,#34C759 100%);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 22px;
+  box-shadow:0 16px 40px rgba(52,199,89,.3), 0 0 0 8px rgba(52,199,89,.08);
+  animation:popIn .55s var(--ease-spring) both;
+}
+.success-icon svg{width:40px;height:40px;color:#fff;stroke-width:3}
+.success-h{font-size:24px;font-weight:600;letter-spacing:-.025em;color:var(--ink);margin-bottom:8px;line-height:1.1}
+.success-p{font-size:14.5px;color:var(--ink-3);margin-bottom:20px;line-height:1.55;max-width:340px;margin-left:auto;margin-right:auto}
+.success-card{background:var(--bg-elev-2);border:1px solid var(--line);border-radius:var(--r-md);padding:6px 18px;margin-bottom:14px;text-align:left}
+.success-card-row{display:flex;justify-content:space-between;padding:10px 0;font-size:13px;border-bottom:1px solid var(--line-soft)}
+.success-card-row:last-child{border-bottom:none}
+.success-card-row span{color:var(--ink-3)}
+.success-card-row strong{color:var(--ink);font-weight:500}
+.success-vip{
+  background:linear-gradient(135deg,rgba(192,168,114,.1) 0%,rgba(192,168,114,.02) 100%);
+  border:1px solid rgba(192,168,114,.25);padding:18px;border-radius:var(--r-md);text-align:center;margin-bottom:14px;
+}
+.success-vip-h{font-size:13px;font-weight:600;color:var(--gold);margin-bottom:5px;letter-spacing:-.1px;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+.success-vip-p{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+@keyframes popIn{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+
+@media(max-width:480px){
+  .hero{padding:100px 22px 50px}
+  .sheet-body{padding:24px 20px 10px}
+  .price-num{font-size:52px}
+  .step-title{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div>
+        <div class="brand-name">Alvatowash</div>
+        <div class="brand-sub">Luxury detailing</div>
+      </div>
+    </div>
+    <a class="nav-back" href="../">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Inicio
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-eye">
+      <span class="hero-eye-dot"></span>
+      19 centros · disponible ahora
+    </div>
+    <h1>
+      Tu coche.<br/>
+      <span class="serif">Reservado en</span>
+      <span class="accent">60 segundos</span>
+    </h1>
+    <p class="hero-sub">Elegí servicio, centro y hora. Te confirmamos por WhatsApp. Pagás cuando recogés.</p>
+    <div class="hero-cta-row">
+      <button class="btn-primary" onclick="openFlow()">
+        Empezar mi reserva
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <a class="btn-secondary" href="#combo">
+        Ver Combo Verano
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </div>
+
+    <div class="spotlights-row">
+
+      <!-- ── Combo Verano 89€ ── -->
+      <div class="spotlight" id="combo">
+        <div class="spotlight-tag">★ Más reservado</div>
+        <div class="spotlight-h">Combo Verano</div>
+        <div class="spotlight-sub">8 servicios premium en un solo turno de 90 minutos.</div>
+        <div class="spotlight-price">
+          <span class="spotlight-price-was">177€</span>
+          <span class="spotlight-price-num"><small>€</small>89</span>
+          <span class="spotlight-save">−50%</span>
+        </div>
+        <div class="spotlight-includes">
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Carrocería + doble cera</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Llantas + cristales</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Aspirado completo</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Salpicadero</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Desinfección ozono</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Perfume premium</div>
+        </div>
+        <button class="spotlight-cta" onclick="openFlow('combo_verano')">
+          Reservar Combo Verano
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+      <!-- ── Limpieza Premium Integral 197€ ── -->
+      <div class="spotlight featured" id="premium">
+        <div class="spotlight-tag">★ Más completo</div>
+        <div class="spotlight-h">Limpieza Premium Integral</div>
+        <div class="spotlight-sub">Cambio de temporada. Interior profundo + exterior completo. Tu coche de cero.</div>
+        <div class="spotlight-price">
+          <span class="spotlight-price-was">257€</span>
+          <span class="spotlight-price-num"><small>€</small>197</span>
+        </div>
+        <div class="spotlight-includes">
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Limpieza interior profunda</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tapicerías 5 asientos</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Lavado exterior completo</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Moquetas y alfombrillas</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Repaso de brillo GRATIS 30d</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Garantía de lluvia 48h</div>
+        </div>
+        <button class="spotlight-cta" onclick="openFlow('premium_integral')">
+          Reservar Premium Integral
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+      <!-- ── Nanodiamond desde 540€ ── -->
+      <div class="spotlight gold" id="nano">
+        <div class="spotlight-tag gold">Protección cerámica</div>
+        <div class="spotlight-h">Nanodiamond</div>
+        <div class="spotlight-sub">Recubrimiento cerámico SiO₂ 9H. Protección activa durante 2+ años.</div>
+        <div class="spotlight-price">
+          <span class="spotlight-price-num" style="font-size:42px"><small style="font-size:16px;color:var(--gold)">desde €</small>540</span>
+        </div>
+        <div class="spotlight-includes">
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Pulido máquina previo</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Recubrimiento SiO₂ 9H</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hidrofobia activa 2+ años</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Anti salitre y calima</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Certificado de aplicación</div>
+          <div class="spotlight-includes-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Precio en centro desde 700€</div>
+        </div>
+        <button class="spotlight-cta gold" onclick="openFlow('nanodiamond')">
+          Reservar Nanodiamond
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="trust-inner">
+    <div class="trust-eye">Confianza</div>
+    <div class="trust-row">
+      <div class="trust-item"><div class="trust-num">19</div><div class="trust-lbl">Centros</div></div>
+      <div class="trust-item"><div class="trust-num">+1<small>k</small></div><div class="trust-lbl">Reseñas</div></div>
+      <div class="trust-item"><div class="trust-num">4.9<small>/5</small></div><div class="trust-lbl">Google</div></div>
+      <div class="trust-item"><div class="trust-num">90<small>min</small></div><div class="trust-lbl">Y listo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL FLOW -->
+<div class="sheet-overlay" id="modalOverlay" onclick="if(event.target===this)closeFlow()">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <div class="sheet-progress"><div class="sheet-progress-fill" id="progressFill"></div></div>
+      <div class="sheet-step" id="stepCounter">1 de 7</div>
+      <button class="sheet-close" onclick="closeFlow()" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body" id="modalBody"></div>
+    <div class="sheet-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<script>
+const CFG = window.CONFIG || {};
+const WA_DEFAULT = CFG.whatsapp || '34600000000';
+/* getWA() devuelve el WhatsApp del centro seleccionado, o el default si no hay */
+function getWA(){
+  if (LEAD && LEAD.centro && LEAD.centro.whatsapp) return String(LEAD.centro.whatsapp).replace(/[^0-9+]/g,'');
+  return WA_DEFAULT;
+}
+const SERVICES = CFG.services || [];
+const CENTROS = CFG.centros || [];
+const EXTRAS = CFG.extras || [];
+const VEHICLES = CFG.vehicles || [];
+
+const urlParams = new URLSearchParams(window.location.search);
+const preService = urlParams.get('svc');
+const preCentro = urlParams.get('centro');
+const isExpress = urlParams.get('express') === '1';
+
+/* ─── Pre-cargar datos del cliente VIP si viene del área cliente ─── */
+let VIP_SESSION = null;
+try { VIP_SESSION = JSON.parse(localStorage.getItem('alvato_vip_session') || 'null'); } catch(e){}
+
+const preName  = (VIP_SESSION && VIP_SESSION.nombre)   || '';
+const preEmail = (VIP_SESSION && VIP_SESSION.email)    || '';
+const prePhone = (VIP_SESSION && VIP_SESSION.whatsapp) || (VIP_SESSION && VIP_SESSION.phone) || '';
+const preVehicle = VIP_SESSION && VIP_SESSION.vehicle ? VEHICLES.find(v => v.key === VIP_SESSION.vehicle) : null;
+const preCentroVip = VIP_SESSION && VIP_SESSION.centro_habitual ? CENTROS.find(c => c.id === VIP_SESSION.centro_habitual) : null;
+
+let LEAD = {
+  id: 'L' + Date.now(),
+  name: preName,
+  phone: prePhone,
+  email: preEmail,
+  service: preService ? SERVICES.find(s => s.key === preService) : null,
+  centro: preCentro ? CENTROS.find(c => c.id === preCentro) : preCentroVip,
+  vehicle: preVehicle,
+  extras: {},
+  date:'', time:'',
+  payMethod: 'center',
+  total: 0,
+  _submitted: false,
+  _isVip: !!(VIP_SESSION && VIP_SESSION.id),
+  _vipId: VIP_SESSION ? VIP_SESSION.id : ''
+};
+let STRIPE_ACTIVE = false;
+/* Detectar si Stripe está activo en el backend (1 sola vez) */
+(function checkStripe(){
+  if (!CFG.script_url) return;
+  const cbName = '_stripe_check_' + Date.now();
+  window[cbName] = (d) => { STRIPE_ACTIVE = d && d.active === true; delete window[cbName]; sc.remove(); };
+  const sc = document.createElement('script');
+  sc.src = CFG.script_url + '?action=stripeStatus&token=' + encodeURIComponent(CFG.script_token||'') + '&callback=' + cbName;
+  sc.onerror = () => { delete window[cbName]; sc.remove(); };
+  document.head.appendChild(sc);
+})();
+let STEP = 0;
+const TOTAL_STEPS = 7;
+
+const I = {
+  ar:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`,
+  al:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`,
+  check:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  info:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  star:`<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  bell:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+  wa:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>`
+};
+
+function $b(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function fmt(n){return '€' + (Number.isInteger(n) ? n.toLocaleString('es-ES') : n.toFixed(2).replace('.',','));}
+function setProgress(pct){ $b('progressFill').style.width = pct + '%'; $b('stepCounter').textContent = `${Math.min(STEP+1, TOTAL_STEPS)} de ${TOTAL_STEPS}`; }
+
+/* FIX BUG 89€: SIEMPRE empezar en paso 0 (contacto). El servicio queda pre-cargado pero no nos saltamos pedirle nombre. */
+function openFlow(serviceHint){
+  $b('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  STEP = 0;
+  if (serviceHint) {
+    LEAD.service = SERVICES.find(s => s.key === serviceHint);
+  }
+  renderStep();
+}
+function closeFlow(){
+  if (LEAD.phone && !LEAD._submitted) saveLead('lead_abandonado');
+  $b('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+window.addEventListener('beforeunload', () => { if (LEAD.phone && !LEAD._submitted) saveLead('lead_abandonado'); });
+
+function renderStep(){
+  setProgress(((STEP+1)/TOTAL_STEPS)*100);
+  const body = $b('modalBody'); const foot = $b('modalFoot');
+  body.scrollTop = 0;
+  if (STEP===0) renderContact(body,foot);
+  else if (STEP===1) renderService(body,foot);
+  else if (STEP===2) renderCentro(body,foot);
+  else if (STEP===3) renderVehicle(body,foot);
+  else if (STEP===4) renderExtras(body,foot);
+  else if (STEP===5) renderDateTime(body,foot);
+  else if (STEP===6) renderSummary(body,foot);
+  else if (STEP===7) renderSuccess(body,foot);
+}
+
+function renderContact(body, foot){
+  body.innerHTML = `
+    <div class="step-eye">Empezamos</div>
+    <div class="step-title">¿Cómo te llamamos?</div>
+    <div class="step-desc">Te enviamos la confirmación de tu reserva por WhatsApp.</div>
+    <div class="field">
+      <label class="field-label">Nombre</label>
+      <input class="input" id="iName" placeholder="Cómo te llamamos" autocomplete="given-name" value="${esc(LEAD.name)}"/>
+    </div>
+    <div class="field">
+      <label class="field-label">WhatsApp</label>
+      <input class="input" id="iPhone" type="tel" placeholder="612 345 678" autocomplete="tel" value="${esc(LEAD.phone)}"/>
+    </div>
+  `;
+  foot.innerHTML = `<button class="btn-action primary" id="bNext" disabled>Continuar ${I.ar}</button>`;
+  const v = () => { $b('bNext').disabled = !($b('iName').value.trim().length>=2 && $b('iPhone').value.replace(/[^\d]/g,'').length>=8); };
+  $b('iName').addEventListener('input', v);
+  $b('iPhone').addEventListener('input', v);
+  v();
+  $b('bNext').addEventListener('click', () => {
+    LEAD.name = $b('iName').value.trim();
+    LEAD.phone = $b('iPhone').value.replace(/[^\d+]/g,'');
+    saveLead('lead_capturado');
+    /* Si vino con un servicio pre-cargado, saltamos paso de servicio */
+    if (LEAD.service) STEP = 2; else next();
+    if (STEP === 2) renderStep();
+  });
+}
+
+function renderService(body, foot){
+  body.innerHTML = `
+    <div class="step-eye">Servicio</div>
+    <div class="step-title">¿Qué necesitas?</div>
+    <div class="step-desc">Si dudás entre dos, elegí el más simple. Siempre podemos sumar extras después.</div>
+    <div class="opt-list">
+      ${SERVICES.map(s => `
+        <button class="opt ${LEAD.service && LEAD.service.key===s.key?'selected':''} ${s.key==='combo_verano'?'featured':''}" data-svc="${s.key}" style="position:relative">
+          ${s.badge?`<div class="opt-badge ${s.key==='nanodiamond'?'gold':''}">${s.badge}</div>`:''}
+          <div class="opt-info">
+            <div class="opt-name">${esc(s.name)}</div>
+            <div class="opt-meta">${esc(s.desc)}</div>
+          </div>
+          <div class="opt-price"><small>€</small>${Number.isInteger(s.price)?s.price:s.price.toFixed(2).replace('.',',')}</div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+  foot.innerHTML = `<button class="btn-action ghost" onclick="back()">${I.al} Atrás</button>`;
+  body.querySelectorAll('[data-svc]').forEach(b => b.addEventListener('click', () => {
+    LEAD.service = SERVICES.find(s => s.key === b.dataset.svc);
+    next();
+  }));
+}
+
+function renderCentro(body, foot){
+  body.innerHTML = `
+    <div class="step-eye">Centro</div>
+    <div class="step-title">¿Dónde te queda mejor?</div>
+    <div class="step-desc">19 centros en España y Andorra. La reserva queda asignada al que elijas.</div>
+    <div class="opt-list centro-list">
+      ${CENTROS.map(c => `
+        <button class="opt centro-opt ${LEAD.centro && LEAD.centro.id===c.id?'selected':''}" data-cn="${c.id}">
+          <div class="opt-info">
+            <div class="centro-city">${esc(c.ciudad)}</div>
+            <div class="centro-name">${esc(c.nombre.replace('Alvato ',''))}</div>
+            <div class="centro-addr">${esc(c.direccion)} · ${esc(c.horario)}</div>
+          </div>
+          <div class="opt-arrow">${I.ar}</div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+  foot.innerHTML = `<button class="btn-action ghost" onclick="back()">${I.al} Atrás</button>`;
+  body.querySelectorAll('[data-cn]').forEach(b => b.addEventListener('click', () => {
+    LEAD.centro = CENTROS.find(c => c.id === b.dataset.cn);
+    next();
+  }));
+}
+
+function renderVehicle(body, foot){
+  body.innerHTML = `
+    <div class="step-eye">Vehículo</div>
+    <div class="step-title">¿Qué coche tienes?</div>
+    <div class="step-desc">El precio se ajusta según el tamaño. Si dudás, elegimos siempre la categoría más justa.</div>
+    <div class="opt-list">
+      ${VEHICLES.map(v => `
+        <button class="opt ${LEAD.vehicle && LEAD.vehicle.key===v.key?'selected':''}" data-veh="${v.key}">
+          <div class="opt-info">
+            <div class="opt-name">${esc(v.label)}</div>
+            <div class="opt-meta">${v.mult === 1.0 ? 'Precio base' : `Recargo +${Math.round((v.mult-1)*100)}%`}</div>
+          </div>
+          <div class="opt-arrow">${I.ar}</div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+  foot.innerHTML = `<button class="btn-action ghost" onclick="back()">${I.al} Atrás</button>`;
+  body.querySelectorAll('[data-veh]').forEach(b => b.addEventListener('click', () => {
+    LEAD.vehicle = VEHICLES.find(v => v.key === b.dataset.veh);
+    next();
+  }));
+}
+
+function renderExtras(body, foot){
+  body.innerHTML = `
+    <div class="step-eye">Extras · opcional</div>
+    <div class="step-title">¿Sumamos algo más?</div>
+    <div class="step-desc">Tratamientos premium en el mismo turno. <strong style="color:var(--gold)">20% off</strong> si vuelves en 30 días.</div>
+    <div class="opt-list">
+      ${EXTRAS.map(e => `
+        <label class="check ${LEAD.extras[e.key]?'checked':''}" data-ek="${e.key}">
+          <div class="check-box">${I.check}</div>
+          <div class="check-info">
+            <div class="check-name">${esc(e.name)}</div>
+            <div class="check-desc">${esc(e.desc)}</div>
+            <div class="check-cost">+ ${fmt(e.price)}</div>
+          </div>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  foot.innerHTML = `
+    <button class="btn-action ghost" onclick="back()">${I.al} Atrás</button>
+    <button class="btn-action primary" onclick="next()">Continuar ${I.ar}</button>
+  `;
+  body.querySelectorAll('[data-ek]').forEach(l => l.addEventListener('click', () => {
+    const k = l.dataset.ek;
+    LEAD.extras[k] = !LEAD.extras[k];
+    l.classList.toggle('checked');
+  }));
+}
+
+function renderDateTime(body, foot){
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+  const minDate = tomorrow.toISOString().split('T')[0];
+  body.innerHTML = `
+    <div class="step-eye">Fecha</div>
+    <div class="step-title">¿Cuándo te viene bien?</div>
+    <div class="step-desc">Confirmamos disponibilidad por WhatsApp en cuanto termines.</div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">Fecha</label><input class="input" id="iDate" type="date" min="${minDate}" value="${LEAD.date || ''}"/></div>
+      <div class="field"><label class="field-label">Horario</label>
+        <select class="input" id="iTime">
+          <option value="">Elige...</option>
+          ${(() => {
+            const slots = [];
+            for (let h = 9; h <= 19; h++) for (let m of [0,30]) {
+              if (h === 19 && m > 30) break;
+              const t = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+              slots.push(`<option value="${t}" ${LEAD.time===t?'selected':''}>${t}</option>`);
+            }
+            return slots.join('');
+          })()}
+        </select>
+      </div>
+    </div>
+  `;
+  foot.innerHTML = `
+    <button class="btn-action ghost" onclick="back()">${I.al} Atrás</button>
+    <button class="btn-action primary" id="bNext" disabled>Ver precio ${I.ar}</button>
+  `;
+  const v = () => { $b('bNext').disabled = !($b('iDate').value && $b('iTime').value); };
+  ['iDate','iTime'].forEach(id => $b(id).addEventListener('input', v));
+  v();
+  $b('bNext').addEventListener('click', () => {
+    LEAD.date = $b('iDate').value;
+    LEAD.time = $b('iTime').value;
+    saveLead('lead_completo');
+    next();
+  });
+}
+
+function calculatePrice(){
+  const base = LEAD.service?.price || 0;
+  const mult = LEAD.vehicle?.mult || 1;
+  const vehicleSurcharge = base * (mult - 1);
+  let extras = 0;
+  EXTRAS.forEach(e => { if (LEAD.extras[e.key]) extras += e.price; });
+  const total = base + vehicleSurcharge + extras;
+  return { base, vehicleSurcharge, extras, total };
+}
+
+function renderSummary(body, foot){
+  const p = calculatePrice();
+  LEAD.total = p.total;
+  const dateLbl = LEAD.date ? new Date(LEAD.date + 'T00:00').toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long' }) : '';
+  const extrasList = EXTRAS.filter(e => LEAD.extras[e.key]).map(e => e.name);
+  const isComboVerano = LEAD.service && LEAD.service.key === 'combo_verano';
+  const num = Number.isInteger(p.total) ? p.total : Math.round(p.total*100)/100;
+  const hasDeposit = LEAD.service && LEAD.service.deposit;
+
+  body.innerHTML = `
+    <div class="step-eye">Resumen</div>
+    <div class="step-title">Todo listo, ${esc(LEAD.name.split(' ')[0])}.</div>
+
+    <div class="summary-section">
+      <div class="price-card">
+        <div class="price-eye">Total a pagar</div>
+        <div class="price-num"><small>€</small>${num.toString().replace('.',',')}</div>
+        <div class="price-note">Pagas cuando recoges el coche</div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-row"><span>Servicio</span><strong>${esc(LEAD.service.name)}</strong></div>
+        <div class="summary-row"><span>Vehículo</span><strong>${esc(LEAD.vehicle.label)}</strong></div>
+        <div class="summary-row"><span>Centro</span><strong>${esc(LEAD.centro.ciudad)} · ${esc(LEAD.centro.nombre.replace('Alvato ',''))}</strong></div>
+        <div class="summary-row"><span>Cita</span><strong>${esc(dateLbl)} · ${esc(LEAD.time)}</strong></div>
+        ${extrasList.length?`<div class="summary-row"><span>Extras</span><strong>${extrasList.map(esc).join(', ')}</strong></div>`:''}
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-row"><span>${esc(LEAD.service.name)}</span><strong>${fmt(p.base)}</strong></div>
+        ${p.vehicleSurcharge > 0?`<div class="breakdown-row"><span>Recargo vehículo</span><strong>+${fmt(p.vehicleSurcharge)}</strong></div>`:''}
+        ${p.extras > 0?`<div class="breakdown-row"><span>Extras</span><strong>+${fmt(p.extras)}</strong></div>`:''}
+        <div class="breakdown-row total"><span>Total</span><strong>${fmt(p.total)}</strong></div>
+      </div>
+
+      ${isComboVerano?`
+        <div class="promo-note">
+          ${I.bell}
+          <div><strong>Mantenimiento promo activa.</strong> Si vuelves antes de 30 días, el mismo lavado te vale solo <strong>45€</strong>.</div>
+        </div>
+      `:`
+        <div class="promo-note">
+          ${I.bell}
+          <div><strong>Bonus 30 días.</strong> Tapicería, cerámico y cuero con 20% off si vuelves antes.</div>
+        </div>
+      `}
+
+      <!-- ─── EMAIL (opcional para recordatorios + recibo Stripe) ─── -->
+      <div class="field" style="margin-top:14px">
+        <label class="field-label">Email para recibir confirmación (opcional)</label>
+        <input class="input" id="iEmail" type="email" placeholder="tu@email.com" value="${esc(LEAD.email||'')}"/>
+      </div>
+
+      <!-- ─── MÉTODO DE PAGO ─── -->
+      <div style="margin-top:16px">
+        <div style="font-size:11.5px;color:var(--ink-3);font-weight:500;margin-bottom:8px;letter-spacing:.1px">Método de pago</div>
+        <div class="opt-list" id="payOptList">
+          <label class="opt ${LEAD.payMethod==='center'?'selected':''}" data-pay="center">
+            <div class="opt-info">
+              <div class="opt-name">Pagar al recoger</div>
+              <div class="opt-meta">Pagás en efectivo o tarjeta en el centro · sin pago anticipado</div>
+            </div>
+            <div class="opt-arrow">${I.check}</div>
+          </label>
+          ${STRIPE_ACTIVE ? `
+            <label class="opt ${LEAD.payMethod==='stripe'?'selected':''}" data-pay="stripe">
+              <div class="opt-info">
+                <div class="opt-name">Pagar online ahora</div>
+                <div class="opt-meta">Tarjeta, Apple Pay o Google Pay · ${fmt(p.total)} total</div>
+              </div>
+              <div class="opt-arrow">${I.check}</div>
+            </label>
+            ${hasDeposit ? `
+              <label class="opt ${LEAD.payMethod==='deposit'?'selected':''}" data-pay="deposit">
+                <div class="opt-info">
+                  <div class="opt-name">Reservar con depósito</div>
+                  <div class="opt-meta">Pagás ${fmt(LEAD.service.deposit)} ahora · resto en centro</div>
+                </div>
+                <div class="opt-arrow">${I.check}</div>
+              </label>
+            ` : ''}
+          ` : ''}
+        </div>
+      </div>
+
+      <div class="disclaimer" style="margin-top:14px">
+        ${I.info}
+        <div>Precio cerrado. Si el coche llega en condiciones distintas (suciedad extrema), nos lo confirmamos antes de empezar.</div>
+      </div>
+    </div>
+  `;
+  foot.innerHTML = `
+    <button class="btn-action ghost" onclick="back()">${I.al} Editar</button>
+    <button class="btn-action accent" id="bConfirm" style="background:var(--accent)">
+      <span id="bConfirmTxt">Confirmar reserva</span>
+      ${I.ar}
+    </button>
+  `;
+  body.querySelectorAll('[data-pay]').forEach(el => el.addEventListener('click', () => {
+    LEAD.payMethod = el.dataset.pay;
+    body.querySelectorAll('[data-pay]').forEach(x => x.classList.toggle('selected', x === el));
+    /* Actualizar CTA label */
+    const t = $b('bConfirmTxt');
+    if (t) {
+      if (LEAD.payMethod === 'stripe') t.textContent = `Pagar ${fmt(p.total)} ahora`;
+      else if (LEAD.payMethod === 'deposit') t.textContent = `Pagar ${fmt(LEAD.service.deposit)} depósito`;
+      else t.textContent = 'Confirmar reserva';
+    }
+  }));
+  /* Inicializar label */
+  setTimeout(() => {
+    const e = $b('iEmail');
+    if (e) e.addEventListener('input', () => LEAD.email = e.value.trim());
+    const t = $b('bConfirmTxt');
+    if (t) {
+      if (LEAD.payMethod === 'stripe') t.textContent = `Pagar ${fmt(p.total)} ahora`;
+      else if (LEAD.payMethod === 'deposit') t.textContent = `Pagar ${fmt(LEAD.service.deposit)} depósito`;
+    }
+  }, 50);
+  $b('bConfirm').addEventListener('click', confirmBooking);
+}
+
+function renderSuccess(body, foot){
+  const dateLbl = LEAD.date ? new Date(LEAD.date + 'T00:00').toLocaleDateString('es-ES', { day:'numeric', month:'long' }) : '';
+  const isComboVerano = LEAD.service && LEAD.service.key === 'combo_verano';
+  body.innerHTML = `
+    <div class="success">
+      <div class="success-icon">${I.check}</div>
+      <div class="success-h">¡Reserva confirmada!</div>
+      <div class="success-p">Te esperamos, <strong style="color:var(--ink)">${esc(LEAD.name.split(' ')[0])}</strong>. En unos minutos te contactamos por WhatsApp.</div>
+      <div class="success-card">
+        <div class="success-card-row"><span>Servicio</span><strong>${esc(LEAD.service.name)}</strong></div>
+        <div class="success-card-row"><span>Centro</span><strong>${esc(LEAD.centro.ciudad)}</strong></div>
+        <div class="success-card-row"><span>Cita</span><strong>${esc(dateLbl)} · ${esc(LEAD.time)}</strong></div>
+        <div class="success-card-row"><span>Total</span><strong style="color:var(--accent-soft)">${fmt(LEAD.total)}</strong></div>
+      </div>
+      <div class="success-vip">
+        <div class="success-vip-h">${I.star} Club VIP</div>
+        <div class="success-vip-p">Esta reserva te suma <strong style="color:var(--gold)">${Math.round(LEAD.total)} puntos</strong>. Crea tu cuenta y úsalos para descuentos, lavados gratis o regalar a un amigo.</div>
+        <a href="../area-cliente/" class="btn-action primary" style="margin-top:14px;padding:11px 22px;font-size:13px;display:inline-flex;width:auto">Crear cuenta VIP</a>
+      </div>
+    </div>
+  `;
+  foot.innerHTML = `<button class="btn-action primary" onclick="closeFlow()" style="flex:1">Cerrar</button>`;
+}
+
+function next(){ STEP = Math.min(TOTAL_STEPS, STEP+1); renderStep(); }
+function back(){
+  /* Si vinimos con servicio pre-cargado, al ir atrás desde Centro saltamos servicio */
+  if (STEP === 2 && LEAD.service && preService) {
+    STEP = 0; renderStep(); return;
+  }
+  STEP = Math.max(0, STEP-1); renderStep();
+}
+
+function saveLead(status){
+  if (!CFG.script_url || !LEAD.phone) return;
+  const url = CFG.script_url + (CFG.script_url.indexOf('?')>=0?'&':'?') + 'op=lead_save';
+  const extrasList = EXTRAS.filter(e => LEAD.extras[e.key]).map(e => e.name).join(', ');
+  fetch(url, {
+    method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      op:'lead_save', leadId: LEAD.id,
+      name: LEAD.name, phone: LEAD.phone,
+      service: LEAD.service?.name || '',
+      serviceFrom: LEAD.service?.price || 0,
+      dateDisplay: LEAD.date || '', dateISO: LEAD.date || '', time: LEAD.time || '',
+      address: (LEAD.centro?LEAD.centro.ciudad+' · '+LEAD.centro.nombre:'') + (LEAD.vehicle?' · '+LEAD.vehicle.label:'') + (extrasList?' · Extras: '+extrasList:''),
+      total: LEAD.total || 0,
+      status,
+      abandoned_at_step: status.startsWith('lead_abandonado') ? STEP : null,
+      timestamp: new Date().toISOString()
+    })
+  }).catch(()=>{});
+}
+
+async function confirmBooking(){
+  if (LEAD._submitted) { openWhatsApp(); return; }
+  const btn = $b('bConfirm'); if (btn) btn.disabled = true;
+  const txt = $b('bConfirmTxt'); if (txt) txt.textContent = 'Procesando…';
+
+  LEAD._submitted = true;
+  saveLead('confirmado');
+
+  const extrasList = EXTRAS.filter(e => LEAD.extras[e.key]).map(e => e.name).join(', ');
+  const isOnlinePayment = (LEAD.payMethod === 'stripe' || LEAD.payMethod === 'deposit') && STRIPE_ACTIVE;
+
+  /* ── Modo PAGO ONLINE ── usar JSONP createBookingPublic para obtener bookingId + URL Stripe */
+  if (isOnlinePayment && CFG.script_url) {
+    try {
+      const r = await bgCall('createBookingPublic', {
+        name: LEAD.name, phone: LEAD.phone, email: LEAD.email || '',
+        address: LEAD.centro.ciudad + ' · ' + LEAD.centro.nombre,
+        service: LEAD.service.name,
+        dateDisplay: LEAD.date, dateISO: LEAD.date, time: LEAD.time,
+        total: LEAD.total,
+        vehicle: LEAD.vehicle?.label || '',
+        centro_id: LEAD.centro.id,
+        extras: extrasList,
+        pay: LEAD.payMethod,
+        depositAmount: LEAD.service.deposit || 20,
+        source: 'reserva-instagram'
+      });
+      if (r && r.stripeUrl) {
+        window.location.href = r.stripeUrl;
+        return;
+      }
+      /* Si Stripe falló, fallback a flujo center */
+      if (r && r.paymentError) console.warn('Stripe error:', r.paymentError);
+    } catch(e){ console.warn('createBookingPublic error', e); }
+  }
+
+  /* ── Modo PAGO EN CENTRO ── flujo original POST no-cors + WhatsApp ── */
+  if (CFG.script_url) {
+    fetch(CFG.script_url, {
+      method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: LEAD.name, phone: LEAD.phone, email: LEAD.email || '',
+        address: LEAD.centro.ciudad + ' · ' + LEAD.centro.nombre,
+        service: LEAD.service.name,
+        dateDisplay: LEAD.date, dateISO: LEAD.date, time: LEAD.time,
+        total: LEAD.total, payment: 'Paga en centro',
+        vehicle: LEAD.vehicle?.label || '',
+        centro_id: LEAD.centro.id,
+        extras: extrasList,
+        source: 'reserva-instagram'
+      })
+    }).catch(()=>{});
+  }
+  openWhatsApp();
+  STEP = 7;
+  setTimeout(renderStep, 400);
+}
+
+/* Helper JSONP para llamar al backend con respuesta */
+function bgCall(action, params={}){
+  return new Promise((resolve, reject) => {
+    if (!CFG.script_url) { reject(new Error('script_url no configurada')); return; }
+    const cbName = '_rcb_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+    window[cbName] = (d) => { delete window[cbName]; s.remove(); resolve(d); };
+    const qs = new URLSearchParams({ action, token: CFG.script_token || '', callback: cbName, ...params });
+    const s = document.createElement('script');
+    s.src = CFG.script_url + '?' + qs.toString();
+    s.onerror = () => { delete window[cbName]; s.remove(); reject(new Error('Network error')); };
+    document.head.appendChild(s);
+    setTimeout(() => { if (window[cbName]) { delete window[cbName]; s.remove(); reject(new Error('Timeout')); } }, 18000);
+  });
+}
+
+function openWhatsApp(){
+  const p = calculatePrice();
+  const extrasList = EXTRAS.filter(e => LEAD.extras[e.key]).map(e => '• ' + e.name).join('\n');
+  const isComboVerano = LEAD.service.key === 'combo_verano';
+  const promoLine = isComboVerano
+    ? `\n*Promo activa:* mantenimiento al 50% si vuelve en 30 días`
+    : `\n*Bonus 30 días:* 20% off en premium adicionales`;
+  const msg = [
+    '*NUEVA RESERVA — ALVATOWASH*','',
+    `👤 ${LEAD.name}`,
+    `📞 ${LEAD.phone}`,
+    `🚗 ${LEAD.vehicle.label}`,
+    `📍 ${LEAD.centro.ciudad} — ${LEAD.centro.nombre}`,'',
+    `✨ *Servicio:* ${LEAD.service.name}`,
+    `📅 *Fecha:* ${LEAD.date} · ${LEAD.time}`,'',
+    extrasList ? '*Extras:*\n' + extrasList + '\n' : '',
+    `💰 *Total estimado:* ${fmt(p.total)}`,
+    promoLine,'',
+    '_Reserva generada desde lavadoybrillo.com_'
+  ].filter(x => x !== '').join('\n');
+  window.open(`https://wa.me/${getWA()}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+window.openFlow = openFlow;
+window.closeFlow = closeFlow;
+window.next = next;
+window.back = back;
+
+/* Si la URL trae ?svc= o ?centro= o ?express=1, abrir flow automático.
+   En modo express con datos VIP cargados, salta los pasos ya conocidos. */
+if (preService || preCentro || isExpress) {
+  setTimeout(() => {
+    openFlow(preService);
+    /* Si es VIP + express: brincar a paso que aún falta */
+    if (isExpress && LEAD._isVip && LEAD.name && LEAD.phone) {
+      /* Determinar primer paso pendiente */
+      setTimeout(() => {
+        if (!LEAD.service) STEP = 1;          // → elegir servicio
+        else if (!LEAD.centro) STEP = 2;       // → centro
+        else if (!LEAD.vehicle) STEP = 3;      // → vehículo
+        else STEP = 5;                          // → directo a día/hora
+        if (typeof renderStep === 'function') renderStep();
+      }, 100);
+    }
+  }, 350);
+}
+</script>
+
+<script src="../legal/footer.js"></script>
+</body>
+</html>

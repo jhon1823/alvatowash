@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nuevo albarán · Alvatowash</title>
+<meta name="theme-color" content="#FFFFFF">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="../config.js"></script>
+<script src="modelos-coches.js"></script>
+
+<style>
+:root{
+  --bg:#FFFFFF; --bg-2:#FBFBFD; --card:#FFFFFF; --bg-soft:#F5F5F7; --bg-hover:rgba(0,0,0,.035);
+  --ink:#1D1D1F; --ink-2:#3C3C43; --ink-3:#6E6E73; --muted:#86868B;
+  --hair:rgba(0,0,0,.06); --hair-2:rgba(0,0,0,.04);
+  --accent:#DC2626; --accent-dk:#991B1B; --accent-soft:rgba(220,38,38,.08);
+  --green:#1F8F3D; --gold:#C9B679;
+  --shadow-card:0 0 0 .5px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.04);
+  --shadow-pop:0 12px 32px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg-soft);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100dvh;font-size:14.5px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+svg{display:block;flex-shrink:0}
+input,select,textarea{font-family:inherit;font-size:14.5px;color:var(--ink)}
+
+.topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--hair-2);display:flex;align-items:center;gap:10px;padding:11px 16px}
+.tb-back{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:transparent;transition:background .12s}
+.tb-back:active{background:var(--bg-hover)}
+.tb-back svg{width:18px;height:18px;color:var(--ink);stroke-width:2.2}
+.tb-title{font-size:17px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+
+.steps{display:flex;align-items:center;gap:6px;padding:14px 16px;max-width:880px;margin:0 auto;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.steps::-webkit-scrollbar{display:none}
+.step{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:99px;background:var(--bg-soft);color:var(--muted);font-size:13px;font-weight:600;white-space:nowrap;border:.5px solid var(--hair);transition:all .15s;flex-shrink:0}
+.step.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.step.done{background:#fff;color:var(--ink);border-color:rgba(220,38,38,.25)}
+.step svg{width:14px;height:14px;stroke-width:2}
+.step-sep{height:1px;background:var(--hair);width:14px;flex-shrink:0}
+
+.wrap{padding:0 16px 120px;max-width:880px;margin:0 auto}
+.pane{display:none;animation:fade .2s both}
+.pane.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.pane-title{font-size:24px;font-weight:800;letter-spacing:-.7px;line-height:1.15;margin-bottom:3px}
+.pane-sub{font-size:13.5px;color:var(--ink-3);margin-bottom:16px}
+
+/* ── Subnav ── */
+.subnav{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.subnav button{background:var(--card);border:.5px solid var(--hair);padding:9px 14px;border-radius:11px;font-size:12.5px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-card)}
+.subnav button:active{background:var(--bg-hover)}
+.subnav button svg{width:13px;height:13px;stroke-width:2.2;color:var(--muted)}
+.subnav button.right{margin-left:auto;background:var(--accent);color:#fff;border-color:var(--accent)}
+.subnav button.right svg{color:#fff}
+
+/* ── Card vehículo activo ── */
+.veh-active{background:var(--card);border:.5px solid var(--hair);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:14px;box-shadow:var(--shadow-card)}
+.veh-active-icon{width:40px;height:40px;border-radius:50%;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.veh-active-icon svg{width:18px;height:18px;color:var(--ink-2);stroke-width:1.8}
+.veh-active-info{flex:1;min-width:0}
+.veh-active-name{font-size:14.5px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+.veh-active-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+.talla-pill{background:#FFF4E6;color:#B97500;padding:5px 11px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.3px}
+
+/* ── Tabs SERVICIOS ── */
+.tabs3{display:flex;gap:6px;margin-bottom:14px}
+.tab3{flex:1;padding:11px 8px;background:var(--card);border:.5px solid var(--hair);border-radius:12px;font-size:12.5px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--shadow-card);text-align:center;line-height:1.1}
+.tab3.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab3 svg{width:13px;height:13px;stroke-width:2;flex-shrink:0}
+
+/* ── Cards de servicios ── */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:540px){.svc-grid{grid-template-columns:1fr}}
+.svc{position:relative;background:var(--card);border:.5px solid var(--hair);border-radius:14px;padding:14px;box-shadow:var(--shadow-card);cursor:pointer;transition:all .15s}
+.svc:active{transform:scale(.99)}
+.svc.popular{border:1.5px solid #34C759;background:linear-gradient(180deg,rgba(52,199,89,.04),transparent 60%)}
+.svc.premium{border:1.5px solid var(--gold);background:linear-gradient(180deg,rgba(201,182,121,.08),transparent 60%)}
+.svc.selected{border:1.5px solid var(--accent);background:linear-gradient(180deg,rgba(220,38,38,.06),transparent 60%)}
+.svc-badges{position:absolute;top:-9px;left:14px;right:14px;display:flex;justify-content:space-between;gap:6px;align-items:center}
+.svc-tag{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:99px;display:inline-flex;align-items:center;gap:4px}
+.svc-tag.popular{background:#34C759;color:#fff}
+.svc-tag.premium{background:var(--gold);color:#fff}
+.svc-tag.size{background:#FFF4E6;color:#B97500}
+.svc-tag svg{width:9px;height:9px;stroke-width:2.5}
+.svc-name{font-size:14.5px;font-weight:700;letter-spacing:-.3px;line-height:1.25;margin-top:4px}
+.svc-desc{font-size:12px;color:var(--ink-3);margin-top:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.svc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:11px;padding-top:11px;border-top:.5px solid var(--hair-2)}
+.svc-price{font-size:16px;font-weight:800;color:var(--green);letter-spacing:-.4px}
+.svc-mas{font-size:11px;color:var(--accent);font-weight:600}
+.svc-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--accent);display:none;align-items:center;justify-content:center}
+.svc-check svg{width:11px;height:11px;color:#fff;stroke-width:3}
+.svc.selected .svc-check{display:flex}
+.svc.selected .svc-mas{color:var(--accent)}
+
+/* ── Extra personalizado ── */
+.extra-pers{background:linear-gradient(135deg,var(--ink),#0A0A0B);color:#fff;border-radius:16px;padding:18px;margin-top:14px}
+.extra-pers-h{font-size:15px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
+.extra-pers-p{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:14px;line-height:1.4}
+.extra-pers-grid{display:grid;grid-template-columns:1fr 110px;gap:8px;margin-bottom:8px}
+.extra-pers-grid input{width:100%;padding:11px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:11px;color:#fff;outline:none}
+.extra-pers-grid input::placeholder{color:rgba(255,255,255,.4)}
+.extra-pers-grid input:focus{background:rgba(255,255,255,.12);border-color:var(--accent)}
+.extra-pers-add{width:100%;padding:11px;background:var(--accent);color:#fff;border-radius:11px;font-weight:700;font-size:13px;letter-spacing:.2px}
+.extra-pers-add:hover{background:var(--accent-dk)}
+
+/* ── Bottom bar ── */
+.bottom-bar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--hair);padding:12px 16px;display:flex;align-items:center;gap:12px}
+.bottom-bar-inner{max-width:880px;margin:0 auto;display:flex;align-items:center;gap:12px;width:100%}
+.bb-total{flex:1}
+.bb-total-lbl{font-size:10.5px;color:var(--muted);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.bb-total-val{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--ink);font-variant-numeric:tabular-nums;margin-top:1px}
+.bb-total-items{font-size:11.5px;color:var(--muted);font-weight:600}
+.bb-next{background:var(--accent);color:#fff;padding:13px 22px;border-radius:13px;font-weight:700;font-size:14.5px;letter-spacing:-.2px;display:inline-flex;align-items:center;gap:7px;box-shadow:0 8px 20px rgba(220,38,38,.3)}
+.bb-next:disabled{background:#D2D2D7;color:#fff;box-shadow:none;cursor:not-allowed}
+.bb-next svg{width:14px;height:14px;stroke-width:2.4}
+.bb-prev{padding:13px 18px;background:var(--bg-soft);color:var(--ink);border-radius:13px;font-weight:600;font-size:13.5px;display:inline-flex;align-items:center;gap:6px}
+.bb-prev svg{width:13px;height:13px;stroke-width:2.2}
+
+/* ── Form ── */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:700;color:var(--ink-2);margin-bottom:6px;letter-spacing:.4px;text-transform:uppercase}
+.field input,.field select,.field textarea{width:100%;padding:13px 14px;background:var(--card);border:.5px solid var(--hair);border-radius:12px;outline:none;box-shadow:var(--shadow-card)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field-help{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+/* ── Tipo vehículo ── */
+.tipo-veh{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.tipo-btn{background:var(--card);border:.5px solid var(--hair);padding:14px;border-radius:13px;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:600;color:var(--ink);box-shadow:var(--shadow-card)}
+.tipo-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 6px 18px rgba(220,38,38,.25)}
+.tipo-btn svg{width:18px;height:18px;stroke-width:2}
+
+/* ── Marca buscador ── */
+.marca-search{position:relative}
+.marca-search input{padding-left:42px}
+.marca-search svg.lupa{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);stroke-width:2}
+.marca-search .clear-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:8px;display:none;align-items:center;justify-content:center;color:var(--ink-3);background:var(--bg-soft)}
+.marca-search .clear-btn.show{display:flex}
+.marca-search .clear-btn svg{width:13px;height:13px;stroke-width:2.4}
+.marca-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:.5px solid var(--hair);border-radius:12px;box-shadow:var(--shadow-pop);max-height:280px;overflow-y:auto;z-index:10;display:none}
+.marca-dropdown.show{display:block}
+.marca-item{padding:11px 14px;cursor:pointer;font-size:13.5px;border-top:.5px solid var(--hair-2);transition:background .12s}
+.marca-item:first-child{border-top:0}
+.marca-item:hover,.marca-item.hov{background:var(--bg-hover)}
+.marca-item strong{font-weight:700;color:var(--accent)}
+
+/* ── Modelos grid ── */
+.modelos-wrap{background:var(--card);border:.5px solid var(--hair);border-radius:13px;padding:14px;box-shadow:var(--shadow-card);margin-bottom:14px}
+.modelos-h{font-size:11px;font-weight:700;color:var(--ink-2);margin-bottom:10px;letter-spacing:.4px;text-transform:uppercase}
+.modelos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:340px;overflow-y:auto;padding-right:4px}
+@media(max-width:580px){.modelos-grid{grid-template-columns:repeat(2,1fr)}}
+.modelo{padding:11px 13px;background:var(--bg-soft);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:6px;cursor:pointer;transition:all .12s;border:1px solid transparent}
+.modelo:hover{background:var(--bg-hover)}
+.modelo.active{border:1.5px solid var(--accent);background:var(--accent-soft)}
+.modelo-n{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.2px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modelo-t{font-size:10px;font-weight:800;padding:3px 7px;border-radius:99px;flex-shrink:0;letter-spacing:.4px}
+.modelo-t.S{background:#E8F5FE;color:#0066CC}
+.modelo-t.M{background:#E8F5FE;color:#0066CC}
+.modelo-t.L{background:rgba(191,90,242,.12);color:#7B2CBF}
+.modelo-t.SUV{background:rgba(191,90,242,.12);color:#7B2CBF;margin-left:2px}
+.modelo-t.XL{background:#FFF4E6;color:#B97500}
+
+.modelo-no-listado{background:var(--card);border:.5px solid var(--hair);padding:10px 14px;border-radius:10px;font-size:12.5px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-card)}
+.modelo-no-listado:active{background:var(--bg-hover)}
+.modelo-no-listado svg{width:13px;height:13px;stroke-width:2.4;color:var(--accent)}
+
+/* ── Cuántos vehículos ── */
+.veh-count{margin-bottom:14px}
+.veh-count-h{text-align:center;font-size:18px;font-weight:700;letter-spacing:-.4px;margin-bottom:14px}
+.veh-count-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.veh-count-btn{background:var(--bg-soft);border:.5px solid var(--hair);border-radius:13px;padding:18px 8px;text-align:center;cursor:pointer;transition:all .15s}
+.veh-count-btn:hover{background:var(--bg-hover)}
+.veh-count-btn.active{background:#fff;border:1.5px solid var(--accent);box-shadow:0 4px 12px rgba(220,38,38,.15)}
+.veh-count-num{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.8px;line-height:1;margin:6px 0 4px}
+.veh-count-btn.active .veh-count-num{color:var(--accent)}
+.veh-count-l{font-size:11.5px;color:var(--muted);font-weight:600}
+.veh-count-cars{display:flex;justify-content:center;gap:2px;color:var(--green)}
+.veh-count-cars svg{width:14px;height:14px;stroke-width:2}
+.veh-count-more{width:100%;padding:14px;background:var(--accent);color:#fff;border-radius:13px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 20px rgba(220,38,38,.25)}
+.veh-count-more svg{width:16px;height:16px;stroke-width:2.4}
+
+/* ── Personal (captador, washer) ── */
+.personal-block{background:var(--card);border:.5px solid var(--hair);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow-card)}
+.personal-block-h{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:13.5px;font-weight:700}
+.personal-block-h svg{width:15px;height:15px;color:var(--accent);stroke-width:2}
+.personal-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:540px){.personal-row{grid-template-columns:1fr}}
+.personal-item label{display:block;font-size:11px;font-weight:700;color:var(--ink-2);margin-bottom:5px;letter-spacing:.3px}
+.personal-item label em{font-style:normal;color:var(--muted);font-weight:500;margin-left:4px;font-size:10.5px}
+.personal-item select{width:100%;padding:11px 13px;background:var(--bg-soft);border:.5px solid var(--hair);border-radius:10px;outline:none;font-size:13.5px}
+.personal-item select:focus{border-color:var(--accent);background:#fff}
+
+/* ── Factura ── */
+.factura-toggle{background:var(--accent);color:#fff;border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;margin-bottom:14px;cursor:pointer;box-shadow:0 6px 16px rgba(220,38,38,.2)}
+.factura-toggle-icon{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.factura-toggle-icon svg{width:18px;height:18px;color:#fff;stroke-width:2}
+.factura-toggle-text{flex:1}
+.factura-toggle-text h3{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.factura-toggle-text p{font-size:11.5px;opacity:.85;margin-top:1px}
+.switch{position:relative;width:44px;height:26px;background:rgba(255,255,255,.25);border-radius:99px;transition:background .15s;flex-shrink:0}
+.switch::after{content:'';position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.factura-toggle.active .switch{background:rgba(0,200,0,.4)}
+.factura-toggle.active .switch::after{transform:translateX(18px)}
+
+.factura-fields{display:none;background:var(--card);border:.5px solid var(--hair);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow-card)}
+.factura-fields.show{display:block}
+
+/* ── Carrito (mini) ── */
+.cart-mini{background:var(--card);border:.5px solid var(--hair);border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow-card)}
+.cart-veh{padding:10px 0;border-top:.5px solid var(--hair-2)}
+.cart-veh:first-child{border-top:0;padding-top:0}
+.cart-veh-title{font-size:13.5px;font-weight:700;letter-spacing:-.3px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between}
+.cart-veh-title small{font-size:10.5px;color:var(--muted);font-weight:600;background:var(--bg-soft);padding:2px 7px;border-radius:99px}
+.cart-svc-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-2);padding:3px 0}
+.cart-svc-row.add{color:var(--green);font-weight:600}
+.cart-svc-row.add::before{content:'+ '}
+.cart-subtotal{padding-top:6px;margin-top:6px;border-top:.5px dashed var(--hair-2);display:flex;justify-content:space-between;font-size:12.5px;font-weight:700}
+.cart-total{padding:14px 0 4px;display:flex;justify-content:space-between;font-size:22px;font-weight:800;border-top:1px solid var(--ink);margin-top:10px}
+.cart-total .green{color:var(--green)}
+
+/* ── Resumen card ── */
+.resumen-card{background:var(--card);border:.5px solid var(--hair);border-radius:14px;box-shadow:var(--shadow-card);overflow:hidden}
+.resumen-row{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-top:.5px solid var(--hair-2);font-size:13.5px}
+.resumen-row:first-child{border-top:0}
+.resumen-row span{color:var(--muted)}
+.resumen-row strong{font-weight:700;text-align:right;max-width:60%}
+
+/* ── Firma ── */
+.firma-wrap{background:var(--card);border:.5px solid var(--hair);border-radius:14px;padding:12px;margin-top:14px;box-shadow:var(--shadow-card)}
+.firma-canvas{width:100%;height:180px;background:#FAFAFA;border:1px dashed var(--hair);border-radius:11px;touch-action:none;cursor:crosshair}
+.firma-toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
+.firma-toolbar span{font-size:11.5px;color:var(--muted);font-weight:500}
+.firma-toolbar button{padding:7px 13px;border-radius:9px;font-size:11.5px;font-weight:600;background:var(--bg-soft);color:var(--ink)}
+
+@supports (padding:env(safe-area-inset-bottom)){
+  .bottom-bar{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+  .wrap{padding-bottom:calc(130px + env(safe-area-inset-bottom))}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="tb-back" onclick="history.length>1 ? history.back() : location.href='index.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <div class="tb-title">FICHA CLIENTE</div>
+</header>
+
+<div class="steps">
+  <button class="step active" data-step="cliente" onclick="goStep('cliente')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Cliente</button>
+  <div class="step-sep"></div>
+  <button class="step" data-step="vehiculos" onclick="goStep('vehiculos')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/></svg>Vehículos</button>
+  <div class="step-sep"></div>
+  <button class="step" data-step="reserva" onclick="goStep('reserva')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Reserva</button>
+  <div class="step-sep"></div>
+  <button class="step" data-step="firma" onclick="goStep('firma')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Firma</button>
+  <div class="step-sep"></div>
+  <button class="step" data-step="personal" onclick="goStep('personal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Personal</button>
+</div>
+
+<main class="wrap">
+
+  <!-- ════════ PASO 1: CLIENTE ════════ -->
+  <section class="pane active" data-pane="cliente">
+    <div class="pane-title">Datos del cliente</div>
+    <div class="pane-sub">Nombre y teléfono son obligatorios. Si es cliente existente, escribí su teléfono y autocompletamos.</div>
+
+    <div class="field">
+      <label>Nombre completo</label>
+      <input id="cNombre" type="text" placeholder="Ej: María García" autocapitalize="words">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Teléfono / WhatsApp</label>
+        <input id="cTel" type="tel" placeholder="+34 612 345 678" inputmode="tel" onchange="autocompletarCliente()">
+      </div>
+      <div class="field">
+        <label>Matrícula del vehículo 1</label>
+        <input id="cMatricula" type="text" placeholder="1234 ABC" autocapitalize="characters">
+      </div>
+    </div>
+    <div class="field">
+      <label>Email (opcional, para link del albarán)</label>
+      <input id="cEmail" type="email" placeholder="cliente@email.com" inputmode="email">
+    </div>
+    <div class="field">
+      <label>Nota interna (opcional)</label>
+      <textarea id="cNota" rows="2" placeholder="Cliente recurrente, prefiere productos sin perfume..."></textarea>
+    </div>
+  </section>
+
+  <!-- ════════ PASO 2: VEHÍCULOS ════════ -->
+  <section class="pane" data-pane="vehiculos">
+    <div class="veh-count" id="vehCountWrap">
+      <div class="veh-count-h">¿Cuántos vehículos?</div>
+      <div class="veh-count-grid">
+        <button class="veh-count-btn active" data-n="1">
+          <div class="veh-count-cars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg></div>
+          <div class="veh-count-num">1</div><div class="veh-count-l">vehículo</div>
+        </button>
+        <button class="veh-count-btn" data-n="2">
+          <div class="veh-count-cars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg></div>
+          <div class="veh-count-num">2</div><div class="veh-count-l">vehículos</div>
+        </button>
+        <button class="veh-count-btn" data-n="3">
+          <div class="veh-count-cars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg></div>
+          <div class="veh-count-num">3</div><div class="veh-count-l">vehículos</div>
+        </button>
+        <button class="veh-count-btn" data-n="4">
+          <div class="veh-count-cars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/></svg></div>
+          <div class="veh-count-num">4</div><div class="veh-count-l">vehículos</div>
+        </button>
+      </div>
+      <button class="veh-count-more" onclick="addMoreVehiculo()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        + Más vehículos
+      </button>
+    </div>
+
+    <div id="vehDetalles"></div>
+  </section>
+
+  <!-- ════════ PASO 3: RESERVA (servicios + factura) ════════ -->
+  <section class="pane" data-pane="reserva">
+    <div class="subnav">
+      <button onclick="goStep('vehiculos')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Cambiar vehículo
+      </button>
+      <button class="right" onclick="confirmarVeh()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Confirmar vehículo <span id="vehNumLbl">1</span>
+      </button>
+    </div>
+
+    <div class="veh-active" id="vehActiveBar">
+      <div class="veh-active-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/></svg>
+      </div>
+      <div class="veh-active-info">
+        <div class="veh-active-name" id="vehActiveName">—</div>
+        <div class="veh-active-sub" id="vehActiveSub">Selecciona servicio</div>
+      </div>
+      <div class="talla-pill" id="vehActiveTalla">XL</div>
+    </div>
+
+    <div class="tabs3">
+      <button class="tab3 active" data-tab="servicios" onclick="selectTab('servicios')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Servicios
+      </button>
+      <button class="tab3" data-tab="otros" onclick="selectTab('otros')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Otros servicios
+      </button>
+      <button class="tab3" data-tab="extras" onclick="selectTab('extras')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Solo extras
+      </button>
+    </div>
+
+    <div class="svc-grid" id="svcGrid"></div>
+
+    <div class="extra-pers">
+      <div class="extra-pers-h">Servicio personalizado</div>
+      <div class="extra-pers-p">¿Cobrás algo especial? Ponele el nombre y precio que vos quieras.</div>
+      <div class="extra-pers-grid">
+        <input id="epNombre" type="text" placeholder="Nombre del servicio">
+        <input id="epPrecio" type="number" inputmode="decimal" step="0.01" placeholder="0,00 €">
+      </div>
+      <button class="extra-pers-add" onclick="addPersonalizado()">+ Añadir al albarán</button>
+    </div>
+  </section>
+
+  <!-- ════════ PASO 4: FIRMA ════════ -->
+  <section class="pane" data-pane="firma">
+    <div class="pane-title">Firma del cliente</div>
+    <div class="pane-sub">Confirmá los datos y pedile al cliente que firme.</div>
+
+    <div class="cart-mini" id="cartMini"></div>
+
+    <div class="firma-wrap">
+      <canvas class="firma-canvas" id="firmaCanvas"></canvas>
+      <div class="firma-toolbar">
+        <span>Firma con el dedo sobre la zona gris</span>
+        <button onclick="limpiarFirma()">Borrar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PASO 5: PERSONAL + FACTURA + FECHA ════════ -->
+  <section class="pane" data-pane="personal">
+    <div class="pane-title">Personal asignado</div>
+    <div class="pane-sub">Centro, fecha, hora, captador y limpiador. Luego facturación si la pide.</div>
+
+    <div class="personal-block">
+      <div class="personal-block-h">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Centro, fecha y hora
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Centro</label><select id="pCentro"></select></div>
+        <div class="field"><label>Fecha</label><input id="pFecha" type="date"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Hora llegada</label><input id="pLlegada" type="time" step="900" value="09:00"></div>
+        <div class="field"><label>Hora salida estimada</label><input id="pSalida" type="time" step="900" value="11:00"></div>
+      </div>
+    </div>
+
+    <div class="personal-block">
+      <div class="personal-block-h">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        Personal del equipo <em style="font-style:normal;font-weight:500;color:var(--muted);font-size:11.5px;margin-left:8px">opcional</em>
+      </div>
+      <div class="personal-row">
+        <div class="personal-item">
+          <label>Captador <em>(quien capta en el parking)</em></label>
+          <select id="pCaptador"><option value="">— Sin asignar —</option></select>
+        </div>
+        <div class="personal-item">
+          <label>Vendedor <em>(quien vende el servicio)</em></label>
+          <select id="pVendedor"><option value="">— Sin asignar —</option></select>
+        </div>
+      </div>
+      <div class="personal-row" style="margin-top:10px">
+        <div class="personal-item">
+          <label>Personal Washer Interior</label>
+          <select id="pWInt"><option value="">— Sin asignar —</option></select>
+        </div>
+        <div class="personal-item">
+          <label>Personal Washer Exterior</label>
+          <select id="pWExt"><option value="">— Sin asignar —</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="factura-toggle" id="facToggle" onclick="toggleFactura()">
+      <div class="factura-toggle-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="factura-toggle-text">
+        <h3>¿Necesita factura?</h3>
+        <p>Te la enviamos al email que indique</p>
+      </div>
+      <div class="switch"></div>
+    </div>
+
+    <div class="factura-fields" id="facFields">
+      <div class="field"><label>Razón social / Nombre fiscal</label><input id="fRS" type="text" placeholder="Nombre de la empresa o particular"></div>
+      <div class="field"><label>CIF / NIF</label><input id="fNIF" type="text" placeholder="B12345678 / 12345678A"></div>
+      <div class="field"><label>Dirección fiscal</label><input id="fDir" type="text" placeholder="Calle, número, piso"></div>
+      <div class="field-row">
+        <div class="field"><label>Ciudad</label><input id="fCiu" type="text" placeholder="Madrid"></div>
+        <div class="field"><label>Código postal</label><input id="fCP" type="text" placeholder="28001"></div>
+      </div>
+      <div class="field"><label>Email para la factura</label><input id="fEmail" type="email" placeholder="facturacion@empresa.com"></div>
+      <div class="field-help">Te enviaremos la factura al email para que la descargue.</div>
+    </div>
+
+    <div class="cart-mini" id="cartMiniFinal"></div>
+
+  </section>
+
+</main>
+
+<div class="bottom-bar" id="bottomBar">
+  <div class="bottom-bar-inner">
+    <button class="bb-prev" id="bbPrev" onclick="prevStep()" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Anterior
+    </button>
+    <div class="bb-total">
+      <div class="bb-total-lbl">Total albarán</div>
+      <div class="bb-total-val" id="bbVal">0,00 €</div>
+      <div class="bb-total-items" id="bbItems">0 servicios</div>
+    </div>
+    <button class="bb-next" id="bbNext" onclick="nextStep()">
+      <span id="bbNextLbl">Siguiente</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   CATÁLOGO DE SERVICIOS
+═══════════════════════════════════════════════════════════════════════ */
+const SVC_DEFAULT = {
+  servicios: [
+    { id:'lavado_hoy',    name:'Lavado de Hoy',                  desc:'Lavado completo del día. Para mantener el coche siempre listo.', priceM:89, priceL:104, priceXL:104, tag:'popular' },
+    { id:'cambio_temp',   name:'Promoción Cambio de Temporada',   desc:'Lavado integral + protección de temporada. Perfecto para verano o invierno.', priceM:197, priceL:197, priceXL:217, tag:'premium' },
+    { id:'mant',          name:'Lavado de Mantenimiento',         desc:'Lavado de mantenimiento entre lavados completos. 50% off si vuelves en 30 días.', priceM:45, priceL:50, priceXL:55 },
+    { id:'mant_plus',     name:'Lavado de Mantenimiento Plus',    desc:'Lavado mantenimiento + aspirado profundo + olor a nuevo.', priceM:75, priceL:82, priceXL:89 }
+  ],
+  otros: [
+    { id:'lim_int',       name:'Limpieza Interior',               desc:'Aspirado completo, limpieza de consola y salpicadero, cristales interior y exterior.', priceM:39.90, priceL:44.90, priceXL:49.90 },
+    { id:'lim_ext',       name:'Limpieza Exterior',               desc:'Limpieza de la carrocería, cristales y llantas.', priceM:39.90, priceL:44.90, priceXL:49.90 },
+    { id:'lim_pack',      name:'Limpieza Interior + Exterior',    desc:'El pack con 1€ de descuento por reserva online.', priceM:78.80, priceL:88.80, priceXL:98.80, tag:'popular' },
+    { id:'lim_tap',       name:'Limpieza Tapicería',              desc:'Limpieza profunda de tapicería. Máximo 5 asientos.', priceM:139.90, priceL:159.90, priceXL:179.90 },
+    { id:'lim_full',      name:'Limpieza Integral',               desc:'El pack completo: Interior + Exterior + Tapicería.', priceM:212.70, priceL:242.70, priceXL:272.70, tag:'premium' },
+    { id:'abri_3d',       name:'Abrillantado 3D - Pulido',        desc:'Pulido profesional en 4 pasos. Brillo y protección máximos.', priceM:289.90, priceL:329.90, priceXL:369.90, tag:'premium' },
+    { id:'lim_mot',       name:'Limpieza Motor',                  desc:'Levantamos el capó y limpiamos el motor.', priceM:79.90, priceL:79.90, priceXL:89.90 },
+    { id:'nano',          name:'NanoDiamond - Escudo Invisible',  desc:'Escudo cerámico de nanotecnología avanzada. Firma de excelencia.', priceM:949, priceL:1099, priceXL:1249, tag:'premium' },
+    { id:'nano_glass',    name:'Nano4Life CarGlass',              desc:'Protección invisible para cristales. Sellado hidrofóbico.', priceM:204, priceL:224, priceXL:244, tag:'premium' }
+  ],
+  extras: [
+    { id:'ex_pelo',  name:'Pelo de Mascota',             desc:'Eliminación completa con maquinaria especializada.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_barro', name:'Coche con Barro',             desc:'Limpieza especial para barro incrustado.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_alf',   name:'Alfombrillas del Coche',      desc:'Limpieza profunda. Máximo 5 unidades.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_moq',   name:'Moqueta del Coche',           desc:'Limpieza profunda de toda la moqueta.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_cera',  name:'Doble Cera Protectora',       desc:'Doble capa de cera para máxima protección.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_brill', name:'Recuperador Brillo Rápido',   desc:'Brillo rápido estilo concesionario. 15 min.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_pul3d', name:'Pulido por Pieza',            desc:'Pulido profesional por pieza para arañazos.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_piel',  name:'Hidratación Asientos Piel',   desc:'Hidratación y acondicionamiento. Máx. 5 asientos.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_ozono', name:'Desinfección con Ozono',      desc:'Elimina lo que no ves pero respiras.', priceM:49.90, priceL:49.90, priceXL:49.90 },
+    { id:'ex_aire',  name:'Higiene Aire - Air Purifyer', desc:'Renueva el ambiente del coche en minutos.', priceM:39.90, priceL:39.90, priceXL:39.90 },
+    { id:'ex_bebe',  name:'Silla Bebé / Cochecito',      desc:'Limpieza y desinfección.', priceM:24.90, priceL:24.90, priceXL:24.90 },
+    { id:'ex_faro1', name:'Pulido 1 Faro',               desc:'Pulido profesional de un faro.', priceM:34.90, priceL:34.90, priceXL:34.90 },
+    { id:'ex_faro2', name:'Pulido 2 Faros',              desc:'Pulido profesional de ambos faros. ¡Ahorrá 4,90€!', priceM:64.90, priceL:64.90, priceXL:64.90 },
+    { id:'ex_resin', name:'Resina / Alquitrán',          desc:'Eliminación de resina, alquitrán, hollín o pegamento.', priceM:59.90, priceL:59.90, priceXL:59.90 },
+    { id:'ex_graf',  name:'Eliminación de Graffiti',     desc:'Quitar graffiti sin dañar la pintura.', priceM:51.90, priceL:51.90, priceXL:51.90 }
+  ]
+};
+
+let SVC_DATA = SVC_DEFAULT;
+try { const s = localStorage.getItem('alvato_servicios_editados'); if (s) { const p = JSON.parse(s); /* Compat */ SVC_DATA = p.servicios ? p : Object.assign({}, SVC_DEFAULT, p); } } catch(e){}
+
+/* ════════════════════════════════════════════════════════════════════
+   ESTADO
+═══════════════════════════════════════════════════════════════════════ */
+const STATE = {
+  step:'cliente', stepIdx:0,
+  cliente:{ nombre:'', tel:'', email:'', nota:'', matricula:'' },
+  vehiculos:[],            // [{marca, modelo, talla, matricula, tipo:'coche'|'moto'}]
+  vehIdx:0,                // vehículo activo en paso 3
+  seleccionados:{},        // { vehIdx: [{id,name,price,_pers}] }
+  firma:null,
+  tab:'servicios',
+  centro:'', fecha:'', llegada:'09:00', salida:'11:00',
+  captador:'', vendedor:'', wInt:'', wExt:'',
+  facturaActiva:false,
+  factura:{ rs:'', nif:'', dir:'', ciu:'', cp:'', email:'' },
+  reservaPrellena:null     // si viene ?prefill=...
+};
+const STEPS = ['cliente','vehiculos','reserva','firma','personal'];
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function fmt(n){ return Number(n||0).toFixed(2).replace('.',',') + ' €'; }
+
+/* ════════════════════════════════════════════════════════════════════
+   NAVEGACIÓN
+═══════════════════════════════════════════════════════════════════════ */
+function goStep(s){
+  const idx = STEPS.indexOf(s);
+  if (idx < 0) return;
+  STATE.step = s; STATE.stepIdx = idx;
+  document.querySelectorAll('.pane').forEach(p => p.classList.toggle('active', p.dataset.pane === s));
+  document.querySelectorAll('.step').forEach((b,i) => { b.classList.toggle('active', b.dataset.step === s); b.classList.toggle('done', i < idx); });
+  $('bbPrev').style.display = idx === 0 ? 'none' : 'inline-flex';
+  $('bbNextLbl').textContent = (s === 'personal') ? 'Crear reserva' : (s === 'firma' ? 'Continuar' : 'Siguiente');
+  if (s === 'vehiculos') renderVehiculos();
+  if (s === 'reserva')   renderServicios();
+  if (s === 'firma')     refreshFirma();
+  if (s === 'personal')  refreshPersonal();
+  window.scrollTo(0,0);
+}
+window.goStep = goStep;
+
+function nextStep(){
+  if (STATE.step === 'cliente') {
+    STATE.cliente.nombre = $('cNombre').value.trim();
+    STATE.cliente.tel    = $('cTel').value.trim();
+    STATE.cliente.email  = $('cEmail').value.trim();
+    STATE.cliente.nota   = $('cNota').value.trim();
+    STATE.cliente.matricula = $('cMatricula').value.trim().toUpperCase();
+    if (!STATE.cliente.nombre || !STATE.cliente.tel) { alert('Nombre y teléfono son obligatorios'); return; }
+  }
+  if (STATE.step === 'vehiculos') {
+    if (!STATE.vehiculos.length || STATE.vehiculos.some(v => !v.marca || !v.modelo)) {
+      alert('Completá la marca y modelo de cada vehículo'); return;
+    }
+    STATE.vehIdx = 0;
+  }
+  if (STATE.step === 'reserva') {
+    const tot = Object.values(STATE.seleccionados).flat().length;
+    if (!tot) { alert('Añadí al menos un servicio'); return; }
+  }
+  if (STATE.step === 'personal') {
+    crearReserva();
+    return;
+  }
+  goStep(STEPS[Math.min(STATE.stepIdx + 1, STEPS.length - 1)]);
+}
+function prevStep(){ goStep(STEPS[Math.max(STATE.stepIdx - 1, 0)]); }
+window.nextStep = nextStep; window.prevStep = prevStep;
+
+/* ════════════════════════════════════════════════════════════════════
+   PASO 1: autocompletar cliente desde historial
+═══════════════════════════════════════════════════════════════════════ */
+function autocompletarCliente(){
+  const tel = $('cTel').value.trim().replace(/[^0-9+]/g,'');
+  if (!tel || tel.length < 5) return;
+  /* Buscar en albaranes guardados */
+  try {
+    const all = JSON.parse(localStorage.getItem('alvato_albaranes') || '[]');
+    const m = all.find(a => String(a.cliente?.tel||'').replace(/[^0-9+]/g,'') === tel);
+    if (m && !$('cNombre').value) {
+      $('cNombre').value = m.cliente.nombre || '';
+      if (m.cliente.email && !$('cEmail').value) $('cEmail').value = m.cliente.email;
+      if (m.vehiculos?.[0]?.matricula && !$('cMatricula').value) $('cMatricula').value = m.vehiculos[0].matricula;
+    }
+  } catch(e){}
+}
+window.autocompletarCliente = autocompletarCliente;
+
+/* ════════════════════════════════════════════════════════════════════
+   PASO 2: VEHÍCULOS
+═══════════════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.veh-count-btn').forEach(b => b.addEventListener('click', () => {
+  const n = Number(b.dataset.n);
+  document.querySelectorAll('.veh-count-btn').forEach(x => x.classList.toggle('active', x === b));
+  setVehiculosCount(n);
+}));
+function addMoreVehiculo(){
+  setVehiculosCount(STATE.vehiculos.length + 1);
+  document.querySelectorAll('.veh-count-btn').forEach(b => b.classList.remove('active'));
+}
+window.addMoreVehiculo = addMoreVehiculo;
+
+function setVehiculosCount(n){
+  /* Si crece, añadir; si decrece, recortar */
+  while (STATE.vehiculos.length < n) STATE.vehiculos.push({ tipo:'coche', marca:'', modelo:'', talla:'M', matricula:'' });
+  if (STATE.vehiculos.length > n) STATE.vehiculos = STATE.vehiculos.slice(0, n);
+  renderVehiculos();
+}
+
+function renderVehiculos(){
+  const cont = $('vehDetalles');
+  if (!STATE.vehiculos.length) { setVehiculosCount(1); return; }
+  cont.innerHTML = STATE.vehiculos.map((v,i) => `
+    <div class="modelos-wrap" data-veh="${i}">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/></svg>
+        <strong style="font-size:14.5px;letter-spacing:-.3px">Vehículo ${i+1} de ${STATE.vehiculos.length}</strong>
+        ${STATE.vehiculos.length > 1 ? `<button onclick="quitarVeh(${i})" style="margin-left:auto;font-size:11.5px;color:var(--accent);font-weight:600">Quitar</button>` : ''}
+      </div>
+      <div class="tipo-veh">
+        <button class="tipo-btn ${v.tipo==='coche'?'active':''}" onclick="setTipo(${i},'coche')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-6l2-5h14l2 5v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/></svg>
+          Coche
+        </button>
+        <button class="tipo-btn ${v.tipo==='moto'?'active':''}" onclick="setTipo(${i},'moto')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="m15 6 4 6h-7L9 6h6z"/></svg>
+          Moto
+        </button>
+      </div>
+
+      <div class="field marca-search">
+        <label>Marca</label>
+        <svg class="lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="vMarcaInput" data-veh="${i}" placeholder="Escribí la marca (ej: Audi, BMW...)" value="${esc(v.marca)}" autocomplete="off">
+        <button class="clear-btn ${v.marca?'show':''}" data-veh="${i}" onclick="clearMarca(${i})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="marca-dropdown" data-veh="${i}"></div>
+      </div>
+
+      <div id="modelos-${i}"></div>
+
+      <div class="field-row" style="margin-top:10px">
+        <div class="field">
+          <label>Matrícula</label>
+          <input type="text" class="vMat" data-veh="${i}" placeholder="1234 ABC" value="${esc(v.matricula)}" autocapitalize="characters">
+        </div>
+        <div class="field">
+          <label>Talla (auto desde modelo)</label>
+          <input type="text" class="vTalla" data-veh="${i}" value="${esc(v.talla||'M')}" readonly style="background:var(--bg-soft)">
+        </div>
+      </div>
+    </div>
+  `).join('');
+  /* Activar marca-search en cada vehículo */
+  cont.querySelectorAll('.vMarcaInput').forEach(inp => {
+    inp.addEventListener('input', e => onMarcaInput(Number(inp.dataset.veh), e.target.value));
+    inp.addEventListener('blur',  e => setTimeout(() => closeDropdown(Number(inp.dataset.veh)), 200));
+  });
+  cont.querySelectorAll('.vMat').forEach(inp => inp.addEventListener('input', e => STATE.vehiculos[Number(inp.dataset.veh)].matricula = e.target.value.toUpperCase()));
+  STATE.vehiculos.forEach((_, i) => renderModelos(i));
+}
+
+function setTipo(i, tipo){ STATE.vehiculos[i].tipo = tipo; renderVehiculos(); }
+function quitarVeh(i){ STATE.vehiculos.splice(i, 1); renderVehiculos(); }
+window.setTipo = setTipo; window.quitarVeh = quitarVeh; window.clearMarca = (i) => { STATE.vehiculos[i].marca=''; STATE.vehiculos[i].modelo=''; renderVehiculos(); };
+
+function onMarcaInput(idx, q){
+  STATE.vehiculos[idx].marca = q;
+  STATE.vehiculos[idx].modelo = '';
+  const drop = document.querySelector(`.marca-dropdown[data-veh="${idx}"]`);
+  const clear = document.querySelector(`.clear-btn[data-veh="${idx}"]`);
+  clear.classList.toggle('show', !!q);
+  q = q.toLowerCase().trim();
+  if (!q) { drop.classList.remove('show'); renderModelos(idx); return; }
+  const marcas = Object.keys(window.MODELOS_COCHES || {}).filter(m => m.toLowerCase().includes(q)).slice(0,20);
+  if (!marcas.length) { drop.innerHTML = `<div class="marca-item" style="color:var(--muted)">Marca no listada · podés escribirla manualmente</div>`; drop.classList.add('show'); return; }
+  drop.innerHTML = marcas.map(m => {
+    const i = m.toLowerCase().indexOf(q);
+    return `<div class="marca-item" data-veh="${idx}" data-marca="${esc(m)}">${esc(m.slice(0,i))}<strong>${esc(m.slice(i,i+q.length))}</strong>${esc(m.slice(i+q.length))}</div>`;
+  }).join('');
+  drop.classList.add('show');
+  drop.querySelectorAll('.marca-item[data-marca]').forEach(el => el.addEventListener('click', () => seleccionarMarca(idx, el.dataset.marca)));
+}
+
+function seleccionarMarca(idx, marca){
+  STATE.vehiculos[idx].marca = marca;
+  STATE.vehiculos[idx].modelo = '';
+  document.querySelector(`.vMarcaInput[data-veh="${idx}"]`).value = marca;
+  document.querySelector(`.clear-btn[data-veh="${idx}"]`).classList.add('show');
+  closeDropdown(idx);
+  renderModelos(idx);
+}
+function closeDropdown(idx){ const drop = document.querySelector(`.marca-dropdown[data-veh="${idx}"]`); if (drop) drop.classList.remove('show'); }
+
+function renderModelos(idx){
+  const v = STATE.vehiculos[idx];
+  const cont = document.getElementById('modelos-'+idx);
+  if (!cont) return;
+  const marca = v.marca || '';
+  const modelos = (window.MODELOS_COCHES||{})[marca] || [];
+  if (!modelos.length) {
+    cont.innerHTML = `
+      <div class="modelos-h" style="margin-top:10px">Modelo</div>
+      <input type="text" class="vModeloManual" data-veh="${idx}" placeholder="Escribí el modelo a mano" value="${esc(v.modelo)}" style="width:100%;padding:13px 14px;background:var(--bg-soft);border:.5px solid var(--hair);border-radius:12px;outline:none">
+      <div class="field-help" style="margin-top:6px">No tenemos lista para esta marca. Escribilo a mano.</div>
+    `;
+    cont.querySelector('.vModeloManual').addEventListener('input', e => { STATE.vehiculos[idx].modelo = e.target.value; });
+    return;
+  }
+  cont.innerHTML = `
+    <div class="modelos-h">Modelo</div>
+    <div class="modelos-grid">
+      ${modelos.map(m => {
+        const [nombre, talla] = m;
+        const isSel = v.modelo === nombre;
+        const isSuv = talla.includes('SUV');
+        const t = talla.replace('-SUV','');
+        return `<button class="modelo ${isSel?'active':''}" onclick="elegirModelo(${idx},'${esc(nombre)}','${esc(talla)}')">
+          <span class="modelo-n">${esc(nombre)}</span>
+          <span><span class="modelo-t ${t}">${t}</span>${isSuv ? '<span class="modelo-t SUV">SUV</span>' : ''}</span>
+        </button>`;
+      }).join('')}
+    </div>
+    <button class="modelo-no-listado" style="margin-top:10px" onclick="modeloManual(${idx})">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Modelo no listado
+    </button>
+  `;
+}
+function elegirModelo(idx, nombre, talla){
+  STATE.vehiculos[idx].modelo = nombre;
+  STATE.vehiculos[idx].talla = talla.replace('-SUV','') === 'SUV' ? 'XL' : talla.split('-')[0];
+  renderModelos(idx);
+  document.querySelector(`.vTalla[data-veh="${idx}"]`).value = STATE.vehiculos[idx].talla;
+}
+function modeloManual(idx){
+  const m = prompt('Escribí el modelo:', STATE.vehiculos[idx].modelo || '');
+  if (m === null) return;
+  STATE.vehiculos[idx].modelo = m.trim();
+  const t = prompt('Talla (M/L/XL):', STATE.vehiculos[idx].talla || 'M');
+  if (t) STATE.vehiculos[idx].talla = t.trim().toUpperCase();
+  renderVehiculos();
+}
+window.elegirModelo = elegirModelo; window.modeloManual = modeloManual;
+
+/* ════════════════════════════════════════════════════════════════════
+   PASO 3: RESERVA (servicios)
+═══════════════════════════════════════════════════════════════════════ */
+function selectTab(t){
+  STATE.tab = t;
+  document.querySelectorAll('.tab3').forEach(x => x.classList.toggle('active', x.dataset.tab === t));
+  renderServicios();
+}
+window.selectTab = selectTab;
+
+function renderServicios(){
+  const v = STATE.vehiculos[STATE.vehIdx] || { marca:'', modelo:'', talla:'M' };
+  $('vehActiveName').textContent = `${v.marca} ${v.modelo}` || 'Sin vehículo';
+  $('vehActiveSub').textContent  = v.matricula ? `Matrícula ${v.matricula}` : 'Selecciona servicios';
+  $('vehActiveTalla').textContent = 'Talla ' + (v.talla||'M');
+  $('vehNumLbl').textContent = (STATE.vehIdx+1);
+
+  const lista = SVC_DATA[STATE.tab] || [];
+  const selV = STATE.seleccionados[STATE.vehIdx] || [];
+  const talla = v.talla || 'M';
+  $('svcGrid').innerHTML = lista.map(s => {
+    const price = (talla === 'XL' ? s.priceXL : talla === 'L' ? s.priceL : s.priceM);
+    const sel = selV.find(x => x.id === s.id);
+    const tag = s.tag === 'popular' ? `<span class="svc-tag popular"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>Popular</span>` : '';
+    const tag2 = s.tag === 'premium' ? `<span class="svc-tag premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>Premium</span>` : '';
+    return `<div class="svc ${s.tag||''} ${sel?'selected':''}" onclick="toggleSvc('${s.id}', ${price})">
+      <div class="svc-badges">${tag||tag2||'<span></span>'}<span class="svc-tag size">Talla ${talla}</span></div>
+      <div class="svc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="svc-name">${esc(s.name)}</div>
+      <div class="svc-desc">${esc(s.desc||'')}</div>
+      <div class="svc-foot"><div class="svc-price">${fmt(price)}</div><div class="svc-mas">${sel?'Quitar':'+ Añadir'}</div></div>
+    </div>`;
+  }).join('');
+}
+function toggleSvc(id, price){
+  if (!STATE.seleccionados[STATE.vehIdx]) STATE.seleccionados[STATE.vehIdx] = [];
+  const arr = STATE.seleccionados[STATE.vehIdx];
+  const idx = arr.findIndex(x => x.id === id);
+  if (idx >= 0) arr.splice(idx, 1);
+  else {
+    const lista = [...SVC_DATA.servicios, ...SVC_DATA.otros, ...SVC_DATA.extras];
+    const s = lista.find(x => x.id === id);
+    if (s) arr.push({ id, name:s.name, price });
+  }
+  refreshBottomBar();
+  renderServicios();
+}
+function addPersonalizado(){
+  const n = $('epNombre').value.trim();
+  const p = parseFloat($('epPrecio').value);
+  if (!n || isNaN(p)) { alert('Falta nombre o precio del servicio personalizado'); return; }
+  if (!STATE.seleccionados[STATE.vehIdx]) STATE.seleccionados[STATE.vehIdx] = [];
+  STATE.seleccionados[STATE.vehIdx].push({ id:'pers_'+Date.now(), name:n, price:p, _pers:true });
+  $('epNombre').value = ''; $('epPrecio').value = '';
+  refreshBottomBar(); renderServicios();
+}
+window.toggleSvc = toggleSvc; window.addPersonalizado = addPersonalizado;
+
+function confirmarVeh(){
+  if (STATE.vehIdx < STATE.vehiculos.length - 1) {
+    STATE.vehIdx++;
+    renderServicios();
+    window.scrollTo({ top:0, behavior:'smooth' });
+  } else {
+    nextStep();
+  }
+}
+window.confirmarVeh = confirmarVeh;
+
+function totalAlbaran(){
+  let total = 0, cnt = 0;
+  Object.values(STATE.seleccionados).forEach(arr => arr.forEach(x => { total += x.price; cnt++; }));
+  return { total, cnt };
+}
+function refreshBottomBar(){
+  const { total, cnt } = totalAlbaran();
+  $('bbVal').textContent   = fmt(total);
+  $('bbItems').textContent = cnt + ' servicios';
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PASO 4: FIRMA
+═══════════════════════════════════════════════════════════════════════ */
+let firmaCtx = null, firmaDrawing = false;
+function setupFirma(){
+  const c = $('firmaCanvas');
+  const dpr = window.devicePixelRatio || 1;
+  c.width = c.offsetWidth * dpr; c.height = c.offsetHeight * dpr;
+  firmaCtx = c.getContext('2d'); firmaCtx.scale(dpr, dpr);
+  firmaCtx.lineCap='round'; firmaCtx.lineJoin='round'; firmaCtx.lineWidth=2.5; firmaCtx.strokeStyle='#1D1D1F';
+  const pos = e => { const r = c.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return { x:t.clientX-r.left, y:t.clientY-r.top }; };
+  const st = e => { e.preventDefault(); firmaDrawing = true; const p = pos(e); firmaCtx.beginPath(); firmaCtx.moveTo(p.x, p.y); };
+  const mv = e => { if (!firmaDrawing) return; e.preventDefault(); const p = pos(e); firmaCtx.lineTo(p.x, p.y); firmaCtx.stroke(); };
+  const en = () => { firmaDrawing = false; STATE.firma = c.toDataURL('image/png'); };
+  c.addEventListener('mousedown', st); c.addEventListener('mousemove', mv); c.addEventListener('mouseup', en); c.addEventListener('mouseleave', en);
+  c.addEventListener('touchstart', st, {passive:false}); c.addEventListener('touchmove', mv, {passive:false}); c.addEventListener('touchend', en);
+}
+function refreshFirma(){
+  const { total } = totalAlbaran();
+  $('cartMini').innerHTML = STATE.vehiculos.map((v,i) => {
+    const sel = STATE.seleccionados[i] || [];
+    const sub = sel.reduce((s,x)=>s+x.price, 0);
+    return `<div class="cart-veh">
+      <div class="cart-veh-title">${esc(v.marca)} ${esc(v.modelo)} <small>${v.talla||'M'}</small></div>
+      ${sel.map(s => `<div class="cart-svc-row ${s._pers?'add':''}"><span>${esc(s.name)}</span><span>${fmt(s.price)}</span></div>`).join('') || '<div style="color:var(--muted);font-size:12.5px">Sin servicios</div>'}
+      <div class="cart-subtotal"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+    </div>`;
+  }).join('') + `<div class="cart-total"><span>Total</span><span class="green">${fmt(total)}</span></div>`;
+  if (!firmaCtx) setTimeout(setupFirma, 50);
+}
+function limpiarFirma(){ if (!firmaCtx) return; const c = $('firmaCanvas'); firmaCtx.clearRect(0,0,c.width,c.height); STATE.firma = null; }
+window.limpiarFirma = limpiarFirma;
+
+/* ════════════════════════════════════════════════════════════════════
+   PASO 5: PERSONAL
+═══════════════════════════════════════════════════════════════════════ */
+function refreshPersonal(){
+  /* Centros del config */
+  const centros = (window.CONFIG?.centros || []);
+  const empSession = (() => { try { return JSON.parse(localStorage.getItem('alvato-emp-current')||'null'); } catch(e){ return null; } })();
+  const centroEmp = empSession?.centro || 'cas';
+  $('pCentro').innerHTML = centros.map(c => `<option value="${c.id}" ${c.id===centroEmp?'selected':''}>${esc(c.nombre || c.ciudad)}</option>`).join('');
+  if (!STATE.centro) STATE.centro = centroEmp;
+  $('pFecha').value = STATE.fecha || new Date().toISOString().slice(0,10);
+  /* Lista de empleados (demo: del mismo centro) */
+  const personalDemo = [
+    { user:'jhonatan', name:'Jhonatan Hernandez' },
+    { user:'gabriela', name:'Gabriela Pérez' },
+    { user:'maria',    name:'María García' },
+    { user:'antonio',  name:'Antonio Ruiz' }
+  ];
+  const opts = `<option value="">— Sin asignar —</option>` + personalDemo.map(p => `<option value="${p.user}">${esc(p.name)}</option>`).join('');
+  ['pCaptador','pVendedor','pWInt','pWExt'].forEach(id => $(id).innerHTML = opts);
+  /* Carrito final */
+  const { total } = totalAlbaran();
+  $('cartMiniFinal').innerHTML = STATE.vehiculos.map((v,i) => {
+    const sel = STATE.seleccionados[i] || [];
+    const sub = sel.reduce((s,x)=>s+x.price, 0);
+    return `<div class="cart-veh">
+      <div class="cart-veh-title">${esc(v.marca)} ${esc(v.modelo)} <small>${v.talla||'M'}</small></div>
+      ${sel.map(s => `<div class="cart-svc-row ${s._pers?'add':''}"><span>${esc(s.name)}</span><span>${fmt(s.price)}</span></div>`).join('')}
+      <div class="cart-subtotal"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+    </div>`;
+  }).join('') + `<div class="cart-total"><span>Total</span><span class="green">${fmt(total)}</span></div>`;
+}
+
+function toggleFactura(){
+  STATE.facturaActiva = !STATE.facturaActiva;
+  $('facToggle').classList.toggle('active', STATE.facturaActiva);
+  $('facFields').classList.toggle('show', STATE.facturaActiva);
+}
+window.toggleFactura = toggleFactura;
+
+/* ════════════════════════════════════════════════════════════════════
+   CREAR RESERVA / ALBARÁN
+═══════════════════════════════════════════════════════════════════════ */
+function crearReserva(){
+  /* Capturar todos los campos */
+  STATE.centro   = $('pCentro').value;
+  STATE.fecha    = $('pFecha').value;
+  STATE.llegada  = $('pLlegada').value;
+  STATE.salida   = $('pSalida').value;
+  STATE.captador = $('pCaptador').value;
+  STATE.vendedor = $('pVendedor').value;
+  STATE.wInt     = $('pWInt').value;
+  STATE.wExt     = $('pWExt').value;
+  if (STATE.facturaActiva) {
+    STATE.factura = {
+      rs: $('fRS').value, nif: $('fNIF').value, dir: $('fDir').value,
+      ciu: $('fCiu').value, cp: $('fCP').value, email: $('fEmail').value
+    };
+  }
+
+  const { total } = totalAlbaran();
+  const id = 'ALV-' + Date.now() + '-' + Math.floor(Math.random()*999);
+  const albaran = {
+    id,
+    fecha: STATE.fecha,
+    llegada: STATE.llegada,
+    salida: STATE.salida,
+    centro: STATE.centro,
+    cliente: STATE.cliente,
+    vehiculos: STATE.vehiculos.map((v,i) => ({ ...v, servicios: STATE.seleccionados[i] || [] })),
+    total,
+    firma: STATE.firma,
+    captador: STATE.captador, vendedor: STATE.vendedor,
+    wInt: STATE.wInt, wExt: STATE.wExt,
+    factura: STATE.facturaActiva ? STATE.factura : null,
+    creadoAt: new Date().toISOString()
+  };
+  /* Guardar en localStorage */
+  let all = []; try { all = JSON.parse(localStorage.getItem('alvato_albaranes')||'[]'); } catch(e){}
+  all.unshift(albaran);
+  localStorage.setItem('alvato_albaranes', JSON.stringify(all));
+  /* También agregarlo como reserva al panel del empleado */
+  const empSession = (() => { try { return JSON.parse(localStorage.getItem('alvato-emp-current')||'null'); } catch(e){ return null; } })();
+  if (empSession) {
+    let resv = []; try { resv = JSON.parse(localStorage.getItem('alvato-emp-reservas-'+empSession.user)||'[]'); } catch(e){}
+    const fechaFmt = (() => { const [y,m,d] = STATE.fecha.split('-'); return `${d}/${m}/${y}`; })();
+    STATE.vehiculos.forEach((v,i) => {
+      const sel = STATE.seleccionados[i] || [];
+      const subTotal = sel.reduce((s,x)=>s+x.price, 0);
+      resv.push({
+        'ID':'B-'+albaran.id+'-'+i,
+        'Nombre':STATE.cliente.nombre,
+        'Teléfono':STATE.cliente.tel,
+        'Email':STATE.cliente.email,
+        'Servicio': sel.map(s => s.name).join(' + '),
+        'Fecha':fechaFmt,'Fecha ISO':STATE.fecha,
+        'Hora':STATE.llegada,
+        'Total':subTotal,
+        'Centro':STATE.centro,'CentroID':STATE.centro,
+        'Estado':'pendiente',
+        'Empleado':STATE.wExt || STATE.wInt || empSession.user,
+        'Albaran':albaran.id,
+        'Matricula':v.matricula,
+        '_local':true
+      });
+    });
+    localStorage.setItem('alvato-emp-reservas-'+empSession.user, JSON.stringify(resv));
+  }
+  /* Abrir la vista compartible del albarán */
+  location.href = `albaran-vista.html?id=${id}`;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PRELLENADO desde una reserva web (URL ?prefill=B-001)
+═══════════════════════════════════════════════════════════════════════ */
+function prellenarSiHayQuery(){
+  const params = new URLSearchParams(location.search);
+  const pre = params.get('prefill');
+  if (!pre) return;
+  const empSession = (() => { try { return JSON.parse(localStorage.getItem('alvato-emp-current')||'null'); } catch(e){ return null; } })();
+  if (!empSession) return;
+  let resv = [];
+  try { resv = JSON.parse(localStorage.getItem('alvato-emp-reservas-'+empSession.user)||'[]'); } catch(e){}
+  const r = resv.find(x => x['ID'] === pre);
+  if (!r) return;
+  $('cNombre').value = r['Nombre']||'';
+  $('cTel').value    = r['Teléfono']||'';
+  $('cEmail').value  = r['Email']||'';
+  $('cMatricula').value = r['Matricula']||'';
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   INICIO
+═══════════════════════════════════════════════════════════════════════ */
+setVehiculosCount(1);
+refreshBottomBar();
+prellenarSiHayQuery();
+</script>
+
+</body>
+</html>

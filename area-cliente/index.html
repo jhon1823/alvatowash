@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Club VIP · Alvatowash</title>
+<meta name="description" content="Tu área cliente VIP. Acumula puntos, canjea recompensas, invita amigos."/>
+<meta name="robots" content="noindex, follow"/>
+<meta name="theme-color" content="#0A0A0B"/>
+<link rel="canonical" href="https://lavadoybrillo.com/area-cliente/"/>
+<link rel="icon" type="image/svg+xml" href="../icon.svg"/>
+<link rel="apple-touch-icon" href="../icon.svg"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="es_ES"/>
+<meta property="og:site_name" content="Alvatowash"/>
+<meta property="og:title" content="Club VIP · Alvatowash"/>
+<meta property="og:description" content="Acumula puntos en cada lavado y canjea premios exclusivos."/>
+<meta property="og:url" content="https://lavadoybrillo.com/area-cliente/"/>
+<meta property="og:image" content="https://lavadoybrillo.com/og-cover.jpg"/>
+
+<script src="../config.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+
+<style>
+:root{
+  --bg:           #0A0A0B;
+  --bg-elev-1:    #131315;
+  --bg-elev-2:    #1A1A1D;
+  --bg-elev-3:    #25252A;
+  --ink:          #F5F5F7;
+  --ink-2:        #C7C7CC;
+  --ink-3:        #8E8E93;
+  --muted:        #636368;
+  --line:         rgba(255,255,255,.07);
+  --line-strong:  rgba(255,255,255,.14);
+  --line-soft:    rgba(255,255,255,.04);
+  --accent:       #E53E3E;
+  --accent-soft:  #FF6363;
+  --accent-deep:  #B91C1C;
+  --green:        #34C759;
+  /* Tier colors */
+  --bronce:       #CD7F32;
+  --plata:        #B8B8C0;
+  --oro:          #C0A872;
+  --oro-soft:     #D4BC85;
+  --diamante:     #B9F2FF;
+  --shadow-sm:    0 1px 3px rgba(0,0,0,.4);
+  --shadow-md:    0 6px 24px rgba(0,0,0,.45);
+  --shadow-lg:    0 24px 60px rgba(0,0,0,.6);
+  --shadow-glow:  0 12px 40px rgba(229,62,62,.28);
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-pill:99px;
+  --ease:cubic-bezier(.32,.72,0,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',sans-serif;
+  font-feature-settings:'ss01','cv11','tnum';
+  min-height:100dvh;line-height:1.5;
+  letter-spacing:-.012em;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-style:italic;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink)}
+svg{display:block;flex-shrink:0}
+
+/* ════════════════ NAV ════════════════ */
+.nav{
+  position:sticky;top:0;left:0;right:0;z-index:50;
+  padding:14px 24px;
+  background:rgba(10,10,11,.78);
+  backdrop-filter:saturate(180%) blur(24px);
+  -webkit-backdrop-filter:saturate(180%) blur(24px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(135deg,#1a1a1d 0%,#2a2a2e 100%);
+  border:1px solid var(--line-strong);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;letter-spacing:-.5px;
+  position:relative;overflow:hidden;
+}
+.brand-mark::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(229,62,62,.4),transparent 60%)}
+.brand-name{font-size:14.5px;font-weight:600;letter-spacing:-.2px}
+.brand-sub{font-size:10.5px;color:var(--ink-3);font-weight:500;letter-spacing:.5px;margin-top:1px}
+.nav-user{display:none;align-items:center;gap:10px;padding:6px 12px 6px 6px;background:var(--bg-elev-2);border:1px solid var(--line);border-radius:var(--r-pill)}
+.nav-user.show{display:flex}
+.nav-user-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent-deep),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:11.5px;letter-spacing:-.2px}
+.nav-user-info{display:flex;flex-direction:column;line-height:1.1}
+.nav-user-name{font-size:12px;font-weight:600;letter-spacing:-.1px}
+.nav-user-pts{font-size:10.5px;color:var(--gold);font-weight:600;letter-spacing:.2px}
+.nav-logout{background:none;border:none;color:var(--ink-3);font-size:11.5px;font-weight:500;cursor:pointer;padding:5px 9px;border-radius:var(--r-pill);transition:color .15s,background .15s}
+.nav-logout:hover{color:var(--ink);background:var(--bg-elev-3)}
+.nav-back{font-size:13px;color:var(--ink-2);font-weight:500;padding:8px 16px;border-radius:var(--r-pill);background:var(--bg-elev-2);border:1px solid var(--line);transition:background .2s var(--ease);display:inline-flex;align-items:center;gap:5px}
+.nav-back:hover{background:var(--bg-elev-3);color:var(--ink)}
+.nav-back svg{width:13px;height:13px;stroke-width:2.2}
+
+/* ════════════════ AUTH SCREEN ════════════════ */
+.auth-screen{min-height:calc(100dvh - 70px);display:none;align-items:center;justify-content:center;padding:40px 22px;position:relative}
+.auth-screen.show{display:flex}
+.auth-screen::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 20%,rgba(229,62,62,.15),transparent 60%),
+    radial-gradient(ellipse 80% 60% at 80% 100%,rgba(192,168,114,.06),transparent 70%);
+}
+.auth-card{
+  background:linear-gradient(135deg,var(--bg-elev-1) 0%,var(--bg-elev-2) 100%);
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-lg);padding:38px 30px;width:100%;max-width:400px;
+  position:relative;z-index:1;
+  box-shadow:var(--shadow-lg);
+  animation:fadeUp .8s var(--ease) both;
+}
+.auth-head{text-align:center;margin-bottom:26px}
+.auth-eye{display:inline-block;font-size:10.5px;color:var(--ink-3);font-weight:600;letter-spacing:.6px;text-transform:uppercase;margin-bottom:14px}
+.auth-h{font-size:28px;font-weight:600;letter-spacing:-.03em;line-height:1.1;margin-bottom:8px}
+.auth-h .serif{display:block;font-size:.9em;color:var(--ink-2)}
+.auth-sub{font-size:13.5px;color:var(--ink-3);line-height:1.55}
+
+.auth-tabs{display:flex;background:var(--bg-elev-2);padding:3px;border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:18px}
+.auth-tab{flex:1;padding:9px 12px;font-size:12.5px;font-weight:600;color:var(--ink-3);border-radius:var(--r-sm);background:transparent;border:none;cursor:pointer;transition:background .2s var(--ease),color .2s var(--ease);letter-spacing:-.1px}
+.auth-tab.active{background:var(--bg-elev-3);color:var(--ink)}
+
+.form-group{margin-bottom:12px}
+.form-lbl{display:block;font-size:11.5px;color:var(--ink-3);font-weight:500;margin-bottom:5px;letter-spacing:.1px}
+.input{
+  width:100%;padding:13px 15px;background:var(--bg-elev-2);border:1.5px solid transparent;
+  border-radius:var(--r-md);color:var(--ink);font-size:14.5px;outline:none;
+  transition:background .15s,border-color .2s var(--ease);
+}
+.input:focus{border-color:var(--accent);background:var(--bg-elev-1)}
+.input::placeholder{color:var(--muted)}
+.input.otp{font-size:30px;letter-spacing:14px;text-align:center;padding:14px;font-weight:600}
+
+.btn-primary{
+  width:100%;padding:14px;background:var(--ink);color:#000;font-size:14.5px;font-weight:600;letter-spacing:-.15px;
+  border-radius:var(--r-pill);transition:transform .15s var(--ease),background .2s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;border:none;
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 8px 20px rgba(0,0,0,.3);
+}
+.btn-primary:hover{background:#fff}
+.btn-primary:disabled{background:var(--bg-elev-3);color:var(--muted);cursor:not-allowed;box-shadow:none}
+.btn-primary svg{width:14px;height:14px;stroke-width:2.4}
+.btn-secondary{width:100%;padding:13px;background:var(--bg-elev-2);color:var(--ink-2);border:1px solid var(--line);border-radius:var(--r-pill);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,color .15s;margin-top:9px}
+.btn-secondary:hover{background:var(--bg-elev-3);color:var(--ink)}
+
+.auth-err{font-size:12px;color:var(--accent);text-align:center;margin-top:9px;min-height:16px}
+.auth-switch{text-align:center;margin-top:16px;font-size:12.5px;color:var(--ink-3)}
+.auth-switch a{color:var(--ink);font-weight:600;cursor:pointer;letter-spacing:-.1px}
+.auth-divider{display:flex;align-items:center;gap:14px;margin:18px 0;color:var(--muted);font-size:11px;letter-spacing:.5px;text-transform:uppercase;font-weight:500}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--line)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ════════════════ DASHBOARD ════════════════ */
+.dashboard{display:none;max-width:980px;margin:0 auto;padding:28px 22px 60px}
+.dashboard.show{display:block}
+
+/* HERO VIP */
+.vip-hero{
+  background:linear-gradient(135deg,var(--bg-elev-1) 0%,var(--bg-elev-2) 100%);
+  border:1px solid var(--line-strong);border-radius:var(--r-lg);
+  padding:32px 30px;margin-bottom:18px;
+  position:relative;overflow:hidden;
+  animation:fadeUp .8s var(--ease) both;
+}
+.vip-hero::before{
+  content:'';position:absolute;top:-100px;right:-100px;width:340px;height:340px;
+  background:radial-gradient(circle,var(--tier-color,rgba(192,168,114,.2)),transparent 65%);
+  pointer-events:none;transition:background .6s var(--ease);
+}
+.vip-hero-grid{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;position:relative;z-index:1}
+@media(max-width:720px){.vip-hero-grid{grid-template-columns:1fr;gap:24px}}
+.vip-greeting-eye{font-size:11px;color:var(--ink-3);font-weight:500;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.vip-greeting{font-size:clamp(32px,5vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1.05;margin-bottom:8px}
+.vip-greeting .serif{color:var(--ink-2)}
+.vip-tagline{font-size:14px;color:var(--ink-3);line-height:1.55;max-width:380px;margin-bottom:22px}
+
+.vip-actions{display:flex;gap:9px;flex-wrap:wrap}
+.btn-vip{
+  display:inline-flex;align-items:center;gap:7px;padding:12px 22px;
+  font-size:13.5px;font-weight:600;letter-spacing:-.15px;border-radius:var(--r-pill);
+  transition:transform .15s var(--ease),background .2s var(--ease);cursor:pointer;border:none;
+}
+.btn-vip svg{width:13px;height:13px;stroke-width:2.4}
+.btn-vip.primary{background:var(--ink);color:#000}
+.btn-vip.primary:hover{background:#fff}
+.btn-vip.ghost{background:var(--bg-elev-3);color:var(--ink);border:1px solid var(--line)}
+.btn-vip.ghost:hover{background:#363639}
+
+/* Tier card */
+.tier-card{
+  background:linear-gradient(160deg,rgba(0,0,0,.5),rgba(0,0,0,.7));
+  border:1px solid var(--line-strong);border-radius:var(--r-md);
+  padding:22px 24px;width:280px;min-width:240px;
+  text-align:center;position:relative;
+}
+@media(max-width:720px){.tier-card{width:100%}}
+.tier-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  padding:5px 13px;border-radius:var(--r-pill);
+  background:var(--tier-bg,rgba(192,168,114,.15));color:var(--tier-color,var(--oro));
+  border:1px solid var(--tier-color,var(--oro));margin-bottom:14px;
+}
+.tier-pts{
+  font-size:54px;font-weight:600;letter-spacing:-.04em;line-height:.95;color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.tier-pts-lbl{font-size:12.5px;color:var(--ink-3);margin-top:4px;font-weight:500}
+.tier-progress{margin-top:18px}
+.tier-progress-row{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-3);font-weight:600;letter-spacing:.3px;text-transform:uppercase;margin-bottom:7px}
+.tier-progress-track{height:6px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+.tier-progress-fill{height:100%;background:linear-gradient(90deg,var(--tier-color,var(--oro)),var(--accent-soft));border-radius:99px;transition:width .6s var(--ease)}
+.tier-progress-tip{font-size:11.5px;color:var(--ink-2);margin-top:9px}
+.tier-progress-tip strong{color:var(--ink)}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px;animation:fadeUp .8s var(--ease) .1s both}
+@media(max-width:720px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-box{
+  background:var(--bg-elev-1);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 16px;
+}
+.stat-val{font-size:24px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat-val small{font-size:14px;color:var(--ink-3);font-weight:500}
+.stat-lbl{font-size:11px;color:var(--ink-3);margin-top:5px;letter-spacing:.2px;font-weight:500}
+
+/* INVITE CARD */
+.invite-card{
+  background:linear-gradient(135deg,rgba(192,168,114,.12) 0%,var(--bg-elev-1) 60%);
+  border:1px solid rgba(192,168,114,.25);border-radius:var(--r-md);
+  padding:24px 26px;margin-bottom:24px;
+  display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+  position:relative;overflow:hidden;
+  animation:fadeUp .8s var(--ease) .2s both;
+}
+@media(max-width:560px){.invite-card{grid-template-columns:1fr;gap:14px}}
+.invite-tag{display:inline-block;font-size:10.5px;font-weight:700;color:var(--gold);background:rgba(192,168,114,.15);border:1px solid rgba(192,168,114,.3);padding:4px 11px;border-radius:var(--r-pill);margin-bottom:10px;letter-spacing:.4px;text-transform:uppercase}
+.invite-h{font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.15;margin-bottom:6px}
+.invite-h em{font-style:normal;color:var(--gold)}
+.invite-p{font-size:13px;color:var(--ink-3);line-height:1.55;max-width:440px}
+.invite-p strong{color:var(--gold);font-weight:600}
+
+/* SECTION HEAD */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin:32px 4px 14px}
+.sec-eye{font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
+.sec-h{font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.1}
+.sec-h em{font-style:normal;color:var(--accent-soft)}
+
+/* REWARDS */
+.rewards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;animation:fadeUp .8s var(--ease) .3s both}
+.reward-card{
+  background:var(--bg-elev-1);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 18px;
+  display:flex;flex-direction:column;position:relative;
+  transition:transform .25s var(--ease),background .2s var(--ease),border-color .2s var(--ease);
+}
+.reward-card:hover{transform:translateY(-2px);background:var(--bg-elev-2);border-color:var(--line-strong)}
+.reward-card.locked{opacity:.55}
+.reward-card.locked:hover{transform:none;background:var(--bg-elev-1);border-color:var(--line)}
+.reward-cost{position:absolute;top:18px;right:18px;font-size:11.5px;font-weight:700;color:var(--gold);letter-spacing:-.1px;font-variant-numeric:tabular-nums}
+.reward-ic{
+  width:38px;height:38px;border-radius:11px;
+  background:linear-gradient(135deg,var(--bg-elev-3),var(--bg-elev-2));
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--accent-soft);margin-bottom:14px;
+}
+.reward-ic svg{width:17px;height:17px;stroke-width:1.8}
+.reward-name{font-size:14.5px;font-weight:600;letter-spacing:-.15px;line-height:1.25;margin-bottom:5px}
+.reward-desc{font-size:12.5px;color:var(--ink-3);line-height:1.5;margin-bottom:14px;flex:1}
+.reward-btn{
+  width:100%;background:var(--accent);color:#fff;font-size:12.5px;font-weight:600;letter-spacing:-.1px;
+  padding:9px;border-radius:var(--r-pill);border:none;cursor:pointer;
+  transition:background .2s var(--ease);
+}
+.reward-btn:hover{background:var(--accent-soft)}
+.reward-btn:disabled{background:var(--bg-elev-3);color:var(--muted);cursor:not-allowed}
+.reward-locked-info{font-size:11.5px;color:var(--muted);text-align:center;padding:8px;font-weight:500}
+
+/* HISTORY TIMELINE */
+.history-card{background:var(--bg-elev-1);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;animation:fadeUp .8s var(--ease) .4s both}
+.history-row{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line-soft);transition:background .15s}
+.history-row:last-child{border-bottom:none}
+.history-row:hover{background:var(--bg-elev-2)}
+.history-date{min-width:46px;text-align:center;flex-shrink:0}
+.history-date-day{font-size:18px;font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.history-date-mes{font-size:9.5px;color:var(--ink-3);font-weight:600;letter-spacing:.4px;text-transform:uppercase;margin-top:2px}
+.history-info{flex:1;min-width:0}
+.history-svc{font-size:13.5px;font-weight:600;letter-spacing:-.15px;line-height:1.25}
+.history-centro{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.history-amount{text-align:right;flex-shrink:0}
+.history-pts{font-size:12.5px;font-weight:600;color:var(--gold);font-variant-numeric:tabular-nums}
+.history-eur{font-size:11.5px;color:var(--ink-3);margin-top:2px;font-variant-numeric:tabular-nums}
+.history-empty{padding:36px 22px;text-align:center;color:var(--ink-3);font-size:13px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:300;display:none;align-items:flex-end;justify-content:center;padding:0;animation:fadeIn .2s var(--ease)}
+@media(min-width:768px){.modal-overlay{align-items:center;padding:24px}}
+.modal-overlay.show{display:flex}
+.modal{
+  background:var(--bg-elev-1);border-top:1px solid var(--line-strong);
+  border-radius:24px 24px 0 0;width:100%;max-width:420px;padding:22px 24px;
+  animation:sheetUp .4s var(--ease);
+  position:relative;
+}
+@media(min-width:768px){.modal{border-radius:24px;border:1px solid var(--line-strong)}}
+.modal-handle{width:38px;height:5px;border-radius:99px;background:var(--bg-elev-3);margin:-2px auto 12px}
+@media(min-width:768px){.modal-handle{display:none}}
+.modal-close{position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:50%;background:var(--bg-elev-3);color:var(--ink-2);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;transition:background .15s,color .15s}
+.modal-close:hover{background:#363639;color:var(--ink)}
+.modal-close svg{width:13px;height:13px;stroke-width:2.6}
+.modal-h{font-size:20px;font-weight:600;letter-spacing:-.025em;line-height:1.2;margin-bottom:8px;padding-right:40px}
+.modal-h em{font-style:normal;color:var(--accent-soft)}
+.modal-p{font-size:13.5px;color:var(--ink-3);line-height:1.55;margin-bottom:18px}
+.modal-actions{display:flex;gap:9px}
+.modal-actions button{flex:1;padding:12px;border-radius:var(--r-pill);font-size:13px;font-weight:600;letter-spacing:-.1px;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:background .15s var(--ease)}
+.modal-actions svg{width:13px;height:13px;stroke-width:2.4}
+.btn-modal-pri{background:var(--ink);color:#000}
+.btn-modal-pri:hover{background:#fff}
+.btn-modal-sec{background:var(--bg-elev-3);color:var(--ink)}
+.btn-modal-sec:hover{background:#363639}
+.btn-modal-accent{background:var(--accent);color:#fff}
+.btn-modal-accent:hover{background:var(--accent-soft)}
+.btn-modal-wa{background:#25D366;color:#fff}
+.btn-modal-wa:hover{background:#1FB958}
+
+/* Redeem preview */
+.redeem-preview{background:var(--bg-elev-2);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;margin-bottom:18px}
+.redeem-row{display:flex;justify-content:space-between;font-size:12.5px;padding:5px 0}
+.redeem-row span{color:var(--ink-3)}
+.redeem-row strong{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.redeem-row.gold strong{color:var(--gold)}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--bg-elev-3);color:var(--ink);
+  border:1px solid var(--line-strong);
+  padding:11px 18px;border-radius:var(--r-pill);
+  font-size:13px;font-weight:500;letter-spacing:-.1px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:400;
+  box-shadow:var(--shadow-lg);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes sheetUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+.footer{padding:24px;text-align:center;color:var(--muted);font-size:11.5px;font-weight:500;letter-spacing:.3px}
+.footer-brand{color:var(--ink-3);font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+
+@media(max-width:480px){
+  .dashboard{padding:22px 18px 50px}
+  .vip-hero{padding:26px 22px}
+  .vip-greeting{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../">
+      <div class="brand-mark">A</div>
+      <div>
+        <div class="brand-name">Alvatowash</div>
+        <div class="brand-sub">Club VIP</div>
+      </div>
+    </a>
+    <div class="nav-user" id="navUser">
+      <div class="nav-user-avatar" id="navAvatar">—</div>
+      <div class="nav-user-info">
+        <span class="nav-user-name" id="navName">—</span>
+        <span class="nav-user-pts"><span id="navPts">0</span> pts</span>
+      </div>
+      <button class="nav-logout" onclick="logout()">Salir</button>
+    </div>
+    <a class="nav-back" href="../">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Inicio
+    </a>
+  </div>
+</nav>
+
+<!-- AUTH -->
+<div class="auth-screen" id="authScreen">
+  <div class="auth-card">
+    <div class="auth-head">
+      <div class="auth-eye" id="authEye">Acceso</div>
+      <div class="auth-h" id="authH">Tu coche,<br/><span class="serif">tu club</span></div>
+      <div class="auth-sub" id="authSub">Sumá puntos en cada visita, canjeá por descuentos y regalos.</div>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-method="email">Email</button>
+      <button class="auth-tab" data-method="wa">WhatsApp</button>
+    </div>
+
+    <div id="formEmail">
+      <div class="form-group"><label class="form-lbl">Email</label><input class="input" id="iEmail" type="email" placeholder="tu@email.com"/></div>
+      <div class="form-group"><label class="form-lbl">Contraseña</label><input class="input" id="iPass" type="password" placeholder="Tu clave"/></div>
+      <div class="form-group" id="emailRegFields" style="display:none"><label class="form-lbl">Nombre</label><input class="input" id="iName" placeholder="Cómo te llamamos"/></div>
+      <div class="form-group" id="emailRegPhoneFields" style="display:none"><label class="form-lbl">WhatsApp (vincula tus reservas)</label><input class="input" id="iEmailPhone" type="tel" placeholder="612 345 678"/></div>
+      <button class="btn-primary" id="bAuthEmail">Entrar</button>
+    </div>
+
+    <div id="formWA" style="display:none">
+      <div id="waStep1">
+        <div class="form-group"><label class="form-lbl">WhatsApp</label><input class="input" id="iWa" type="tel" placeholder="612 345 678"/></div>
+        <div class="form-group" id="waRegFields" style="display:none"><label class="form-lbl">Nombre</label><input class="input" id="iWaName" placeholder="Cómo te llamamos"/></div>
+        <button class="btn-primary" id="bSendOtp">Enviar código</button>
+        <div style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:9px">Te llega un código de 4 dígitos a tu WhatsApp</div>
+      </div>
+      <div id="waStep2" style="display:none">
+        <div class="form-group"><label class="form-lbl" style="text-align:center;display:block">Código recibido</label><input class="input otp" id="iOtp" type="text" maxlength="4" placeholder="0000" inputmode="numeric"/></div>
+        <button class="btn-primary" id="bVerifyOtp" disabled>Verificar</button>
+        <button class="btn-secondary" id="bWaResend">Volver</button>
+      </div>
+    </div>
+
+    <div class="auth-err" id="authErr"></div>
+    <div class="auth-switch"><span id="switchTxt">¿No tienes cuenta?</span> <a onclick="toggleMode()" id="switchLink">Crear cuenta</a></div>
+    <div class="auth-divider">Solo demo</div>
+    <button class="btn-secondary" onclick="loadDemoUser()" style="background:rgba(192,168,114,.08);border-color:rgba(192,168,114,.3);color:var(--gold)">Ver demo: María R. (Oro)</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+
+  <!-- VIP HERO -->
+  <div class="vip-hero" id="vipHero">
+    <div class="vip-hero-grid">
+      <div>
+        <div class="vip-greeting-eye" id="whTag">Buenas tardes</div>
+        <h1 class="vip-greeting"><span id="whHName">—</span><br/><span class="serif" id="whProgress">—</span></h1>
+        <p class="vip-tagline" id="whP">—</p>
+        <div class="vip-actions">
+          <a class="btn-vip primary" href="../reserva/">
+            Reservar de nuevo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <button class="btn-vip ghost" onclick="openInviteModal()">Invitar amigo</button>
+        </div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-badge" id="whLevel">★ Bronce</div>
+        <div class="tier-pts"><span id="whPts">0</span></div>
+        <div class="tier-pts-lbl">puntos acumulados</div>
+        <div class="tier-progress">
+          <div class="tier-progress-row"><span id="whProgFrom">Bronce</span><span id="whProgTo">Plata · 200 pts</span></div>
+          <div class="tier-progress-track"><div class="tier-progress-fill" id="whProgFill" style="width:0%"></div></div>
+          <div class="tier-progress-tip" id="whProgTip"><strong>200 pts</strong> al siguiente nivel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-box"><div class="stat-val" id="statVisits">0</div><div class="stat-lbl">Visitas</div></div>
+    <div class="stat-box"><div class="stat-val"><small>€</small><span id="statSpent">0</span></div><div class="stat-lbl">Total gastado</div></div>
+    <div class="stat-box"><div class="stat-val" id="statRedeemed">0</div><div class="stat-lbl">Recompensas</div></div>
+    <div class="stat-box"><div class="stat-val" id="statReferred">0</div><div class="stat-lbl">Amigos invitados</div></div>
+  </div>
+
+  <!-- INVITE -->
+  <div class="invite-card">
+    <div>
+      <div class="invite-tag">+200 puntos</div>
+      <div class="invite-h">Regalá un lavado. <em>Llevate puntos.</em></div>
+      <p class="invite-p">Invitá a un amigo. Cuando reserve su primer lavado vos sumás <strong>200 puntos</strong> y él recibe un descuento.</p>
+    </div>
+    <button class="btn-vip primary" onclick="openInviteModal()">
+      Invitar amigo
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+
+  <!-- REWARDS -->
+  <div class="sec-head">
+    <div><div class="sec-eye">Tus puntos</div><div class="sec-h">Canjeá por <em>recompensas</em></div></div>
+  </div>
+  <div class="rewards-grid" id="rewardsGrid"></div>
+
+  <!-- HISTORIAL -->
+  <div class="sec-head">
+    <div><div class="sec-eye">Tu actividad</div><div class="sec-h">Historial de <em>visitas</em></div></div>
+  </div>
+  <div class="history-card" id="historyCard">
+    <div class="history-empty">Cuando hagas tu primera reserva aparecerá aquí.</div>
+  </div>
+</div>
+
+<!-- MODAL INVITAR -->
+<div class="modal-overlay" id="modalInvite" onclick="if(event.target===this)closeModal('modalInvite')">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal('modalInvite')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-h">Invitá a <em>tu amigo</em></div>
+    <p class="modal-p">Compartí este link. Cuando reserve su primer lavado, vos sumás <strong style="color:var(--gold)">200 puntos</strong> y tu amigo recibe <strong style="color:var(--gold)">10% off</strong>.</p>
+    <div class="form-group"><label class="form-lbl">Tu link personal</label><input class="input" id="inviteLink" readonly/></div>
+    <div class="modal-actions">
+      <button class="btn-modal-sec" onclick="copyInvite()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        Copiar
+      </button>
+      <button class="btn-modal-wa" onclick="shareWhatsApp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+        WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CANJEAR -->
+<div class="modal-overlay" id="modalRedeem" onclick="if(event.target===this)closeModal('modalRedeem')">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal('modalRedeem')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-h" id="redeemH">Canjear <em>recompensa</em></div>
+    <p class="modal-p" id="redeemP">—</p>
+    <div class="redeem-preview">
+      <div class="redeem-row gold"><span>Coste</span><strong id="redeemCost">0 pts</strong></div>
+      <div class="redeem-row"><span>Te quedarán</span><strong id="redeemAfter">0 pts</strong></div>
+    </div>
+    <button class="btn-modal-pri" id="bConfirmRedeem" style="width:100%;padding:13px;border-radius:99px;font-size:14px;font-weight:600;border:none;cursor:pointer">Confirmar canje</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">—</div>
+
+<footer class="footer">
+  <div class="footer-brand">Alvatowash</div>
+  <div>Club VIP · <a href="../" style="color:var(--ink-3)">Inicio</a></div>
+</footer>
+
+<script>
+const CFG = window.CONFIG || {};
+const WA = CFG.whatsapp || '34600000000';
+const LOYALTY = CFG.loyalty || {levels:[],rewards:[]};
+
+/* ─── BACKEND BRIDGE ─── */
+function useBackend(){ return !!(CFG.script_url && CFG.script_url.length > 10); }
+function bgCall(action, params={}){
+  return new Promise((resolve, reject) => {
+    if (!CFG.script_url) { reject(new Error('script_url no configurada')); return; }
+    const cbName = '_vipcb_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+    window[cbName] = (data) => { delete window[cbName]; s.remove(); resolve(data); };
+    const qs = new URLSearchParams({ action, token: CFG.script_token || '', callback: cbName, ...params });
+    const s = document.createElement('script');
+    s.src = CFG.script_url + '?' + qs.toString();
+    s.onerror = () => { delete window[cbName]; s.remove(); reject(new Error('Network error')); };
+    document.head.appendChild(s);
+    setTimeout(() => { if (window[cbName]) { delete window[cbName]; s.remove(); reject(new Error('Timeout')); } }, 15000);
+  });
+}
+function vipFromBackend(b){
+  if (!b || !b.phone) return null;
+  return {
+    name: b.name || '',
+    auth: { phone: b.phone, email: b.email || '' },
+    points: Number(b.points) || 0,
+    visits: Number(b.visits) || 0,
+    spent: Number(b.spent) || 0,
+    redeemed: Number(b.redeemed) || 0,
+    referred: Number(b.referred) || 0,
+    history: [], rewards_log: [],
+    referral_code: b.referral_code || '',
+    created: b.joined || new Date().toISOString(),
+    _phone_norm: String(b.phone).replace(/[^\d]/g,'')
+  };
+}
+
+const USERS_KEY = 'alvato-vip-users';
+const SESSION_KEY = 'alvato-vip-session';
+const OTP_KEY = 'alvato-vip-otp-temp';
+let SESSION = null, USER = null;
+let AUTH_MODE = 'login';
+let AUTH_METHOD = 'email';
+
+function getUsers(){try{return JSON.parse(localStorage.getItem(USERS_KEY))||{}}catch{return{}}}
+function setUsers(u){try{localStorage.setItem(USERS_KEY,JSON.stringify(u))}catch{}}
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY))}catch{return null}}
+function setSession(s){try{localStorage.setItem(SESSION_KEY,JSON.stringify(s))}catch{}}
+function clearSession(){try{localStorage.removeItem(SESSION_KEY)}catch{}}
+function saveUser(){if(!SESSION||!USER)return;const u=getUsers();u[SESSION.key]=USER;setUsers(u)}
+
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function fmt(n){return Number.isInteger(n)?String(n):n.toFixed(2).replace('.',',')}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+function getLevel(points){
+  const levels = LOYALTY.levels || [];
+  let current = levels[0] || {name:'Bronce',min_points:0};
+  let next = null;
+  for (let i=0;i<levels.length;i++) if (points >= levels[i].min_points) { current = levels[i]; next = levels[i+1] || null; }
+  return { current, next };
+}
+
+function tierColors(name){
+  return ({
+    'Bronce': { color:'#CD7F32', bg:'rgba(205,127,50,.12)' },
+    'Plata': { color:'#B8B8C0', bg:'rgba(184,184,192,.12)' },
+    'Oro': { color:'#C0A872', bg:'rgba(192,168,114,.15)' },
+    'Diamante': { color:'#B9F2FF', bg:'rgba(185,242,255,.12)' }
+  }[name]) || { color:'#CD7F32', bg:'rgba(205,127,50,.12)' };
+}
+
+function greetingByTime(){
+  const h = new Date().getHours();
+  if (h < 6) return 'Buenas noches';
+  if (h < 13) return 'Buenos días';
+  if (h < 20) return 'Buenas tardes';
+  return 'Buenas noches';
+}
+
+/* ─── AUTH UI ─── */
+function setAuthMethod(m){
+  AUTH_METHOD = m;
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.method === m));
+  $('formEmail').style.display = m === 'email' ? '' : 'none';
+  $('formWA').style.display = m === 'wa' ? '' : 'none';
+  $('waStep1').style.display = ''; $('waStep2').style.display = 'none';
+  $('authErr').textContent = '';
+}
+document.querySelectorAll('.auth-tab').forEach(t => t.addEventListener('click', () => setAuthMethod(t.dataset.method)));
+
+function toggleMode(){
+  AUTH_MODE = AUTH_MODE === 'login' ? 'register' : 'login';
+  const isReg = AUTH_MODE === 'register';
+  $('authEye').textContent = isReg ? 'Crear cuenta' : 'Acceso';
+  $('authH').innerHTML = isReg ? 'Únete al <span class="serif">Club</span>' : 'Tu coche,<br/><span class="serif">tu club</span>';
+  $('authSub').textContent = isReg ? 'Empezás con 0 puntos. Sumás puntos en cada lavado.' : 'Sumá puntos en cada visita, canjeá por descuentos y regalos.';
+  $('bAuthEmail').textContent = isReg ? 'Crear cuenta' : 'Entrar';
+  $('emailRegFields').style.display = isReg ? '' : 'none';
+  $('emailRegPhoneFields').style.display = isReg ? '' : 'none';
+  $('waRegFields').style.display = isReg ? '' : 'none';
+  $('switchTxt').textContent = isReg ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?';
+  $('switchLink').textContent = isReg ? 'Iniciar sesión' : 'Crear cuenta';
+  $('authErr').textContent = '';
+}
+window.toggleMode = toggleMode;
+
+/* LOGIN/REGISTER EMAIL */
+$('bAuthEmail').addEventListener('click', async () => {
+  const email = $('iEmail').value.trim().toLowerCase();
+  const pass = $('iPass').value;
+  const name = $('iName').value.trim();
+  const emailPhone = $('iEmailPhone').value.replace(/[^\d]/g,'');
+  $('authErr').textContent = '';
+  if (!email || !email.includes('@') || !email.includes('.')) { $('authErr').textContent = 'Email inválido'; return; }
+  if (!pass || pass.length < 4) { $('authErr').textContent = 'Contraseña mínimo 4 caracteres'; return; }
+
+  if (useBackend()) {
+    $('bAuthEmail').disabled = true;
+    try {
+      if (AUTH_MODE === 'register') {
+        if (!name) { $('authErr').textContent = 'Pon tu nombre'; return; }
+        if (!emailPhone || emailPhone.length < 8) { $('authErr').textContent = 'WhatsApp inválido'; return; }
+        const r = await bgCall('vipRegister', { name, email, phone: emailPhone, password: pass });
+        if (r.error) { $('authErr').textContent = r.error; return; }
+        SESSION = { key:'em:'+email, phone:emailPhone, email, method:'email' };
+        setSession(SESSION); USER = vipFromBackend(r.user); loadDashboard();
+      } else {
+        const r = await bgCall('vipLogin', { email, password: pass });
+        if (r.error) { $('authErr').textContent = r.error; return; }
+        SESSION = { key:'em:'+email, phone:r.user.phone, email, method:'email' };
+        setSession(SESSION); USER = vipFromBackend(r.user); loadDashboard();
+      }
+    } catch(e){ $('authErr').textContent = 'Error de red'; }
+    finally { $('bAuthEmail').disabled = false; }
+    return;
+  }
+  const users = getUsers(); const key = 'em:'+email;
+  if (AUTH_MODE === 'register') {
+    if (!name) { $('authErr').textContent = 'Pon tu nombre'; return; }
+    if (users[key]) { $('authErr').textContent = 'Ya hay cuenta con este email'; return; }
+    users[key] = createNewUser(name, { email, pass });
+    setUsers(users); SESSION = {key, method:'email'}; setSession(SESSION); USER = users[key]; loadDashboard();
+  } else {
+    if (!users[key]) { $('authErr').textContent = 'No existe cuenta con este email'; return; }
+    if (users[key].auth?.pass !== pass) { $('authErr').textContent = 'Contraseña incorrecta'; return; }
+    SESSION = {key, method:'email'}; setSession(SESSION); USER = users[key]; loadDashboard();
+  }
+});
+
+/* WA + OTP */
+$('bSendOtp').addEventListener('click', () => {
+  const phone = $('iWa').value.replace(/[^\d]/g,'');
+  const name = $('iWaName').value.trim();
+  $('authErr').textContent = '';
+  if (phone.length < 8) { $('authErr').textContent = 'WhatsApp inválido'; return; }
+  if (AUTH_MODE === 'register' && !name) { $('authErr').textContent = 'Pon tu nombre'; return; }
+  const users = getUsers(); const key = 'wa:'+phone;
+  if (!useBackend()) {
+    if (AUTH_MODE === 'register' && users[key]) { $('authErr').textContent = 'Ya hay cuenta'; return; }
+    if (AUTH_MODE === 'login' && !users[key]) { $('authErr').textContent = 'No existe cuenta'; return; }
+  }
+  const otp = String(Math.floor(1000 + Math.random()*9000));
+  localStorage.setItem(OTP_KEY, JSON.stringify({ key, phone, name, otp, ts: Date.now() }));
+  toast(`DEMO: tu código es ${otp}`);
+  $('waStep1').style.display = 'none'; $('waStep2').style.display = ''; $('iOtp').focus();
+});
+$('iOtp').addEventListener('input', e => { const v = e.target.value.replace(/[^\d]/g,'').slice(0,4); e.target.value = v; $('bVerifyOtp').disabled = v.length !== 4; });
+$('bVerifyOtp').addEventListener('click', async () => {
+  const otpInput = $('iOtp').value.trim();
+  const temp = JSON.parse(localStorage.getItem(OTP_KEY)||'null');
+  if (!temp) { $('authErr').textContent = 'OTP expirado'; return; }
+  if (Date.now() - temp.ts > 5*60*1000) { $('authErr').textContent = 'OTP expirado'; return; }
+  if (otpInput !== temp.otp) { $('authErr').textContent = 'Código incorrecto'; return; }
+  if (useBackend()) {
+    $('bVerifyOtp').disabled = true;
+    try {
+      if (AUTH_MODE === 'register') {
+        const r = await bgCall('vipRegister', { name: temp.name, phone: temp.phone });
+        if (r.error) { $('authErr').textContent = r.error; return; }
+        SESSION = { key:'wa:'+temp.phone, phone:temp.phone, method:'wa' };
+        setSession(SESSION); USER = vipFromBackend(r.user);
+      } else {
+        const r = await bgCall('vipLogin', { phone: temp.phone });
+        if (r.error) { $('authErr').textContent = r.error; return; }
+        SESSION = { key:'wa:'+temp.phone, phone:temp.phone, method:'wa' };
+        setSession(SESSION); USER = vipFromBackend(r.user);
+      }
+      localStorage.removeItem(OTP_KEY); loadDashboard();
+    } catch(e){ $('authErr').textContent = 'Error de red'; }
+    finally { $('bVerifyOtp').disabled = false; }
+    return;
+  }
+  const users = getUsers();
+  if (AUTH_MODE === 'register') { users[temp.key] = createNewUser(temp.name, { phone: temp.phone }); setUsers(users); }
+  SESSION = { key:temp.key, method:'wa' }; setSession(SESSION); USER = users[temp.key];
+  localStorage.removeItem(OTP_KEY); loadDashboard();
+});
+$('bWaResend').addEventListener('click', () => { $('waStep1').style.display=''; $('waStep2').style.display='none'; $('authErr').textContent=''; });
+
+function createNewUser(name, auth){
+  return { name, auth, points:0, visits:0, spent:0, redeemed:0, referred:0, history:[], rewards_log:[], referral_code:Math.random().toString(36).substr(2,8).toUpperCase(), created:new Date().toISOString() };
+}
+
+/* DASHBOARD */
+function loadDashboard(){
+  if (!USER) return;
+  $('authScreen').classList.remove('show');
+  $('dashboard').classList.add('show');
+  $('navUser').classList.add('show');
+  document.querySelector('.nav-back').style.display = 'none';
+
+  const initials = USER.name.split(/\s+/).slice(0,2).map(p=>p[0]||'').join('').toUpperCase();
+  $('navAvatar').textContent = initials || 'A';
+  $('navName').textContent = USER.name.split(' ')[0];
+  $('navPts').textContent = USER.points;
+
+  $('whTag').textContent = greetingByTime();
+  $('whHName').innerHTML = esc(USER.name.split(' ')[0]) + ', <em>';
+  const { current, next } = getLevel(USER.points);
+  $('whHName').innerHTML = esc(USER.name.split(' ')[0]) + '.';
+
+  const tc = tierColors(current.name);
+  document.querySelector('.vip-hero').style.setProperty('--tier-color', tc.color);
+  document.querySelector('.tier-badge').style.setProperty('--tier-color', tc.color);
+  document.querySelector('.tier-badge').style.setProperty('--tier-bg', tc.bg);
+  document.querySelector('.tier-progress-fill').style.setProperty('--tier-color', tc.color);
+  $('whLevel').textContent = '★ ' + current.name;
+  $('whPts').textContent = USER.points;
+
+  if (next) {
+    const need = next.min_points - USER.points;
+    const pct = Math.min(100, Math.round(((USER.points - current.min_points) / (next.min_points - current.min_points)) * 100));
+    $('whProgFrom').textContent = current.name;
+    $('whProgTo').textContent = `${next.name} · ${next.min_points} pts`;
+    $('whProgFill').style.width = pct + '%';
+    $('whProgTip').innerHTML = `<strong>${need} pts</strong> al siguiente nivel`;
+    $('whProgress').textContent = `${need} pts a ${next.name}`;
+    $('whP').textContent = `Estás a ${need} puntos del nivel ${next.name}. Cada euro que gastes te suma puntos para canjear por descuentos, lavados gratis o regalar a un amigo.`;
+  } else {
+    $('whProgFrom').textContent = 'Diamante';
+    $('whProgTo').textContent = 'Máximo';
+    $('whProgFill').style.width = '100%';
+    $('whProgTip').innerHTML = `<strong>Eres Diamante</strong>. Disfrutá todos los perks máximos.`;
+    $('whProgress').textContent = 'Nivel Diamante';
+    $('whP').textContent = 'Sos Diamante. Tenés todos los perks máximos del Club. Seguí sumando puntos para canjear más recompensas.';
+  }
+
+  $('statVisits').textContent = USER.visits || 0;
+  $('statSpent').textContent = Math.round(USER.spent || 0);
+  $('statRedeemed').textContent = USER.redeemed || 0;
+  $('statReferred').textContent = USER.referred || 0;
+
+  renderRewards();
+  renderHistory();
+}
+
+function renderRewards(){
+  const grid = $('rewardsGrid');
+  grid.innerHTML = '';
+  const rewards = LOYALTY.rewards || [];
+  const ICONS = [
+    'M12 2v6m0 0c-2 0-4 2-4 4s2 4 4 4 4-2 4-4-2-4-4-4z',
+    'M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z',
+    'M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z',
+    'M5 17H3v-6l2-5h14l2 5v6h-2 M5 17h7',
+    'M12 2L2 22h20L12 2z'
+  ];
+  rewards.forEach((r, i) => {
+    const can = USER.points >= r.cost;
+    const card = document.createElement('div');
+    card.className = 'reward-card' + (can ? '' : ' locked');
+    card.innerHTML = `
+      <div class="reward-cost">${r.cost} pts</div>
+      <div class="reward-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="${ICONS[i % ICONS.length]}"/></svg></div>
+      <div class="reward-name">${esc(r.name)}</div>
+      <div class="reward-desc">${esc(r.desc)}</div>
+      ${can ? `<button class="reward-btn" data-rid="${r.id}">Canjear</button>` : `<div class="reward-locked-info">Te faltan ${r.cost - USER.points} pts</div>`}
+    `;
+    grid.appendChild(card);
+  });
+  grid.querySelectorAll('[data-rid]').forEach(b => b.addEventListener('click', () => openRedeemModal(b.dataset.rid)));
+}
+
+function renderHistory(){
+  const card = $('historyCard'); card.innerHTML = '';
+  const history = USER.history || [];
+  if (history.length === 0) { card.innerHTML = '<div class="history-empty">Cuando hagas tu primera reserva aparecerá aquí.</div>'; return; }
+  history.slice().reverse().forEach(h => {
+    const d = new Date(h.date);
+    const row = document.createElement('div'); row.className = 'history-row';
+    row.innerHTML = `
+      <div class="history-date">
+        <div class="history-date-day">${d.getDate()}</div>
+        <div class="history-date-mes">${d.toLocaleDateString('es-ES',{month:'short'}).replace('.','')}</div>
+      </div>
+      <div class="history-info">
+        <div class="history-svc">${esc(h.service)}</div>
+        <div class="history-centro">${esc(h.centro || '')}</div>
+      </div>
+      <div class="history-amount">
+        <div class="history-pts">+${h.points} pts</div>
+        <div class="history-eur">€${fmt(h.amount)}</div>
+      </div>
+    `;
+    card.appendChild(row);
+  });
+}
+
+function openModal(id){$(id).classList.add('show');document.body.style.overflow='hidden'}
+function closeModal(id){$(id).classList.remove('show');document.body.style.overflow=''}
+window.openModal = openModal; window.closeModal = closeModal;
+
+function openInviteModal(){
+  const link = `${window.location.origin}${window.location.pathname.replace('area-cliente/','')}reserva/?ref=${USER.referral_code}`;
+  $('inviteLink').value = link;
+  openModal('modalInvite');
+}
+window.openInviteModal = openInviteModal;
+
+function copyInvite(){
+  $('inviteLink').select();
+  navigator.clipboard?.writeText($('inviteLink').value).then(() => toast('Link copiado'));
+}
+window.copyInvite = copyInvite;
+
+function shareWhatsApp(){
+  const msg = `¡Te recomiendo Alvatowash para lavar tu coche! Reservá con este link y conseguís 10% off: ${$('inviteLink').value}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+}
+window.shareWhatsApp = shareWhatsApp;
+
+let _redeemingId = null;
+function openRedeemModal(rid){
+  const r = LOYALTY.rewards.find(x => x.id === rid);
+  if (!r) return;
+  _redeemingId = rid;
+  $('redeemH').innerHTML = `Canjear <em>${esc(r.name)}</em>`;
+  $('redeemP').textContent = r.desc;
+  $('redeemCost').textContent = `${r.cost} pts`;
+  $('redeemAfter').textContent = `${USER.points - r.cost} pts`;
+  openModal('modalRedeem');
+}
+window.openRedeemModal = openRedeemModal;
+
+$('bConfirmRedeem').addEventListener('click', async () => {
+  if (!_redeemingId) return;
+  const r = LOYALTY.rewards.find(x => x.id === _redeemingId);
+  if (!r || USER.points < r.cost) return;
+  if (useBackend() && SESSION && SESSION.phone) {
+    $('bConfirmRedeem').disabled = true;
+    try {
+      const res = await bgCall('vipRedeemReward', { phone: SESSION.phone, cost: r.cost, rewardName: r.name });
+      if (res.error) { toast('Error: ' + res.error); return; }
+      USER.points = res.newPoints;
+      USER.redeemed = (USER.redeemed||0)+1;
+      USER.rewards_log = USER.rewards_log || [];
+      USER.rewards_log.push({ id:r.id, name:r.name, cost:r.cost, date:new Date().toISOString() });
+      closeModal('modalRedeem'); toast(`✓ Canjeaste: ${r.name}`); loadDashboard();
+    } catch(e){ toast('Error de red'); }
+    finally { $('bConfirmRedeem').disabled = false; }
+    return;
+  }
+  USER.points -= r.cost; USER.redeemed = (USER.redeemed||0)+1;
+  USER.rewards_log = USER.rewards_log || [];
+  USER.rewards_log.push({ id:r.id, name:r.name, cost:r.cost, date:new Date().toISOString() });
+  saveUser(); closeModal('modalRedeem'); toast(`✓ Canjeaste: ${r.name}`); loadDashboard();
+});
+
+function logout(){
+  if (!confirm('¿Salir del Club VIP?')) return;
+  clearSession(); SESSION = null; USER = null;
+  $('dashboard').classList.remove('show');
+  $('navUser').classList.remove('show');
+  document.querySelector('.nav-back').style.display = '';
+  $('authScreen').classList.add('show');
+}
+window.logout = logout;
+
+function loadDemoUser(){
+  const users = getUsers(); const key = 'em:demo@alvato.com';
+  if (!users[key]) {
+    const now = Date.now();
+    users[key] = {
+      name: 'María R.', auth: { email:'demo@alvato.com', pass:'demo' },
+      points: 720, visits: 5, spent: 312.80, redeemed: 1, referred: 2,
+      history: [
+        { date: new Date(now - 90*86400000).toISOString(), service:'Combo Hoy Lavo Mi Coche', centro:'Madrid · Centro', amount:89, points:89 },
+        { date: new Date(now - 70*86400000).toISOString(), service:'Lavado Mantenimiento Plus', centro:'Madrid · Centro', amount:45, points:45 },
+        { date: new Date(now - 45*86400000).toISOString(), service:'Detailing Interior', centro:'Madrid · Centro', amount:90, points:90 },
+        { date: new Date(now - 20*86400000).toISOString(), service:'Lavado Mantenimiento', centro:'Madrid · Centro', amount:35, points:35 },
+        { date: new Date(now - 5*86400000).toISOString(), service:'Combo Hoy Lavo Mi Coche', centro:'Madrid · Centro', amount:53.80, points:54 }
+      ],
+      rewards_log: [{ id:'r1', name:'Aroma premium gratis', cost:100, date: new Date(now - 25*86400000).toISOString() }],
+      referral_code: 'MARIAVIP', created: new Date(now - 100*86400000).toISOString()
+    };
+    setUsers(users);
+  }
+  SESSION = { key, method:'email' }; setSession(SESSION); USER = users[key]; loadDashboard();
+}
+window.loadDemoUser = loadDemoUser;
+
+/* INIT */
+async function init(){
+  const s = getSession();
+  if (s && s.phone && useBackend()) {
+    try {
+      const r = await bgCall('vipLogin', { phone: s.phone });
+      if (r && r.user && !r.error) { SESSION = s; USER = vipFromBackend(r.user); loadDashboard(); return; }
+    } catch(e){ console.warn('Backend no responde', e); }
+  }
+  if (s) {
+    const users = getUsers();
+    if (users[s.key]) { SESSION = s; USER = users[s.key]; loadDashboard(); return; }
+  }
+  $('authScreen').classList.add('show');
+  setAuthMethod('email');
+}
+init();
+</script>
+<script src="dashboard-tiles.js"></script>
+<script src="../legal/footer.js"></script>
+</body>
+</html>

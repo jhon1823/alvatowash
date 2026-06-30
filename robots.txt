@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Áreas privadas y de back-office no indexables
+Disallow: /admin/
+Disallow: /empleados/
+Disallow: /area-cliente/
+Disallow: /reserva/exito/
+Disallow: /reserva/cancelado/
+Disallow: /resena/
+
+Sitemap: https://lavadoybrillo.com/sitemap.xml

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Alvatowash · Lavado premium · 19 centros</title>
+<meta name="description" content="Lavado de coches profesional con tradición artesana. 19 centros. Desde 35€."/>
+<meta name="theme-color" content="#FAF7F2"/>
+<link rel="icon" type="image/svg+xml" href="icon.svg"/>
+<link rel="apple-touch-icon" href="icon.svg"/>
+
+<script src="config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+:root{
+  --bg:#FAF7F2; --bg-2:#F0EBE0; --bg-3:#1A1814; --bg-4:#FFFFFF;
+  --ink:#1A1814; --ink-2:#4A4540; --ink-3:#8A857F; --muted:#B5B0A8;
+  --line:rgba(26,24,20,.08); --line-2:rgba(26,24,20,.16);
+  --accent:#8B1A1A; --accent-2:#A52A2A; --accent-dk:#6B0F0F;
+  --cream:#F5EFE3; --gold:#A38847;
+  --good:#557A4D;
+  --serif:'Fraunces',Georgia,serif;
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--ink);overflow-x:hidden}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  letter-spacing:-.005em;
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
+.container-narrow{max-width:980px;margin:0 auto;padding:0 32px}
+
+.eye{
+  font-size:11px;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--ink-3);font-family:'Inter';
+}
+.eye-accent{color:var(--accent)}
+.serif-italic{font-family:var(--serif);font-style:italic;font-weight:400}
+
+/* ════════════════ NAV ════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(250,247,242,.85);backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 32px;max-width:1280px;margin:0 auto;
+}
+.brand{
+  font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-.5px;
+  color:var(--ink);
+}
+.brand em{font-style:italic;font-weight:400;color:var(--accent)}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-link{
+  font-size:13.5px;font-weight:500;color:var(--ink-2);
+  transition:color .15s;letter-spacing:.1px;
+}
+.nav-link:hover{color:var(--accent)}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:500;font-size:13.5px;letter-spacing:.1px;
+  padding:11px 22px;border-radius:99px;border:1px solid transparent;
+  transition:background .2s,color .2s,border-color .2s,transform .1s;
+  font-family:'Inter';
+}
+.btn:active{transform:scale(.98)}
+.btn-ghost{color:var(--ink);border-color:var(--line-2)}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.btn-dark{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn-dark:hover{background:#000;border-color:#000}
+.btn-accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-accent:hover{background:var(--accent-dk);border-color:var(--accent-dk)}
+.btn-lg{padding:15px 32px;font-size:14.5px}
+.arrow{display:inline-block;transition:transform .25s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-actions .btn-ghost{display:none}
+}
+
+/* ════════════════ HERO ════════════════ */
+.hero{
+  padding:160px 0 100px;position:relative;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:80px;align-items:center;
+}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+
+.hero-text-col{position:relative}
+.hero-eye-row{display:flex;align-items:center;gap:18px;margin-bottom:32px}
+.hero-eye-row::before{content:'';width:48px;height:1px;background:var(--accent)}
+
+.hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(48px,7vw,96px);line-height:1.02;letter-spacing:-2.5px;
+  color:var(--ink);margin-bottom:32px;
+}
+.hero h1 em{
+  font-style:italic;font-weight:400;color:var(--accent);
+}
+.hero-sub{
+  font-size:18px;color:var(--ink-2);line-height:1.65;
+  max-width:480px;margin-bottom:42px;font-weight:400;
+}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+
+.hero-meta{
+  display:flex;gap:32px;padding-top:32px;border-top:1px solid var(--line);
+}
+.hero-meta-item{flex:1}
+.hero-meta-num{
+  font-family:var(--serif);font-weight:300;font-size:36px;line-height:1;
+  color:var(--ink);letter-spacing:-1px;
+}
+.hero-meta-num em{font-style:italic;color:var(--accent);font-weight:400}
+.hero-meta-lbl{font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:1.5px;margin-top:6px;font-weight:500}
+
+.hero-img-col{
+  position:relative;aspect-ratio:4/5;
+  background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=85&auto=format&fit=crop');
+  background-size:cover;background-position:center;
+  border-radius:4px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(26,24,20,.18);
+}
+.hero-img-tag{
+  position:absolute;top:24px;left:24px;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(10px);
+  padding:10px 16px;border-radius:99px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:600;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-img-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.hero-img-quote{
+  position:absolute;left:24px;right:24px;bottom:24px;
+  background:rgba(26,24,20,.85);backdrop-filter:blur(20px);
+  color:var(--bg);padding:20px 24px;border-radius:4px;
+}
+.hero-img-quote-stars{color:var(--gold);letter-spacing:2px;font-size:13px;margin-bottom:8px}
+.hero-img-quote-text{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.5;color:#fff;margin-bottom:6px}
+.hero-img-quote-author{font-size:11.5px;color:rgba(255,255,255,.7);letter-spacing:.5px}
+
+/* ════════════════ HERITAGE BAND ════════════════ */
+.heritage{padding:56px 0;background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.heritage-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:48px;align-items:center;
+}
+@media(max-width:900px){.heritage-row{grid-template-columns:repeat(2,1fr);gap:32px}}
+.heritage-item{text-align:center}
+.heritage-item-h{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1;color:var(--ink);letter-spacing:-.5px;margin-bottom:6px}
+.heritage-item-h em{font-style:italic;color:var(--accent)}
+.heritage-item-p{font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:500}
+
+/* ════════════════ SECCIÓN ════════════════ */
+.section{padding:140px 0}
+.section-head{margin-bottom:80px;max-width:720px}
+.section-eye-row{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.section-eye-row::before{content:'';width:48px;height:1px;background:var(--accent)}
+.section-h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(40px,5.5vw,72px);line-height:1.05;letter-spacing:-2px;
+  color:var(--ink);margin-bottom:24px;
+}
+.section-h2 em{font-style:italic;font-weight:400;color:var(--accent)}
+.section-sub{font-size:17px;color:var(--ink-2);line-height:1.65;max-width:580px}
+.section-head-centered{text-align:center;margin:0 auto 80px}
+.section-head-centered .section-eye-row{justify-content:center}
+.section-head-centered .section-h2{margin-left:auto;margin-right:auto}
+.section-head-centered .section-sub{margin-left:auto;margin-right:auto}
+
+/* ════════════════ ATELIER · servicios como capítulos ════════════════ */
+.atelier{padding:140px 0;background:var(--bg-4)}
+.atelier-grid{display:flex;flex-direction:column;gap:120px}
+.atelier-item{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:80px;align-items:center;
+}
+.atelier-item:nth-child(even){direction:rtl}
+.atelier-item:nth-child(even) > *{direction:ltr}
+@media(max-width:900px){
+  .atelier-grid{gap:80px}
+  .atelier-item, .atelier-item:nth-child(even){grid-template-columns:1fr;direction:ltr;gap:32px}
+}
+.atelier-img{
+  aspect-ratio:5/4;background-size:cover;background-position:center;
+  border-radius:4px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(26,24,20,.16);
+}
+.atelier-num{
+  font-family:var(--serif);font-weight:300;font-size:14px;color:var(--accent);
+  letter-spacing:3px;margin-bottom:18px;display:flex;align-items:center;gap:14px;
+}
+.atelier-num::after{content:'';flex:1;height:1px;background:var(--line);max-width:120px}
+.atelier-h{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(32px,4vw,52px);line-height:1.08;letter-spacing:-1px;
+  color:var(--ink);margin-bottom:22px;
+}
+.atelier-h em{font-style:italic;color:var(--accent)}
+.atelier-p{font-size:16.5px;color:var(--ink-2);line-height:1.7;margin-bottom:24px;max-width:480px}
+.atelier-detail{display:flex;flex-direction:column;gap:11px;margin-bottom:32px}
+.atelier-detail-row{
+  display:flex;align-items:center;gap:12px;
+  padding-bottom:11px;border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+.atelier-detail-row:last-child{border-bottom:none;padding-bottom:0}
+.atelier-detail-lbl{color:var(--ink-3);font-weight:500;min-width:120px}
+.atelier-detail-val{color:var(--ink);font-weight:500}
+.atelier-price{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:24px;
+}
+.atelier-price-num{font-family:var(--serif);font-weight:300;font-size:48px;line-height:1;letter-spacing:-1.5px;color:var(--ink)}
+.atelier-price-num em{font-style:italic;color:var(--accent);font-weight:400}
+.atelier-price-from{font-size:13px;color:var(--ink-3);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.atelier-cta{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:600;font-size:14px;border-bottom:1px solid var(--ink);padding-bottom:4px}
+.atelier-cta:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ════════════════ COMBO FEATURE · spread de revista ════════════════ */
+.combo-feature{
+  padding:140px 0;background:var(--ink);color:var(--bg);position:relative;overflow:hidden;
+}
+.combo-feature-grid{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;
+}
+@media(max-width:900px){.combo-feature-grid{grid-template-columns:1fr;gap:48px}}
+.combo-feature-left{position:relative}
+.combo-feature-img{
+  aspect-ratio:1/1.2;background-size:cover;background-position:center;
+  background-image:url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1400&q=85&auto=format&fit=crop');
+  border-radius:4px;
+}
+.combo-price-overlay{
+  position:absolute;top:24px;left:24px;
+  background:var(--accent);color:#fff;
+  padding:14px 20px;border-radius:4px;
+  font-family:var(--serif);font-weight:400;font-size:64px;line-height:1;letter-spacing:-2px;
+}
+.combo-price-overlay sub{font-size:.3em;vertical-align:top;margin-left:4px}
+.combo-feature-eye{
+  font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(245,239,227,.7);margin-bottom:22px;display:flex;align-items:center;gap:14px;
+}
+.combo-feature-eye::before{content:'';width:48px;height:1px;background:var(--accent-2)}
+.combo-feature-h{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(40px,5.5vw,72px);line-height:1.05;letter-spacing:-2px;
+  color:#fff;margin-bottom:24px;
+}
+.combo-feature-h em{font-style:italic;color:var(--accent-2)}
+.combo-feature-p{font-size:17px;color:rgba(245,239,227,.85);line-height:1.65;margin-bottom:32px;max-width:520px}
+.combo-feature-list{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px 32px;margin-bottom:40px;
+}
+@media(max-width:640px){.combo-feature-list{grid-template-columns:1fr}}
+.combo-feature-list-item{
+  display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(245,239,227,.92);
+}
+.combo-feature-list-item::before{
+  content:'';width:18px;height:18px;flex-shrink:0;margin-top:2px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23A52A2A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center/18px no-repeat;
+}
+.combo-feature-promo{
+  background:rgba(245,239,227,.06);border-left:2px solid var(--accent-2);
+  padding:16px 22px;margin-bottom:32px;
+}
+.combo-feature-promo-title{font-family:var(--serif);font-style:italic;font-size:18px;color:#fff;margin-bottom:4px}
+.combo-feature-promo-desc{font-size:13.5px;color:rgba(245,239,227,.75);line-height:1.55}
+
+/* ════════════════ MÉTODO · 6 pasos ════════════════ */
+.metodo{padding:140px 0;background:var(--bg-2)}
+.metodo-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.metodo-steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.metodo-steps{grid-template-columns:1fr}}
+.metodo-step{
+  background:var(--bg-4);padding:36px 30px;border-radius:4px;
+  border:1px solid var(--line);
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.metodo-step:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(26,24,20,.08)}
+.metodo-step-num{
+  font-family:var(--serif);font-weight:300;font-size:64px;line-height:1;
+  color:var(--accent);letter-spacing:-2px;margin-bottom:18px;
+  font-feature-settings:"lnum";
+}
+.metodo-step-h{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.15;color:var(--ink);margin-bottom:10px;letter-spacing:-.4px}
+.metodo-step-p{font-size:14px;color:var(--ink-2);line-height:1.6}
+
+/* ════════════════ MENÚ DE PRECIOS · style menú restaurante ════════════════ */
+.precios-section{padding:140px 0;background:var(--bg)}
+.precios-menu{
+  max-width:880px;margin:0 auto;
+}
+.precio-item{
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;
+  padding:32px 0;border-bottom:1px solid var(--line);
+}
+.precio-item:last-child{border-bottom:none}
+.precio-item-info{display:flex;flex-direction:column;gap:8px}
+.precio-item-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.precio-item-name{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;color:var(--ink);letter-spacing:-.4px}
+.precio-item-badge{
+  font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  padding:4px 10px;border-radius:99px;
+}
+.precio-item-badge.recommended{background:rgba(163,136,71,.12);color:var(--gold)}
+.precio-item-badge.featured{background:var(--accent);color:#fff}
+.precio-item-badge.premium{background:var(--ink);color:var(--bg)}
+.precio-item-desc{font-size:15px;color:var(--ink-2);line-height:1.6;max-width:560px}
+.precio-item-includes{font-size:12.5px;color:var(--ink-3);font-style:italic;margin-top:4px;max-width:560px;line-height:1.55}
+.precio-item-side{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:140px}
+.precio-item-was{text-decoration:line-through;color:var(--ink-3);font-size:14px}
+.precio-item-price{font-family:var(--serif);font-weight:400;font-size:42px;line-height:1;color:var(--ink);letter-spacing:-1px}
+.precio-item-price em{font-style:italic;color:var(--accent)}
+.precio-item-price-unit{font-size:14px;color:var(--ink-3);font-weight:500;margin-left:2px}
+.precio-item-cta{
+  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px;
+  transition:all .15s;
+}
+.precio-item-cta:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ════════════════ VIP · invitación ════════════════ */
+.vip{padding:140px 0;background:var(--bg-4)}
+.vip-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:900px){.vip-grid{grid-template-columns:1fr;gap:48px}}
+.vip-card-wrap{position:relative}
+.vip-card{
+  background:linear-gradient(135deg,var(--ink) 0%,#2A2620 100%);
+  color:var(--bg);padding:40px 36px;border-radius:6px;
+  position:relative;overflow:hidden;
+  box-shadow:0 30px 80px rgba(26,24,20,.25);
+}
+.vip-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),#D4BC85);
+}
+.vip-card-corner{
+  position:absolute;top:24px;right:24px;
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#D4BC85);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-weight:500;color:var(--ink);font-size:18px;
+}
+.vip-card-eye{
+  font-size:10.5px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;
+}
+.vip-card-name{font-family:var(--serif);font-style:italic;font-weight:400;font-size:32px;line-height:1;color:#fff;margin-bottom:6px}
+.vip-card-tier{font-size:13.5px;color:#D4BC85;font-weight:500;margin-bottom:28px}
+.vip-progress{height:5px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;margin-bottom:8px}
+.vip-progress-fill{height:100%;width:72%;background:linear-gradient(90deg,var(--gold),#D4BC85);border-radius:99px}
+.vip-card-points{display:flex;justify-content:space-between;font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:28px}
+.vip-card-points strong{color:#D4BC85;font-weight:600}
+.vip-rewards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.vip-reward{
+  background:rgba(255,255,255,.04);
+  padding:14px 10px;text-align:center;border-radius:3px;
+}
+.vip-reward-pts{font-family:var(--serif);font-weight:400;font-size:20px;color:var(--gold);letter-spacing:0}
+.vip-reward-lbl{font-size:9.5px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-weight:500}
+
+/* ════════════════ CENTROS ════════════════ */
+.centros{padding:140px 0;background:var(--bg-2)}
+.centros-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;
+  background:var(--line);
+}
+.centro-card{
+  background:var(--bg);padding:28px 24px;
+  transition:background .15s;cursor:pointer;
+}
+.centro-card:hover{background:var(--bg-4)}
+.centro-name{font-family:var(--serif);font-weight:500;font-size:18px;line-height:1.15;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px}
+.centro-city{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}
+.centro-addr{font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:8px}
+.centro-hours{font-size:12px;color:var(--ink-3);font-weight:500}
+
+/* ════════════════ TESTIMONIOS ════════════════ */
+.testi{padding:140px 0;background:var(--bg-4)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+@media(max-width:900px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{
+  padding:8px 0;
+}
+.testi-stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:18px}
+.testi-quote{
+  font-family:var(--serif);font-weight:400;font-style:italic;
+  font-size:21px;line-height:1.5;color:var(--ink);margin-bottom:26px;letter-spacing:-.3px;
+}
+.testi-author{font-size:13px;font-weight:600;color:var(--ink-2)}
+.testi-author span{color:var(--ink-3);font-weight:400;display:block;font-size:12px;margin-top:3px}
+
+/* ════════════════ CTA FINAL ════════════════ */
+.cta-final{
+  padding:200px 0;background:var(--ink);color:var(--bg);text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(800px 400px at 50% 100%,rgba(139,26,26,.2),transparent 70%);
+}
+.cta-final-inner{position:relative;z-index:1}
+.cta-final-eye{
+  font-size:11px;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;
+  color:rgba(245,239,227,.5);margin-bottom:32px;display:inline-flex;align-items:center;gap:14px;
+}
+.cta-final-eye::before,.cta-final-eye::after{content:'';width:32px;height:1px;background:rgba(245,239,227,.3)}
+.cta-final h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(52px,8vw,108px);line-height:1.02;letter-spacing:-2.5px;
+  color:#fff;margin-bottom:36px;
+}
+.cta-final h2 em{font-style:italic;color:#A52A2A}
+.cta-final p{font-size:18.5px;color:rgba(245,239,227,.75);max-width:560px;margin:0 auto 48px;line-height:1.65}
+
+/* ════════════════ FOOTER ════════════════ */
+.footer{padding:80px 0 32px;background:var(--bg-2);border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
+.footer-brand{font-family:var(--serif);font-weight:400;font-size:32px;letter-spacing:-.5px;margin-bottom:14px}
+.footer-brand em{font-style:italic;color:var(--accent)}
+.footer-tag{font-size:14px;color:var(--ink-3);line-height:1.65;max-width:280px}
+.footer-col-h{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-3);margin-bottom:20px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:11px}
+.footer-col a{font-size:14px;color:var(--ink-2);transition:color .15s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{
+  border-top:1px solid var(--line);padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  font-size:12.5px;color:var(--ink-3);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">Alvato<em>wash</em></a>
+    <div class="nav-links">
+      <a href="#atelier" class="nav-link">Servicios</a>
+      <a href="#combo" class="nav-link">Combo Verano</a>
+      <a href="#precios" class="nav-link">Precios</a>
+      <a href="#centros" class="nav-link">Centros</a>
+      <a href="area-cliente/" class="nav-link">Club VIP</a>
+    </div>
+    <div class="nav-actions">
+      <a href="area-cliente/" class="btn btn-ghost">Mi cuenta</a>
+      <a href="reserva/" class="btn btn-dark">Reservar <span class="arrow">→</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text-col">
+        <div class="hero-eye-row">
+          <span class="eye eye-accent">Lavado artesano · Desde 1999</span>
+        </div>
+        <h1>Tu coche.<br>Como <em>recién</em><br>comprado.</h1>
+        <p class="hero-sub">Lavado premium en 19 centros con un método propio en 6 pasos. Si vuelves antes de 30 días, el mantenimiento te vale <strong>solo 45€</strong>.</p>
+        <div class="hero-cta">
+          <a href="reserva/?svc=combo_verano" class="btn btn-accent btn-lg">Reservar Combo · 89€ <span class="arrow">→</span></a>
+          <a href="#atelier" class="btn btn-ghost btn-lg">Conocer servicios</a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <div class="hero-meta-num">19</div>
+            <div class="hero-meta-lbl">Centros</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-num">26K<em>+</em></div>
+            <div class="hero-meta-lbl">Lavados</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-num">4,9<em>★</em></div>
+            <div class="hero-meta-lbl">Valoración</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-img-col">
+        <div class="hero-img-tag">Verano 2026</div>
+        <div class="hero-img-quote">
+          <div class="hero-img-quote-stars">★★★★★</div>
+          <div class="hero-img-quote-text">"Te dejan el coche como nuevo. Sistema de mantenimiento a 45€ brutal."</div>
+          <div class="hero-img-quote-author">Carlos M. · Cliente VIP Diamante</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ HERITAGE BAND ═══════════ -->
+<section class="heritage">
+  <div class="container">
+    <div class="heritage-row">
+      <div class="heritage-item">
+        <div class="heritage-item-h">26<em>.771</em></div>
+        <div class="heritage-item-p">Opiniones verificadas</div>
+      </div>
+      <div class="heritage-item">
+        <div class="heritage-item-h">4,9<em>1</em></div>
+        <div class="heritage-item-p">★★★★★ promedio</div>
+      </div>
+      <div class="heritage-item">
+        <div class="heritage-item-h">19</div>
+        <div class="heritage-item-p">Centros · España y Andorra</div>
+      </div>
+      <div class="heritage-item">
+        <div class="heritage-item-h">90<em>'</em></div>
+        <div class="heritage-item-p">Entrega · Combo Verano</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ATELIER · servicios como capítulos ═══════════ -->
+<section class="atelier" id="atelier">
+  <div class="container">
+    <div class="section-head section-head-centered">
+      <div class="section-eye-row">
+        <span class="eye eye-accent">Nuestro atelier</span>
+      </div>
+      <h2 class="section-h2">Cada coche, <em>su rutina.</em></h2>
+      <p class="section-sub">Cuatro capítulos pensados para los cuatro momentos de tu coche. Desde el lavado de cada semana hasta la protección cerámica de tu joya.</p>
+    </div>
+
+    <div class="atelier-grid">
+
+      <!-- Capítulo 01 · Mantenimiento -->
+      <div class="atelier-item">
+        <div class="atelier-img" style="background-image:url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div>
+          <div class="atelier-num">Capítulo 01 · El día a día</div>
+          <h3 class="atelier-h">Mantenimiento <em>Plus.</em></h3>
+          <p class="atelier-p">El lavado semanal que tu coche merece. Limpieza completa por fuera y por dentro, con cera líquida hidrofóbica que repele agua y polvo. Lo entregamos en 35 minutos.</p>
+          <div class="atelier-detail">
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Duración</span><span class="atelier-detail-val">35 minutos</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Incluye</span><span class="atelier-detail-val">Ozono + perfume premium</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Ideal para</span><span class="atelier-detail-val">Coche del día a día</span></div>
+          </div>
+          <div class="atelier-price">
+            <span class="atelier-price-num">42<em>€</em></span>
+            <span class="atelier-price-from">/ servicio</span>
+          </div>
+          <a href="reserva/?svc=mantenimiento_plus" class="atelier-cta">Reservar este servicio <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- Capítulo 02 · Combo Verano (highlight) -->
+      <div class="atelier-item">
+        <div class="atelier-img" style="background-image:url('https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div>
+          <div class="atelier-num">Capítulo 02 · La promo del verano</div>
+          <h3 class="atelier-h">Combo <em>Verano.</em></h3>
+          <p class="atelier-p">Reacondicionado integral. Limpieza profunda interior y exterior, descontaminación de pintura, abrillantado y aspirado completo. <strong style="color:var(--ink)">Si vuelves antes de 30 días, el mantenimiento vale 45€.</strong></p>
+          <div class="atelier-detail">
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Duración</span><span class="atelier-detail-val">90 minutos</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Promo activa</span><span class="atelier-detail-val">Mantenimiento → 45€ los 30 días siguientes</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Ahorro</span><span class="atelier-detail-val" style="color:var(--accent)">50% sobre precio normal</span></div>
+          </div>
+          <div class="atelier-price">
+            <span class="atelier-price-from" style="text-decoration:line-through;margin-right:4px">180€</span>
+            <span class="atelier-price-num">89<em>€</em></span>
+            <span class="atelier-price-from">/ servicio</span>
+          </div>
+          <a href="reserva/?svc=combo_verano" class="atelier-cta">Reservar Combo Verano <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- Capítulo 03 · Nanodiamond -->
+      <div class="atelier-item">
+        <div class="atelier-img" style="background-image:url('https://images.unsplash.com/photo-1520316587-6c659b9d9a85?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div>
+          <div class="atelier-num">Capítulo 03 · Para tu joya</div>
+          <h3 class="atelier-h"><em>Nanodiamond.</em></h3>
+          <p class="atelier-p">Tratamiento cerámico de exhibición. Capa protectora nanométrica que dura años, blinda contra arañazos finos y otorga ese brillo de salón que dura todo el año.</p>
+          <div class="atelier-detail">
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Duración</span><span class="atelier-detail-val">8 horas (entrega siguiente día)</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Durabilidad</span><span class="atelier-detail-val">+3 años</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Garantía</span><span class="atelier-detail-val">2 años incluidos</span></div>
+          </div>
+          <div class="atelier-price">
+            <span class="atelier-price-num">540<em>€</em></span>
+            <span class="atelier-price-from">/ servicio</span>
+          </div>
+          <a href="reserva/?svc=nanodiamond" class="atelier-cta">Solicitar Nanodiamond <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- Capítulo 04 · Reacondicionado -->
+      <div class="atelier-item">
+        <div class="atelier-img" style="background-image:url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div>
+          <div class="atelier-num">Capítulo 04 · Recuperación</div>
+          <h3 class="atelier-h">Reacondicionado <em>Express.</em></h3>
+          <p class="atelier-p">Sesión rápida y económica para recuperar el brillo de la carrocería o limpiar el habitáculo sin compromiso. Servicios individuales para corregir un detalle puntual.</p>
+          <div class="atelier-detail">
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Exterior</span><span class="atelier-detail-val">Pulido + descontaminación</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Interior</span><span class="atelier-detail-val">Tapicería + plásticos</span></div>
+            <div class="atelier-detail-row"><span class="atelier-detail-lbl">Duración</span><span class="atelier-detail-val">20-30 minutos</span></div>
+          </div>
+          <div class="atelier-price">
+            <span class="atelier-price-from">desde</span>
+            <span class="atelier-price-num">24<em>,90€</em></span>
+          </div>
+          <a href="reserva/?svc=reacondicionado_ext" class="atelier-cta">Reservar Reacondicionado <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COMBO FEATURE · spread editorial ═══════════ -->
+<section class="combo-feature" id="combo">
+  <div class="container">
+    <div class="combo-feature-grid">
+      <div class="combo-feature-left">
+        <div class="combo-feature-img">
+          <div class="combo-price-overlay">89<sub>€</sub></div>
+        </div>
+      </div>
+      <div>
+        <div class="combo-feature-eye">Servicio destacado · Verano 2026</div>
+        <h2 class="combo-feature-h">El lavado que <em>recupera</em> tu coche.</h2>
+        <p class="combo-feature-p">Un reacondicionado integral por dentro y por fuera. Descontaminación de pintura, abrillantado, aspirado profundo y purificado del habitáculo con ozono.</p>
+        <div class="combo-feature-list">
+          <div class="combo-feature-list-item">Reacondicionado exterior</div>
+          <div class="combo-feature-list-item">Reacondicionado interior</div>
+          <div class="combo-feature-list-item">Descontaminación pintura</div>
+          <div class="combo-feature-list-item">Abrillantado carrocería</div>
+          <div class="combo-feature-list-item">Limpieza tapicería</div>
+          <div class="combo-feature-list-item">Purificado con ozono</div>
+        </div>
+        <div class="combo-feature-promo">
+          <div class="combo-feature-promo-title">Promo activa</div>
+          <div class="combo-feature-promo-desc">Vuelves antes de 30 días y el mantenimiento te vale solo <strong style="color:#fff">45€</strong>. Como si fuera un abono mensual.</div>
+        </div>
+        <a href="reserva/?svc=combo_verano" class="btn btn-accent btn-lg">Reservar Combo · 89€ <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MÉTODO ═══════════ -->
+<section class="metodo">
+  <div class="container">
+    <div class="section-head section-head-centered">
+      <div class="section-eye-row">
+        <span class="eye eye-accent">Nuestro método</span>
+      </div>
+      <h2 class="section-h2">El protocolo en <em>seis pasos.</em></h2>
+      <p class="section-sub">Mismo método en los 19 centros. Sin atajos, sin improvisar. Cada paso tiene su tiempo y su producto específico.</p>
+    </div>
+    <div class="metodo-steps">
+      <div class="metodo-step">
+        <div class="metodo-step-num">01</div>
+        <div class="metodo-step-h">Llantas</div>
+        <div class="metodo-step-p">Desincrustante específico para polvo de freno. Cepillado independiente para no contaminar el resto del coche.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-step-num">02</div>
+        <div class="metodo-step-h">Prelavado</div>
+        <div class="metodo-step-p">Espuma activa que desprende suciedad sin frotar. Reduce el riesgo de microrayaduras a casi cero.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-step-num">03</div>
+        <div class="metodo-step-h">Lavado manual</div>
+        <div class="metodo-step-p">Técnica de dos cubos. Una manopla para carrocería, otra para zonas sucias. Nunca mezclamos.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-step-num">04</div>
+        <div class="metodo-step-h">Protección</div>
+        <div class="metodo-step-p">Cera líquida hidrofóbica que repele agua y polvo durante semanas. El brillo dura.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-step-num">05</div>
+        <div class="metodo-step-h">Interior</div>
+        <div class="metodo-step-p">Aspirado completo, limpieza de salpicadero y cristales, purificado con ozono que elimina olores.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-step-num">06</div>
+        <div class="metodo-step-h">Detallado</div>
+        <div class="metodo-step-p">Brillo en plásticos exteriores, repaso de cristales y entrega revisada. Si no estás conforme, lo repetimos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRECIOS · estilo menú ═══════════ -->
+<section class="precios-section" id="precios">
+  <div class="container">
+    <div class="section-head section-head-centered">
+      <div class="section-eye-row">
+        <span class="eye eye-accent">Carta de servicios</span>
+      </div>
+      <h2 class="section-h2">Precios <em>cerrados.</em></h2>
+      <p class="section-sub">Sin asteriscos ni letra chica. El precio que ves es el que pagás.</p>
+    </div>
+    <div class="precios-menu" id="preciosMenu"></div>
+  </div>
+</section>
+
+<!-- ═══════════ VIP ═══════════ -->
+<section class="vip">
+  <div class="container">
+    <div class="vip-grid">
+      <div>
+        <div class="section-eye-row">
+          <span class="eye eye-accent">Club VIP Alvatowash</span>
+        </div>
+        <h2 class="section-h2" style="margin-top:24px">Cada lavado <em>cuenta.</em></h2>
+        <p class="section-sub" style="margin-bottom:36px">Bronce, Plata, Oro o Diamante. Cuanto más nos visitás, mejor tu nivel y más recompensas desbloqueás. Canjeás puntos por lavados gratis, mejoras y servicios premium.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="area-cliente/" class="btn btn-dark btn-lg">Abrir mi área VIP</a>
+          <a href="reserva/" class="btn btn-ghost btn-lg">Empezar a sumar</a>
+        </div>
+      </div>
+      <div class="vip-card-wrap">
+        <div class="vip-card">
+          <div class="vip-card-corner">★</div>
+          <div class="vip-card-eye">Tarjeta VIP</div>
+          <div class="vip-card-name">María R.</div>
+          <div class="vip-card-tier">Nivel Oro</div>
+          <div class="vip-progress"><div class="vip-progress-fill"></div></div>
+          <div class="vip-card-points">
+            <span><strong>720 pts</strong></span>
+            <span>280 para Diamante</span>
+          </div>
+          <div class="vip-rewards">
+            <div class="vip-reward"><div class="vip-reward-pts">100</div><div class="vip-reward-lbl">Aspirado</div></div>
+            <div class="vip-reward"><div class="vip-reward-pts">350</div><div class="vip-reward-lbl">Mantenimiento</div></div>
+            <div class="vip-reward"><div class="vip-reward-pts">800</div><div class="vip-reward-lbl">Combo Verano</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CENTROS ═══════════ -->
+<section class="centros" id="centros">
+  <div class="container">
+    <div class="section-head section-head-centered">
+      <div class="section-eye-row">
+        <span class="eye eye-accent">Nuestros centros</span>
+      </div>
+      <h2 class="section-h2">Cerca <em>de ti.</em></h2>
+      <p class="section-sub">19 centros en España y Andorra, con el mismo método y la misma calidad en cada uno.</p>
+    </div>
+    <div class="centros-grid" id="centrosGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIOS ═══════════ -->
+<section class="testi">
+  <div class="container">
+    <div class="section-head section-head-centered">
+      <div class="section-eye-row">
+        <span class="eye eye-accent">Opiniones</span>
+      </div>
+      <h2 class="section-h2">Lo que dicen <em>quienes vuelven.</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"El Combo Verano vale cada euro. Te dejan el coche como nuevo y el sistema de mantenimiento a 45€ es brutal."</div>
+        <div class="testi-author">Carlos M.<span>Cliente VIP Diamante · Madrid</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Llevé el Nanodiamond y el resultado es de exhibición. Lleva 6 meses y el agua sigue resbalando como el primer día."</div>
+        <div class="testi-author">Laura P.<span>Audi A6 · Barcelona</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Reservé en 60 segundos por el móvil, entregué el coche y a los 90 minutos lo recogí impecable. Sin excusas."</div>
+        <div class="testi-author">Javier S.<span>BMW X3 · Valencia</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA FINAL ═══════════ -->
+<section class="cta-final">
+  <div class="container cta-final-inner">
+    <div class="cta-final-eye">Tu coche te espera</div>
+    <h2>Como recién<br><em>comprado.</em></h2>
+    <p>Reservá tu cita en 60 segundos. Te esperamos en cualquiera de nuestros 19 centros.</p>
+    <a href="reserva/" class="btn btn-accent btn-lg">Reservar ahora <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Alvato<em>wash</em></div>
+        <p class="footer-tag">Lavado premium en 19 centros. Método artesano, precios cerrados, mantenimiento garantizado.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-h">Servicios</div>
+        <ul>
+          <li><a href="reserva/?svc=mantenimiento">Mantenimiento</a></li>
+          <li><a href="reserva/?svc=mantenimiento_plus">Plus</a></li>
+          <li><a href="reserva/?svc=combo_verano">Combo Verano</a></li>
+          <li><a href="reserva/?svc=nanodiamond">Nanodiamond</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-h">Empresa</div>
+        <ul>
+          <li><a href="area-cliente/">Club VIP</a></li>
+          <li><a href="#centros">Centros</a></li>
+          <li><a href="#testimonios">Opiniones</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-h">Legal</div>
+        <ul>
+          <li><a href="legal/aviso-legal/">Aviso Legal</a></li>
+          <li><a href="legal/privacidad/">Privacidad</a></li>
+          <li><a href="legal/cookies/">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Alvatowash · Todos los derechos reservados</div>
+      <div>lavadoybrillo.com</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const CFG = window.CONFIG || {};
+
+/* Render menú precios */
+(function renderPrecios(){
+  const menu = document.getElementById('preciosMenu');
+  if (!menu || !CFG.services) return;
+  menu.innerHTML = CFG.services.map(s => {
+    let badge = '';
+    if (s.key === 'combo_verano') badge = `<span class="precio-item-badge featured">−50%</span>`;
+    else if (s.key === 'mantenimiento_plus') badge = `<span class="precio-item-badge recommended">★ Recomendado</span>`;
+    else if (s.key === 'nanodiamond') badge = `<span class="precio-item-badge premium">Premium</span>`;
+
+    const wasHtml = s.priceWas ? `<span class="precio-item-was">${s.priceWas}€</span>` : '';
+    const includes = (s.includes||[]).slice(0,3).join(' · ');
+
+    return `
+      <div class="precio-item">
+        <div class="precio-item-info">
+          <div class="precio-item-head">
+            <div class="precio-item-name">${s.name.replace('Lavado ','')}</div>
+            ${badge}
+          </div>
+          <div class="precio-item-desc">${s.desc || ''}</div>
+          ${includes ? `<div class="precio-item-includes">Incluye: ${includes}${s.includes.length>3?'…':''}</div>` : ''}
+        </div>
+        <div class="precio-item-side">
+          ${wasHtml}
+          <div class="precio-item-price">${s.price}<span class="precio-item-price-unit">€</span></div>
+          <a href="reserva/?svc=${s.key}" class="precio-item-cta">Reservar →</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+})();
+
+/* Render centros */
+(function renderCentros(){
+  const cg = document.getElementById('centrosGrid');
+  if (!cg || !CFG.centros) return;
+  cg.innerHTML = CFG.centros.map(c => `
+    <a href="reserva/?centro=${c.id}" class="centro-card">
+      <div class="centro-name">${c.nombre}</div>
+      <div class="centro-city">${c.ciudad}</div>
+      <div class="centro-addr">${c.direccion}</div>
+      <div class="centro-hours">${c.horario}</div>
+    </a>
+  `).join('');
+})();
+</script>
+
+<script src="legal/footer.js"></script>
+
+</body>
+</html>

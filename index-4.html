@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Alvatowash · Configurador del Detalle · 19 centros</title>
+<meta name="description" content="Configurá tu lavado en 3D. Combo Verano 89€. 19 centros en España y Andorra."/>
+<meta name="theme-color" content="#0A0A0B"/>
+<link rel="icon" type="image/svg+xml" href="icon.svg"/>
+<link rel="apple-touch-icon" href="icon.svg"/>
+
+<script src="config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Anton&display=swap" rel="stylesheet"/>
+<!-- Spline viewer (opcional, ver SECCIÓN CONFIGURADOR más abajo) -->
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.45/build/spline-viewer.js"></script>
+
+<style>
+:root{
+  --bg:#0A0A0B; --bg-2:#0F0F11; --bg-3:#16161A; --bg-4:#1E1E23;
+  --ink:#F5F5F7; --ink-2:#A1A1A8; --ink-3:#6B6B72;
+  --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.12);
+  --accent:#E53E3E; --accent-2:#FF6363; --accent-dk:#B91C1C;
+  --gold:#C0A872; --gold-2:#D4BC85;
+  --display:'Anton','Inter',sans-serif;
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--ink);overflow-x:hidden}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+a{color:inherit;text-decoration:none}
+img,svg,video{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
+
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+
+/* ──────── NAV ──────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,.5);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.04);transition:transform .35s var(--ease),background .25s}
+.nav.scrolled{background:rgba(10,10,11,.85)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1280px;margin:0 auto}
+.brand{font-family:var(--display);font-size:26px;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
+.nav-links{display:flex;gap:32px}
+.nav-link{font-size:13px;font-weight:500;color:var(--ink-2);text-transform:uppercase;letter-spacing:1.2px;transition:color .15s}
+.nav-link:hover{color:var(--ink)}
+.nav-actions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:13px;letter-spacing:.5px;text-transform:uppercase;padding:11px 22px;border-radius:0;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.btn-ghost{color:var(--ink);border-color:var(--line-2)}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.btn-accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-accent:hover{background:var(--accent-dk);border-color:var(--accent-dk)}
+.btn-light{background:var(--ink);color:var(--bg)}
+.btn-lg{padding:16px 32px;font-size:14px}
+.arrow{display:inline-block;transition:transform .2s}
+.btn:hover .arrow{transform:translateX(3px)}
+@media(max-width:880px){.nav-links{display:none}.nav-actions .btn-ghost{display:none}}
+
+/* ──────── HERO con VIDEO ──────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:#000}
+.hero-video{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.3) 40%,rgba(10,10,11,.92) 100%)}
+.hero-content{position:relative;z-index:2;width:100%;padding:120px 0 80px}
+.hero-eye{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink);margin-bottom:32px;background:rgba(255,255,255,.06);backdrop-filter:blur(10px);border:1px solid var(--line-2);padding:8px 14px;border-radius:99px}
+.hero-eye::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(60px,11vw,160px);line-height:.9;letter-spacing:-1px;text-transform:uppercase;color:var(--ink);margin-bottom:28px;max-width:1100px}
+.hero h1 em{font-style:normal;color:var(--accent-2);display:block}
+.hero-sub{font-size:clamp(16px,1.4vw,18px);color:var(--ink-2);line-height:1.6;max-width:540px;margin-bottom:36px}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.video-mute{position:absolute;bottom:24px;right:24px;z-index:3;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+.video-mute svg{width:18px;height:18px}
+
+/* ──────── HERITAGE STRIP ──────── */
+.heritage{padding:36px 0;background:var(--bg-2);border-bottom:1px solid var(--line)}
+.heritage-inner{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:36px;text-align:center}
+.heritage-item{display:flex;align-items:center;gap:14px}
+.heritage-stars{color:var(--gold);letter-spacing:2px;font-size:16px}
+.heritage-text{font-size:13.5px;color:var(--ink-2);font-weight:500}
+.heritage-text strong{color:var(--ink);font-weight:700}
+.heritage-sep{width:1px;height:24px;background:var(--line-2);display:none}
+@media(min-width:760px){.heritage-sep{display:block}}
+
+/* ──────── SECCIÓN GENÉRICA ──────── */
+.section{padding:120px 0}
+.section-head{margin-bottom:60px;max-width:760px}
+.section-h2{font-family:var(--display);font-weight:400;font-size:clamp(40px,6vw,88px);line-height:.95;letter-spacing:-.3px;text-transform:uppercase;color:var(--ink);margin-top:16px;margin-bottom:18px}
+.section-h2 em{font-style:normal;color:var(--accent-2)}
+.section-sub{font-size:clamp(15px,1.4vw,17px);color:var(--ink-2);max-width:560px;line-height:1.6}
+.section-head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:60px;flex-wrap:wrap}
+.section-head-row .section-head{margin-bottom:0;flex:1;min-width:280px}
+.head-link{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--line-2);padding:8px 0;display:inline-flex;align-items:center;gap:8px}
+
+/* ══════════════════════════════════════════════════════════ */
+/*  CONFIGURADOR 3D · ZONA STAR DE LA PÁGINA                   */
+/* ══════════════════════════════════════════════════════════ */
+.config-section{padding:120px 0;background:var(--bg-2);position:relative;overflow:hidden}
+.config-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1400px;height:600px;background:radial-gradient(circle at center,rgba(229,62,62,.08),transparent 60%);pointer-events:none}
+.config-section-head{text-align:center;max-width:720px;margin:0 auto 60px;position:relative;z-index:1}
+.config-section-head .section-h2{margin-left:auto;margin-right:auto}
+.config-section-head .section-sub{margin-left:auto;margin-right:auto}
+
+.config-stage{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:24px;
+  position:relative;z-index:1;
+}
+@media(max-width:980px){.config-stage{grid-template-columns:1fr;gap:16px}}
+
+/* ─ Visualizer (Spline o SVG fallback) ─ */
+.config-viewer{
+  position:relative;background:var(--bg-3);border:1px solid var(--line);
+  aspect-ratio:4/3;overflow:hidden;
+}
+.config-viewer-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(229,62,62,.06) 0%,transparent 60%),
+    linear-gradient(135deg,#0F0F11,#1E1E23);
+}
+.config-viewer-grid{
+  position:absolute;inset:0;opacity:.25;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse at center,black 40%,transparent 80%);
+}
+.config-viewer-label{
+  position:absolute;top:18px;left:18px;z-index:5;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(10px);
+  border:1px solid var(--line-2);padding:6px 12px;border-radius:99px;
+  font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  display:inline-flex;align-items:center;gap:8px;color:var(--ink);
+}
+.config-viewer-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.5s ease infinite}
+
+/* SVG car — oculto, reemplazado por visor de imágenes */
+.car-svg{display:none}
+
+/* Visor de imágenes */
+.config-img-bg{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  transition:opacity .5s ease,transform .75s ease;transform-origin:center;
+  z-index:1;
+}
+.config-img-overlay{
+  position:absolute;inset:0;z-index:2;
+  background:linear-gradient(to top,rgba(0,0,0,.6) 0%,rgba(0,0,0,.15) 45%,transparent 70%),
+             linear-gradient(to right,rgba(0,0,0,.2) 0%,transparent 35%);
+}
+
+/* Service chips abajo del viewer */
+.config-services{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  padding:14px;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+  position:absolute;bottom:0;left:0;right:0;z-index:6;
+}
+@media(max-width:560px){.config-services{grid-template-columns:repeat(2,1fr)}}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:768px){
+  /* Secciones: menos padding */
+  .config-section,.combo-section,.video-section,.precios,.vip-section,.centros{padding:64px 0}
+  .config-section-head{margin-bottom:36px}
+
+  /* Configurador: imagen visible */
+  .config-viewer{aspect-ratio:3/2;min-height:220px}
+  .config-viewer-label{font-size:9px;padding:5px 10px;top:12px;left:12px}
+
+  /* Chips: cuadrícula 3×2 — todos visibles a la vez */
+  .config-services{
+    display:grid !important;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    padding:10px 12px;
+    background:rgba(0,0,0,.7);
+  }
+  .config-chip{
+    flex-direction:column;
+    gap:4px;
+    padding:8px 6px;
+    font-size:9.5px;
+    border-radius:6px;
+  }
+  .config-chip-icon{width:16px;height:16px}
+  .config-chip-icon svg{width:16px;height:16px}
+
+  /* Info panel */
+  .config-info{padding:22px 18px}
+  .info-title{font-size:22px}
+  .info-cta-row{flex-direction:column}
+  .info-cta-row .btn{width:100%;text-align:center;justify-content:center}
+
+  /* Precios: 1 columna siempre en móvil */
+  .precios-grid{grid-template-columns:1fr}
+  .price-card{padding:24px 20px}
+  .price-amount{font-size:44px}
+
+  /* Combo */
+  .combo-content{padding:36px 24px}
+  .combo-img{min-height:280px}
+  .combo-img-price{font-size:clamp(72px,22vw,120px)}
+
+  /* VIP card */
+  .vip-inner{gap:32px}
+
+  /* Hero */
+  .hero-cta{flex-direction:column;gap:10px}
+  .hero-cta .btn{width:100%;text-align:center;justify-content:center}
+}
+.config-chip{
+  background:transparent;border:1px solid var(--line-2);
+  padding:10px 8px;border-radius:8px;text-align:center;color:var(--ink-2);
+  cursor:pointer;transition:all .2s;
+  font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.config-chip-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.config-chip-icon svg{width:20px;height:20px}
+.config-chip:hover{background:rgba(229,62,62,.1);border-color:var(--accent);color:var(--ink)}
+.config-chip.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(229,62,62,.4)}
+
+/* ─ Info panel a la derecha ─ */
+.config-info{
+  background:var(--bg-3);border:1px solid var(--line);padding:32px;
+  display:flex;flex-direction:column;
+}
+.info-header{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.info-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(229,62,62,.2),rgba(229,62,62,.05));
+  border:1px solid rgba(229,62,62,.3);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(229,62,62,.9);
+}
+.info-icon svg{width:24px;height:24px}
+.info-title-wrap{flex:1}
+.info-kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent-2);margin-bottom:4px}
+.info-title{font-family:var(--display);font-size:28px;line-height:1;text-transform:uppercase;letter-spacing:.5px;color:var(--ink)}
+
+.info-block{margin-bottom:20px}
+.info-block-label{
+  font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.info-block-label::before{content:'';width:14px;height:1px;background:var(--accent)}
+.info-block-text{font-size:14px;color:var(--ink-2);line-height:1.65}
+.info-block-text strong{color:var(--ink);font-weight:600}
+
+.info-phases{display:flex;flex-direction:column;gap:10px}
+.info-phase{
+  display:flex;gap:12px;align-items:flex-start;
+  background:rgba(255,255,255,.025);padding:12px 14px;border-radius:6px;
+  border-left:2px solid var(--accent);
+}
+.info-phase-num{
+  font-family:var(--display);font-size:14px;color:var(--accent-2);
+  letter-spacing:1px;text-transform:uppercase;font-weight:400;
+  min-width:60px;flex-shrink:0;
+}
+.info-phase-desc{font-size:13px;color:var(--ink-2);line-height:1.55}
+
+.info-benefit{
+  background:linear-gradient(135deg,rgba(229,62,62,.08),rgba(229,62,62,.02));
+  border:1px solid rgba(229,62,62,.25);padding:16px 18px;border-radius:6px;
+  margin-top:auto;
+}
+.info-benefit-text{font-size:13.5px;color:var(--ink);line-height:1.6}
+
+.info-cta-row{display:flex;gap:10px;margin-top:20px}
+.info-cta-row .btn{flex:1}
+
+/* Transición suave */
+.info-fade{animation:fadeUp .35s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ──────── COMBO FEATURED ──────── */
+.combo-section{padding:120px 0;background:var(--bg)}
+.combo-spread{display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:var(--bg-3);border:1px solid var(--line)}
+@media(max-width:900px){.combo-spread{grid-template-columns:1fr}}
+.combo-img{position:relative;min-height:520px;background-image:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.6)),url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1800&q=85&auto=format&fit=crop');background-size:cover;background-position:center}
+.combo-img-price{position:absolute;left:32px;bottom:32px;font-family:var(--display);font-size:clamp(100px,13vw,180px);line-height:.85;letter-spacing:-3px;color:var(--accent-2);text-shadow:0 8px 32px rgba(0,0,0,.6)}
+.combo-img-price sub{font-size:.45em;color:var(--ink);vertical-align:top;margin-left:6px}
+.combo-content{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:980px){.combo-content{padding:48px 32px}}
+.combo-h{font-family:var(--display);font-size:clamp(42px,5vw,68px);line-height:.95;text-transform:uppercase;color:var(--ink);margin:16px 0 20px}
+.combo-p{font-size:16px;color:var(--ink-2);line-height:1.6;margin-bottom:28px;max-width:480px}
+.combo-list{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.combo-list-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2)}
+.combo-list-item::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.combo-promo{background:rgba(229,62,62,.08);border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:28px;font-size:14px;color:var(--ink)}
+.combo-promo strong{color:var(--accent-2);font-weight:700}
+
+/* ──────── VIDEO SECTION ──────── */
+.video-section{padding:120px 0;background:var(--bg-2)}
+.video-section-head{text-align:center;max-width:720px;margin:0 auto 60px}
+.video-section-head .section-h2{margin-left:auto;margin-right:auto}
+.video-section-head .section-sub{margin-left:auto;margin-right:auto}
+.video-wrap{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;border:1px solid var(--line);cursor:pointer;max-width:1100px;margin:0 auto;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+.video-poster{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s var(--ease),opacity .3s}
+.video-wrap:hover .video-poster{transform:scale(1.03)}
+.video-wrap.playing .video-poster,.video-wrap.playing .play-btn{opacity:0;pointer-events:none}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transition:opacity .3s}
+.video-wrap.playing iframe{opacity:1;pointer-events:auto}
+.play-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;width:100px;height:100px;border-radius:50%;background:rgba(229,62,62,.95);display:flex;align-items:center;justify-content:center;transition:all .25s var(--ease);box-shadow:0 16px 48px rgba(229,62,62,.4)}
+.play-btn::before,.play-btn::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--accent);animation:ring 2s ease infinite}
+.play-btn::after{animation-delay:1s}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+.play-btn svg{width:32px;height:32px;color:#fff;margin-left:4px;position:relative;z-index:1}
+
+/* ──────── PRECIOS ──────── */
+.precios{padding:120px 0;background:var(--bg)}
+.precios-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.price-card{position:relative;background:var(--bg-3);border:1px solid var(--line);padding:32px 28px;display:flex;flex-direction:column;transition:transform .25s var(--ease),border-color .25s}
+.price-card:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.price-card.featured{background:linear-gradient(180deg,rgba(229,62,62,.04),var(--bg-3) 60%);border:1px solid rgba(229,62,62,.4)}
+.price-card.premium{background:linear-gradient(180deg,rgba(192,168,114,.06),var(--bg-3) 60%);border:1px solid rgba(192,168,114,.35)}
+.price-badge{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 10px;border-radius:99px}
+.price-badge.fire{background:var(--accent);color:#fff}
+.price-badge.recommended{background:rgba(229,62,62,.15);color:var(--accent-2)}
+/* Bonus items dentro de price-features */
+.price-feature.bonus{color:var(--ink)}
+.price-feature.bonus::before{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center/14px no-repeat}
+.price-badge.gold{background:var(--gold);color:#1A1413}
+.price-eye{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.price-card.featured .price-eye{color:var(--accent-2)}
+.price-card.premium .price-eye{color:var(--gold-2)}
+.price-name{font-family:var(--display);font-size:30px;line-height:1;text-transform:uppercase;letter-spacing:.5px;color:var(--ink);margin-bottom:8px}
+.price-desc{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-bottom:24px;min-height:42px}
+.price-amount-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.price-was{text-decoration:line-through;color:var(--ink-3);font-size:14px}
+.price-amount{font-family:var(--display);font-size:56px;line-height:1;color:var(--ink);letter-spacing:-1px}
+.price-amount-unit{font-size:14px;color:var(--ink-3);font-weight:500;margin-left:2px}
+.price-card.featured .price-amount{color:var(--accent-2)}
+.price-card.premium .price-amount{color:var(--gold-2)}
+.price-note{font-size:12.5px;color:var(--ink-3);margin-bottom:20px;font-weight:500}
+.price-features{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;flex:1}
+.price-feature{font-size:13px;color:var(--ink-2);display:flex;align-items:flex-start;gap:9px;line-height:1.45}
+.price-feature::before{content:'';width:14px;height:14px;flex-shrink:0;margin-top:2px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23E53E3E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center/14px no-repeat}
+.price-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;background:transparent;color:var(--ink);border:1px solid var(--line-2);text-decoration:none;font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all .15s}
+.price-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.price-card.featured .price-cta{background:var(--accent);color:#fff;border-color:var(--accent)}
+.price-card.featured .price-cta:hover{background:var(--accent-dk);border-color:var(--accent-dk)}
+.price-card.premium .price-cta{background:var(--gold);color:#1A1413;border-color:var(--gold)}
+
+/* ──────── VIP ──────── */
+.vip-section{padding:120px 0;background:var(--bg-3);position:relative;overflow:hidden}
+.vip-section::before{content:'';position:absolute;inset:0;background:radial-gradient(800px 500px at 80% 50%,rgba(192,168,114,.08),transparent 60%)}
+.vip-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+@media(max-width:980px){.vip-inner{grid-template-columns:1fr;gap:48px}}
+.vip-card{background:linear-gradient(135deg,#1A1410,#0F0C0A);border:1px solid rgba(192,168,114,.25);padding:36px 32px;position:relative;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.vip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-2),var(--gold))}
+.vip-card-eye{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-2);margin-bottom:14px}
+.vip-card-name{font-family:var(--display);font-size:28px;line-height:1;color:var(--ink);text-transform:uppercase;margin-bottom:6px}
+.vip-card-tier{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:28px}
+.vip-progress{height:6px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;margin-bottom:8px}
+.vip-progress-fill{height:100%;width:72%;background:linear-gradient(90deg,var(--gold-2),var(--gold));border-radius:99px}
+.vip-card-points{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-3);margin-bottom:24px}
+.vip-card-points strong{color:var(--gold-2);font-weight:700}
+.vip-rewards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vip-reward{background:rgba(255,255,255,.04);border:1px solid var(--line);padding:12px;text-align:center}
+.vip-reward-pts{font-family:var(--display);font-size:18px;color:var(--gold-2);letter-spacing:1px}
+.vip-reward-lbl{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* ──────── CENTROS ──────── */
+.centros{padding:120px 0;background:var(--bg)}
+.centros-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.centro-card{background:var(--bg-2);padding:24px;transition:background .15s;cursor:pointer}
+.centro-card:hover{background:var(--bg-3)}
+.centro-name{font-family:var(--display);font-size:18px;line-height:1;letter-spacing:1px;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+.centro-city{font-size:11px;color:var(--accent-2);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:14px}
+.centro-addr{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-bottom:8px}
+.centro-hours{font-size:11.5px;color:var(--ink-3);line-height:1.55}
+
+/* ──────── FINAL CTA ──────── */
+.final-cta{position:relative;padding:160px 0;overflow:hidden;text-align:center;background:#000}
+.final-cta-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(0,0,0,.65),rgba(10,10,11,.95)),url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=2400&q=85&auto=format&fit=crop');background-size:cover;background-position:center}
+.final-cta-inner{position:relative;z-index:1}
+.final-cta h2{font-family:var(--display);font-size:clamp(48px,9vw,128px);line-height:.92;text-transform:uppercase;color:var(--ink);letter-spacing:-.5px;margin-bottom:20px}
+.final-cta h2 em{font-style:normal;color:var(--accent-2);display:block}
+.final-cta p{font-size:18px;color:var(--ink-2);max-width:560px;margin:0 auto 36px;line-height:1.55}
+
+/* ──────── FOOTER ──────── */
+.footer{padding:80px 0 32px;background:var(--bg-2);border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+@media(max-width:880px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
+.footer-brand{font-family:var(--display);font-size:32px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.footer-tag{font-size:13.5px;color:var(--ink-3);line-height:1.6;max-width:280px}
+.footer-col-h{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:10px}
+.footer-col a{font-size:13.5px;color:var(--ink-2);transition:color .15s}
+.footer-col a:hover{color:var(--ink)}
+.footer-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--ink-3);letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="brand">Alvatowash</a>
+    <div class="nav-links">
+      <a href="#configurador" class="nav-link">Configurador</a>
+      <a href="#combo" class="nav-link">Combo Verano</a>
+      <a href="#video" class="nav-link">El proceso</a>
+      <a href="#precios" class="nav-link">Precios</a>
+      <a href="#centros" class="nav-link">Centros</a>
+    </div>
+    <div class="nav-actions">
+      <a href="area-cliente/" class="btn btn-ghost">Mi cuenta</a>
+      <a href="reserva/" class="btn btn-accent">Reservar <span class="arrow">→</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO con VIDEO ═══════════ -->
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=2400&q=85&auto=format&fit=crop" id="heroVideo">
+    <source src="hero-video.mp4" type="video/mp4">
+    <source src="https://videos.pexels.com/video-files/4488/4488-uhd_2560_1440_24fps.mp4" type="video/mp4">
+  </video>
+  <button class="video-mute" id="muteBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="muteIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg></button>
+  <div class="container hero-content">
+    <div class="hero-eye">Configurá el detalle · Vista 3D</div>
+    <h1>Tu coche.<em>Pieza por pieza.</em></h1>
+    <p class="hero-sub">Tocá cualquier zona y mirá exactamente qué hacemos. Elegí tu servicio y reservá en 60 segundos.</p>
+
+    <!-- ─── 3 TARJETAS DE RESERVA RÁPIDA ─── -->
+    <div class="quick-cards">
+
+      <a href="reserva/?svc=combo_verano" class="quick-card">
+        <span class="qc-eye">Promo Verano · −50%</span>
+        <span class="qc-name">Combo Verano</span>
+        <span class="qc-desc">Reacondicionado integral · vuelves y vale 45€</span>
+        <span class="qc-price-row">
+          <span class="qc-was">178€</span>
+          <span class="qc-price">89<span class="qc-price-unit">€</span></span>
+        </span>
+        <span class="qc-cta">Reservar <span class="arrow">→</span></span>
+      </a>
+
+      <a href="reserva/?svc=premium_integral" class="quick-card featured">
+        <span class="qc-badge">Más completo</span>
+        <span class="qc-eye">Limpieza Premium Integral</span>
+        <span class="qc-name">Cambio de Temporada</span>
+        <span class="qc-desc">Interior profundo + tapicerías + exterior + moquetas</span>
+        <span class="qc-price-row">
+          <span class="qc-was">257€</span>
+          <span class="qc-price">197<span class="qc-price-unit">€</span></span>
+        </span>
+        <span class="qc-bonus">
+          <span class="qc-bonus-item">Repaso de brillo GRATIS (30 días)</span>
+          <span class="qc-bonus-item">Garantía de lluvia · 48h</span>
+        </span>
+        <span class="qc-cta">Reservar <span class="arrow">→</span></span>
+      </a>
+
+      <a href="reserva/?svc=nanodiamond" class="quick-card premium">
+        <span class="qc-eye">Cerámico · Premium</span>
+        <span class="qc-name">Nano Protección</span>
+        <span class="qc-desc">Tratamiento cerámico · 3 años de protección</span>
+        <span class="qc-price-row">
+          <span class="qc-price">540<span class="qc-price-unit">€</span></span>
+        </span>
+        <span class="qc-cta">Reservar <span class="arrow">→</span></span>
+      </a>
+
+    </div>
+
+    <div class="hero-cta">
+      <a href="#configurador" class="btn btn-ghost btn-lg">Probar configurador 3D <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<style>
+/* ─── QUICK CARDS · 3 tarjetas de reserva rápida en hero ─── */
+.quick-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  max-width:920px;margin:32px 0;
+}
+@media(max-width:880px){.quick-cards{grid-template-columns:1fr;max-width:420px}}
+.quick-card{
+  position:relative;display:flex;flex-direction:column;gap:6px;
+  padding:22px 22px 20px;border-radius:16px;text-decoration:none;
+  background:rgba(255,255,255,.06);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.12);color:var(--ink);
+  transition:transform .25s var(--ease),background .2s,border-color .2s;
+  overflow:hidden;
+}
+.quick-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22)}
+.quick-card.featured{
+  background:rgba(229,62,62,.14);border-color:rgba(229,62,62,.4);
+  box-shadow:0 16px 40px rgba(229,62,62,.25);
+}
+.quick-card.featured:hover{background:rgba(229,62,62,.2);border-color:rgba(229,62,62,.55)}
+.quick-card.premium{background:rgba(192,168,114,.08);border-color:rgba(192,168,114,.25)}
+.quick-card.premium:hover{background:rgba(192,168,114,.12);border-color:rgba(192,168,114,.4)}
+.qc-badge{
+  position:absolute;top:14px;right:14px;
+  font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  padding:4px 9px;border-radius:99px;background:var(--accent);color:#fff;
+}
+.qc-eye{
+  font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:4px;
+}
+.quick-card.featured .qc-eye{color:var(--accent-2)}
+.quick-card.premium .qc-eye{color:var(--gold-2)}
+.qc-name{font-family:var(--display);font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.5px;color:#fff;margin-bottom:6px}
+.qc-desc{font-size:12.5px;color:var(--ink-2);line-height:1.45;margin-bottom:14px;min-height:36px}
+.qc-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.qc-was{
+  font-family:var(--display);font-size:22px;line-height:1;color:var(--ink-3);
+  text-decoration:line-through;letter-spacing:-.5px;opacity:.7;
+}
+.qc-price{
+  font-family:var(--display);font-size:46px;line-height:1;color:#fff;letter-spacing:-1px;
+}
+.qc-price-unit{font-family:'Inter';font-size:16px;color:var(--ink-2);margin-left:3px;font-weight:500}
+.quick-card.featured .qc-price{color:var(--accent-2)}
+.quick-card.premium .qc-price{color:var(--gold-2)}
+.qc-bonus{
+  display:flex;flex-direction:column;gap:5px;margin-bottom:14px;
+  padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+}
+.qc-bonus-item{
+  font-size:11.5px;color:var(--ink);line-height:1.4;display:flex;align-items:flex-start;gap:7px;
+}
+.qc-bonus-item::before{
+  content:'';width:13px;height:13px;flex-shrink:0;margin-top:2px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%2322C55E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center/13px no-repeat;
+}
+.qc-cta{
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#fff;display:inline-flex;align-items:center;gap:6px;margin-top:auto;
+}
+.qc-cta .arrow{display:inline-block;transition:transform .2s}
+.quick-card:hover .qc-cta .arrow{transform:translateX(3px)}
+</style>
+
+<!-- ═══════════ HERITAGE STRIP ═══════════ -->
+<section class="heritage">
+  <div class="container heritage-inner">
+    <div class="heritage-item"><div class="heritage-stars">★★★★★</div><div class="heritage-text"><strong>4,91</strong> de 26.771 opiniones</div></div>
+    <div class="heritage-sep"></div>
+    <div class="heritage-item"><div class="heritage-text"><strong>19 centros</strong> en España y Andorra</div></div>
+    <div class="heritage-sep"></div>
+    <div class="heritage-item"><div class="heritage-text">Reserva en <strong>60 segundos</strong></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ CONFIGURADOR 3D ═══════════ -->
+<section class="config-section" id="configurador">
+  <div class="container">
+    <div class="config-section-head">
+      <span class="eyebrow">Configurador del detalle</span>
+      <h2 class="section-h2">Tocá. Y mirá <em>qué hacemos.</em></h2>
+      <p class="section-sub">Cada servicio explica qué tratamos, con qué productos y por qué importa. Elegí abajo el área que querés conocer.</p>
+    </div>
+
+    <div class="config-stage">
+
+      <!-- ═══ VIEWER (SVG fallback + Spline overlay opcional) ═══ -->
+      <div class="config-viewer">
+        <div class="config-img-bg" id="configImgBg"></div>
+        <div class="config-img-overlay"></div>
+        <div class="config-viewer-label" id="configViewerLabel">Carrocería</div>
+
+        <!--
+          ╔════════════════════════════════════════════════════════════════╗
+          ║ SPLINE INTEGRATION (opcional)                                   ║
+          ║ Para activarlo:                                                  ║
+          ║ 1. Diseñá tu scene en spline.design                              ║
+          ║ 2. Exportala como "Public URL" → te da algo como                 ║
+          ║    https://prod.spline.design/XXX/scene.splinecode               ║
+          ║ 3. Pegá esa URL en el atributo `url` debajo y descomentá la línea║
+          ║ 4. El SVG fallback queda oculto automáticamente                  ║
+          ╚════════════════════════════════════════════════════════════════╝
+        -->
+        <!-- <spline-viewer url="https://prod.spline.design/REPLACE_ME/scene.splinecode"></spline-viewer> -->
+
+        <!-- ═══ Fallback SVG: coche en vista lateral con zonas clicables ═══ -->
+        <div class="car-svg">
+          <svg viewBox="0 0 900 390" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Carrocería -->
+            <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#454550"/>
+              <stop offset="38%"  stop-color="#2E2E38"/>
+              <stop offset="100%" stop-color="#14141A"/>
+            </linearGradient>
+            <linearGradient id="gHood" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#4E4E5A"/>
+              <stop offset="100%" stop-color="#242432"/>
+            </linearGradient>
+            <linearGradient id="gTrunk" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#32323C"/>
+              <stop offset="100%" stop-color="#1A1A22"/>
+            </linearGradient>
+            <!-- Cristales -->
+            <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#1C2440" stop-opacity=".97"/>
+              <stop offset="100%" stop-color="#0C0E1E" stop-opacity=".97"/>
+            </linearGradient>
+            <!-- Neumáticos -->
+            <radialGradient id="gTire" cx="38%" cy="33%" r="62%">
+              <stop offset="0%"   stop-color="#272730"/>
+              <stop offset="100%" stop-color="#090909"/>
+            </radialGradient>
+            <!-- Llantas -->
+            <radialGradient id="gRim" cx="36%" cy="30%" r="65%">
+              <stop offset="0%"   stop-color="#9898A6"/>
+              <stop offset="55%"  stop-color="#505060"/>
+              <stop offset="100%" stop-color="#26262E"/>
+            </radialGradient>
+            <!-- Cromados -->
+            <linearGradient id="gChrome" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#A8A8B4"/>
+              <stop offset="45%"  stop-color="#DCDCE4"/>
+              <stop offset="100%" stop-color="#606068"/>
+            </linearGradient>
+            <!-- Asientos -->
+            <linearGradient id="gSeat" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#3E342A"/>
+              <stop offset="100%" stop-color="#1E1A12"/>
+            </linearGradient>
+            <!-- Salpicadero -->
+            <linearGradient id="gDash" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#2C2C34"/>
+              <stop offset="100%" stop-color="#141418"/>
+            </linearGradient>
+            <!-- Moqueta -->
+            <linearGradient id="gFloor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#1E1C18"/>
+              <stop offset="100%" stop-color="#0E0C0A"/>
+            </linearGradient>
+            <!-- Sombra rueda -->
+            <linearGradient id="gWell" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#1A1A1E"/>
+              <stop offset="100%" stop-color="#08080A"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Sombra suelo -->
+          <ellipse cx="448" cy="306" rx="345" ry="10" fill="#000" opacity=".55"/>
+
+          <!-- ══════════════════════════════════════════
+               CARROCERÍA — carroceria (exterior total)
+               ══════════════════════════════════════════ -->
+          <g class="car-part" data-zone="carroceria" id="zoneCarroceria">
+            <!-- Cuerpo principal con huecos de rueda -->
+            <path fill="url(#gBody)" stroke="#080808" stroke-width="1.5"
+              d="M 74 265
+                 Q 72 242, 112 216
+                 L 150 170
+                 Q 216 148, 232 151
+                 L 280 119
+                 L 300 111
+                 L 604 111
+                 L 646 118
+                 L 673 147
+                 L 756 172
+                 Q 814 206, 822 260
+                 L 822 268
+                 L 712 268
+                 A 52 52 0 0 1 624 268
+                 L 262 268
+                 A 52 52 0 0 1 174 268
+                 L 100 265
+                 Z"/>
+
+            <!-- Panel capó -->
+            <path fill="url(#gHood)" stroke="#080808" stroke-width="1"
+              d="M 112 216 L 150 170 Q 216 148, 232 151 L 232 200 Q 178 210, 118 228 Z"/>
+
+            <!-- Panel maletero -->
+            <path fill="url(#gTrunk)" stroke="#080808" stroke-width="1"
+              d="M 673 147 L 756 172 Q 808 200, 820 258 L 820 268 L 728 268 L 720 252 L 714 244
+                 Q 702 220, 722 198 L 738 178 L 756 178 Q 756 172, 756 172 Z"/>
+
+            <!-- Techo (tono ligeramente diferente) -->
+            <path fill="#343440" stroke="none"
+              d="M 282 119 L 300 111 L 604 111 L 646 118 L 646 124 L 282 124 Z"/>
+
+            <!-- Pilar A -->
+            <path fill="#181820" stroke="#080808" stroke-width="1"
+              d="M 280 119 L 294 112 L 312 112 L 240 155 L 230 155 Z"/>
+            <!-- Pilar B -->
+            <path fill="#121218" stroke="#080808" stroke-width="1"
+              d="M 442 112 L 455 112 L 460 157 L 442 157 Z"/>
+            <!-- Pilar C -->
+            <path fill="#181820" stroke="#080808" stroke-width="1"
+              d="M 604 112 L 646 118 L 673 147 L 662 154 L 624 122 L 604 118 Z"/>
+
+            <!-- Parachoques trasero -->
+            <path fill="#222228" stroke="#080808" stroke-width="1"
+              d="M 813 248 Q 824 256, 822 268 L 793 268 L 790 262 Q 800 256, 809 248 Z"/>
+            <!-- Parachoques delantero -->
+            <path fill="#202026" stroke="#080808" stroke-width="1"
+              d="M 74 265 Q 72 244, 100 220 L 114 228 Q 90 248, 90 265 Z"/>
+
+            <!-- Línea cromada umbral (entre ruedas) -->
+            <path fill="url(#gChrome)" stroke="none" opacity=".7"
+              d="M 174 260 L 624 260 L 624 265 L 174 265 Z"/>
+            <!-- Labio arco delantero -->
+            <path fill="none" stroke="url(#gChrome)" stroke-width="2.5" opacity=".55"
+              d="M 174 268 A 52 52 0 0 0 262 268"/>
+            <!-- Labio arco trasero -->
+            <path fill="none" stroke="url(#gChrome)" stroke-width="2.5" opacity=".55"
+              d="M 624 268 A 52 52 0 0 0 712 268"/>
+
+            <!-- Grieta puerta delantera -->
+            <line x1="237" y1="153" x2="237" y2="268" stroke="#060608" stroke-width="2.5"/>
+            <!-- Grieta puerta trasera -->
+            <line x1="442" y1="156" x2="442" y2="268" stroke="#060608" stroke-width="2.5"/>
+            <!-- Grieta maletero -->
+            <line x1="718" y1="152" x2="722" y2="268" stroke="#060608" stroke-width="2"/>
+            <!-- Línea de cintura (belt line) -->
+            <path fill="none" stroke="#0E0E14" stroke-width="1.5" opacity=".6"
+              d="M 110 220 Q 150 188, 230 158 L 680 158 Q 730 172, 760 180"/>
+
+            <!-- Faro delantero (DRL + Low beam) -->
+            <path fill="#B2C4DC" stroke="#8090A8" stroke-width=".8"
+              d="M 112 218 Q 96 225, 93 238 L 98 240 Q 106 228, 120 224 Z"/>
+            <rect x="93" y="238" width="25" height="5" rx="2" fill="#C8D8F0" opacity=".8"/>
+            <path fill="none" stroke="#D4E4FF" stroke-width="2.5" stroke-linecap="round" opacity=".95"
+              d="M 96 240 L 114 234"/>
+
+            <!-- Piloto trasero -->
+            <path fill="#CC1E1E" stroke="#880000" stroke-width=".8" opacity=".95"
+              d="M 808 232 Q 820 244, 820 266 L 814 266 Q 814 246, 804 234 Z"/>
+            <path fill="#FF2828" stroke="none" opacity=".45"
+              d="M 814 244 Q 820 254, 820 268 L 817 268 Q 817 255, 812 246 Z"/>
+            <!-- Franja piloto LED -->
+            <path fill="none" stroke="#FF4444" stroke-width="1.5" stroke-linecap="round" opacity=".6"
+              d="M 806 234 L 814 248 L 814 264"/>
+
+            <!-- Retrovisor -->
+            <path fill="#242430" stroke="#080808" stroke-width="1"
+              d="M 230 190 Q 230 178, 238 176 Q 249 178, 246 188 L 230 192 Z"/>
+            <path fill="#1A2032" stroke="none"
+              d="M 232 188 Q 232 180, 238 178 Q 246 180, 243 187 Z"/>
+
+            <!-- Manilla puerta delantera -->
+            <path fill="url(#gChrome)" stroke="#383840" stroke-width=".5" opacity=".85"
+              d="M 336 186 Q 342 183, 396 183 L 396 188 Q 342 188, 336 188 Z"/>
+            <!-- Manilla puerta trasera -->
+            <path fill="url(#gChrome)" stroke="#383840" stroke-width=".5" opacity=".85"
+              d="M 508 186 Q 514 183, 572 183 L 572 188 Q 514 188, 508 188 Z"/>
+
+            <!-- Tapa depósito -->
+            <circle cx="690" cy="200" r="7" fill="#1C1C24" stroke="#3A3A44" stroke-width="1.5" opacity=".9"/>
+            <circle cx="690" cy="200" r="3" fill="#242432"/>
+          </g>
+
+          <!-- ══════════════════════════════
+               CRISTALES — cristales
+               ══════════════════════════════ -->
+          <g class="car-part" data-zone="cristales" id="zoneCristales">
+            <!-- Parabrisas delantero -->
+            <path fill="url(#gGlass)" stroke="#0E1630" stroke-width="1"
+              d="M 236 153 L 282 120 L 310 112 L 314 153 Z"/>
+            <path fill="rgba(255,255,255,.07)" stroke="none"
+              d="M 246 142 L 280 122 L 290 118 L 274 148 Z"/>
+            <!-- Base limpiaparabrisas -->
+            <path fill="none" stroke="#0A1228" stroke-width=".8" stroke-linecap="round"
+              d="M 242 152 L 268 148 L 302 152"/>
+
+            <!-- Ventana puerta delantera -->
+            <path fill="url(#gGlass)" stroke="#0E1630" stroke-width="1"
+              d="M 316 112 L 316 155 L 440 155 L 440 112 Z"/>
+            <path fill="rgba(255,255,255,.04)" stroke="none"
+              d="M 322 115 L 386 115 L 374 134 L 322 131 Z"/>
+
+            <!-- Ventana puerta trasera -->
+            <path fill="url(#gGlass)" stroke="#0E1630" stroke-width="1"
+              d="M 460 112 L 460 155 L 608 155 L 608 112 Z"/>
+            <path fill="rgba(255,255,255,.04)" stroke="none"
+              d="M 467 115 L 562 115 L 548 134 L 467 131 Z"/>
+
+            <!-- Luneta trasera -->
+            <path fill="url(#gGlass)" stroke="#0E1630" stroke-width="1"
+              d="M 612 112 L 650 119 L 671 148 L 612 154 Z"/>
+            <path fill="rgba(255,255,255,.05)" stroke="none"
+              d="M 617 115 L 646 121 L 643 132 L 618 127 Z"/>
+            <!-- Filamentos calefacción luneta -->
+            <g stroke="#4A5870" stroke-width=".6" opacity=".4">
+              <line x1="614" y1="125" x2="660" y2="128"/>
+              <line x1="614" y1="132" x2="664" y2="136"/>
+              <line x1="614" y1="139" x2="666" y2="143"/>
+              <line x1="614" y1="146" x2="660" y2="150"/>
+            </g>
+          </g>
+
+          <!-- ══════════════════════════════
+               PLÁSTICOS — salpicadero y consola
+               ══════════════════════════════ -->
+          <g class="car-part" data-zone="plasticos" id="zonePlasticos">
+            <!-- Salpicadero (visible bajo parabrisas) -->
+            <path fill="url(#gDash)" stroke="#0A0A0E" stroke-width=".8"
+              d="M 237 151 L 314 151 L 318 162 Q 278 168, 240 164 Z"/>
+            <!-- Cuadro de instrumentos -->
+            <path fill="#141420" stroke="#0A0A12" stroke-width=".5"
+              d="M 248 152 Q 250 145, 263 144 Q 276 145, 278 152 Z"/>
+            <!-- Pantalla infotainment -->
+            <rect x="286" y="154" width="26" height="10" rx="1.5"
+              fill="#181830" stroke="#0A0A20" stroke-width=".5" opacity=".95"/>
+            <!-- Tenue brillo pantalla -->
+            <rect x="287" y="155" width="24" height="4" rx="1" fill="#242450" opacity=".5"/>
+            <!-- Volante (silueta) -->
+            <path fill="none" stroke="#2E2820" stroke-width="3" stroke-linecap="round"
+              d="M 252 156 Q 260 149, 271 154 Q 264 161, 252 156"/>
+            <line x1="261" y1="151" x2="261" y2="161" stroke="#2E2820" stroke-width="1.5"/>
+          </g>
+
+          <!-- ══════════════════════════════
+               ASIENTOS — tapicería
+               ══════════════════════════════ -->
+          <g class="car-part" data-zone="asientos" id="zoneAsientos">
+            <!-- Respaldo asiento delantero -->
+            <path fill="url(#gSeat)" stroke="#12100A" stroke-width="1"
+              d="M 354 155 L 350 119 L 373 119 L 377 155 Z"/>
+            <!-- Costura respaldo -->
+            <line x1="363" y1="122" x2="363" y2="153" stroke="#504030" stroke-width=".8"
+              stroke-dasharray="3,3" opacity=".65"/>
+            <!-- Reposacabezas delantero -->
+            <rect x="352" y="114" width="22" height="11" rx="4"
+              fill="#3C3226" stroke="#12100A" stroke-width="1"/>
+            <line x1="363" y1="117" x2="363" y2="124" stroke="#50402E" stroke-width=".7" opacity=".5"/>
+            <!-- Cojín asiento delantero -->
+            <path fill="#2C2418" stroke="#12100A" stroke-width=".5"
+              d="M 344 155 L 388 155 L 383 163 L 349 163 Z" opacity=".9"/>
+
+            <!-- Respaldo asiento trasero (banco) -->
+            <path fill="url(#gSeat)" stroke="#12100A" stroke-width="1"
+              d="M 481 155 L 479 120 L 584 120 L 582 155 Z"/>
+            <!-- Divisor central trasero -->
+            <line x1="532" y1="123" x2="532" y2="153" stroke="#28201A" stroke-width="1.5" opacity=".7"/>
+            <!-- Costuras traseras -->
+            <line x1="506" y1="123" x2="506" y2="153" stroke="#504030" stroke-width=".7"
+              stroke-dasharray="3,3" opacity=".5"/>
+            <line x1="558" y1="123" x2="558" y2="153" stroke="#504030" stroke-width=".7"
+              stroke-dasharray="3,3" opacity=".5"/>
+            <!-- Reposacabezas traseros -->
+            <rect x="483" y="114" width="19" height="11" rx="3.5"
+              fill="#3C3226" stroke="#12100A" stroke-width="1"/>
+            <rect x="542" y="114" width="19" height="11" rx="3.5"
+              fill="#3C3226" stroke="#12100A" stroke-width="1"/>
+            <!-- Cojín trasero -->
+            <path fill="#2C2418" stroke="#12100A" stroke-width=".5"
+              d="M 475 155 L 588 155 L 584 163 L 479 163 Z" opacity=".8"/>
+          </g>
+
+          <!-- ══════════════════════════════
+               OZONO — tratamiento de ozono
+               ══════════════════════════════ -->
+          <g class="car-part" data-zone="ozono" id="zoneOzono">
+            <!-- Suelo zona delantera (bajo salpicadero) -->
+            <path fill="url(#gFloor)" stroke="#080806" stroke-width=".5"
+              d="M 238 162 L 314 162 L 318 170 Q 278 176, 238 170 Z"/>
+            <!-- Textura alfombrilla delantera -->
+            <line x1="256" y1="163" x2="258" y2="171" stroke="#2C2820" stroke-width=".8" opacity=".6"/>
+            <line x1="272" y1="163" x2="274" y2="172" stroke="#2C2820" stroke-width=".8" opacity=".6"/>
+            <line x1="288" y1="163" x2="290" y2="171" stroke="#2C2820" stroke-width=".8" opacity=".6"/>
+            <line x1="304" y1="163" x2="305" y2="169" stroke="#2C2820" stroke-width=".8" opacity=".6"/>
+
+            <!-- Suelo zona trasera -->
+            <path fill="url(#gFloor)" stroke="#080806" stroke-width=".5"
+              d="M 462 162 L 608 162 L 608 171 L 462 171 Z"/>
+            <!-- Textura alfombrilla trasera -->
+            <line x1="492" y1="163" x2="492" y2="170" stroke="#2C2820" stroke-width=".8" opacity=".5"/>
+            <line x1="524" y1="163" x2="524" y2="170" stroke="#2C2820" stroke-width=".8" opacity=".5"/>
+            <line x1="556" y1="163" x2="556" y2="170" stroke="#2C2820" stroke-width=".8" opacity=".5"/>
+            <line x1="588" y1="163" x2="588" y2="170" stroke="#2C2820" stroke-width=".8" opacity=".5"/>
+          </g>
+
+          <!-- ══════════════════════════════
+               LLANTAS — neumáticos y rines
+               ══════════════════════════════ -->
+          <g class="car-part" data-zone="llantas" id="zoneLlantas">
+
+            <!-- ── RUEDA DELANTERA ── -->
+            <!-- Sombra interior arco -->
+            <path fill="url(#gWell)" stroke="none"
+              d="M 174 268 A 52 52 0 0 0 262 268 Q 262 282, 230 294 Q 200 302, 174 286 Z"/>
+            <!-- Neumático exterior -->
+            <circle cx="218" cy="296" r="52" fill="url(#gTire)" stroke="#080808" stroke-width="2"/>
+            <!-- Aro lateral neumático -->
+            <circle cx="218" cy="296" r="50.5" fill="none" stroke="#161618" stroke-width="1.5"/>
+            <!-- Zona entre neumático y rin -->
+            <circle cx="218" cy="296" r="40" fill="none" stroke="#1C1C20" stroke-width="1"/>
+            <!-- Cara del rin -->
+            <circle cx="218" cy="296" r="38" fill="url(#gRim)" stroke="#282830" stroke-width="1.5"/>
+            <!-- Radios (diseño 5 radios) -->
+            <!-- Radio 0: arriba (270°) -->
+            <line x1="218" y1="287" x2="218" y2="260" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="218" y1="287" x2="218" y2="260" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <!-- Radio 1: der-arriba (342°) -->
+            <line x1="227" y1="293" x2="248" y2="285" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="227" y1="293" x2="248" y2="285" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <!-- Radio 2: der-abajo (54°) -->
+            <line x1="223" y1="304" x2="237" y2="323" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="223" y1="304" x2="237" y2="323" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <!-- Radio 3: izq-abajo (126°) -->
+            <line x1="213" y1="304" x2="199" y2="323" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="213" y1="304" x2="199" y2="323" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <!-- Radio 4: izq-arriba (198°) -->
+            <line x1="209" y1="293" x2="188" y2="285" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="209" y1="293" x2="188" y2="285" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <!-- Anillo interior del rin -->
+            <circle cx="218" cy="296" r="20" fill="#20202A" stroke="#343440" stroke-width="1"/>
+            <!-- Pinza de freno (roja) -->
+            <path fill="#CC2818" stroke="#8A1A0E" stroke-width=".8" opacity=".9"
+              d="M 232 278 Q 248 284, 246 303 L 238 303 Q 242 287, 228 282 Z"/>
+            <path fill="#FF3020" stroke="none" opacity=".3"
+              d="M 236 280 Q 248 286, 246 303 L 243 303 Q 246 288, 234 282 Z"/>
+            <!-- Disco de freno (hint) -->
+            <circle cx="218" cy="296" r="16" fill="none" stroke="#404050" stroke-width="1.5" opacity=".6"/>
+            <!-- Tapa central -->
+            <circle cx="218" cy="296" r="8" fill="#1E1E28" stroke="#383848" stroke-width="1.5"/>
+            <circle cx="218" cy="296" r="4" fill="#E53E3E" opacity=".55"/>
+            <!-- Reflejo rin -->
+            <circle cx="218" cy="296" r="37" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+
+            <!-- ── RUEDA TRASERA ── -->
+            <path fill="url(#gWell)" stroke="none"
+              d="M 624 268 A 52 52 0 0 0 712 268 Q 712 282, 680 294 Q 650 302, 624 286 Z"/>
+            <circle cx="668" cy="296" r="52" fill="url(#gTire)" stroke="#080808" stroke-width="2"/>
+            <circle cx="668" cy="296" r="50.5" fill="none" stroke="#161618" stroke-width="1.5"/>
+            <circle cx="668" cy="296" r="40" fill="none" stroke="#1C1C20" stroke-width="1"/>
+            <circle cx="668" cy="296" r="38" fill="url(#gRim)" stroke="#282830" stroke-width="1.5"/>
+            <!-- Radios trasera (mismo diseño) -->
+            <line x1="668" y1="287" x2="668" y2="260" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="668" y1="287" x2="668" y2="260" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <line x1="677" y1="293" x2="698" y2="285" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="677" y1="293" x2="698" y2="285" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <line x1="673" y1="304" x2="687" y2="323" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="673" y1="304" x2="687" y2="323" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <line x1="663" y1="304" x2="649" y2="323" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="663" y1="304" x2="649" y2="323" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <line x1="659" y1="293" x2="638" y2="285" stroke="#6A6A7C" stroke-width="5.5" stroke-linecap="round"/>
+            <line x1="659" y1="293" x2="638" y2="285" stroke="#8888A0" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="668" cy="296" r="20" fill="#20202A" stroke="#343440" stroke-width="1"/>
+            <path fill="#CC2818" stroke="#8A1A0E" stroke-width=".8" opacity=".9"
+              d="M 682 278 Q 698 284, 696 303 L 688 303 Q 692 287, 678 282 Z"/>
+            <path fill="#FF3020" stroke="none" opacity=".3"
+              d="M 686 280 Q 698 286, 696 303 L 693 303 Q 696 288, 684 282 Z"/>
+            <circle cx="668" cy="296" r="16" fill="none" stroke="#404050" stroke-width="1.5" opacity=".6"/>
+            <circle cx="668" cy="296" r="8" fill="#1E1E28" stroke="#383848" stroke-width="1.5"/>
+            <circle cx="668" cy="296" r="4" fill="#E53E3E" opacity=".55"/>
+            <circle cx="668" cy="296" r="37" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+          </g>
+
+          <!-- ══════════════════════════════
+               ETIQUETAS DE ZONA (decorativas)
+               ══════════════════════════════ -->
+          <g class="zone-labels">
+            <!-- CARROCERÍA -->
+            <line x1="158" y1="100" x2="152" y2="166" stroke="#444452" stroke-width="1" stroke-dasharray="4,3"/>
+            <g transform="translate(90,82)">
+              <rect width="90" height="22" rx="11" fill="rgba(22,22,28,.92)" stroke="#444452" stroke-width=".8"/>
+              <text x="45" y="15" text-anchor="middle" fill="#8E8E9C" font-family="Inter,sans-serif"
+                font-size="8.5" font-weight="700" letter-spacing="1.6">CARROCERÍA</text>
+            </g>
+
+            <!-- CRISTALES -->
+            <line x1="282" y1="82" x2="280" y2="112" stroke="#444452" stroke-width="1" stroke-dasharray="4,3"/>
+            <g transform="translate(242,64)">
+              <rect width="82" height="22" rx="11" fill="rgba(22,22,28,.92)" stroke="#444452" stroke-width=".8"/>
+              <text x="41" y="15" text-anchor="middle" fill="#8E8E9C" font-family="Inter,sans-serif"
+                font-size="8.5" font-weight="700" letter-spacing="1.6">CRISTALES</text>
+            </g>
+
+            <!-- ASIENTOS -->
+            <line x1="366" y1="82" x2="364" y2="116" stroke="#444452" stroke-width="1" stroke-dasharray="4,3"/>
+            <g transform="translate(326,64)">
+              <rect width="80" height="22" rx="11" fill="rgba(22,22,28,.92)" stroke="#444452" stroke-width=".8"/>
+              <text x="40" y="15" text-anchor="middle" fill="#8E8E9C" font-family="Inter,sans-serif"
+                font-size="8.5" font-weight="700" letter-spacing="1.6">ASIENTOS</text>
+            </g>
+
+            <!-- PLÁSTICOS -->
+            <line x1="536" y1="86" x2="490" y2="134" stroke="#444452" stroke-width="1" stroke-dasharray="4,3"/>
+            <g transform="translate(492,68)">
+              <rect width="86" height="22" rx="11" fill="rgba(22,22,28,.92)" stroke="#444452" stroke-width=".8"/>
+              <text x="43" y="15" text-anchor="middle" fill="#8E8E9C" font-family="Inter,sans-serif"
+                font-size="8.5" font-weight="700" letter-spacing="1.6">PLÁSTICOS</text>
+            </g>
+
+            <!-- OZONO -->
+            <line x1="434" y1="318" x2="434" y2="268" stroke="#444452" stroke-width="1" stroke-dasharray="4,3"/>
+            <g transform="translate(394,318)">
+              <rect width="80" height="22" rx="11" fill="rgba(22,22,28,.92)" stroke="#444452" stroke-width=".8"/>
+              <text x="40" y="15" text-anchor="middle" fill="#8E8E9C" font-family="Inter,sans-serif"
+                font-size="8.5" font-weight="700" letter-spacing="1.6">OZONO</text>
+            </g>
+
+            <!-- LLANTAS -->
+            <line x1="218" y1="356" x2="218" y2="348" stroke="#444452" stroke-width="1" stroke-dasharray="4,3"/>
+            <g transform="translate(180,356)">
+              <rect width="76" height="22" rx="11" fill="rgba(22,22,28,.92)" stroke="#444452" stroke-width=".8"/>
+              <text x="38" y="15" text-anchor="middle" fill="#8E8E9C" font-family="Inter,sans-serif"
+                font-size="8.5" font-weight="700" letter-spacing="1.6">LLANTAS</text>
+            </g>
+          </g>
+
+          </svg>
+        </div>
+
+        <!-- Service chips -->
+        <div class="config-services" id="configServices"></div>
+      </div>
+
+      <!-- ═══ INFO PANEL ═══ -->
+      <div class="config-info" id="configInfo">
+        <!-- contenido dinámico -->
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COMBO FEATURED ═══════════ -->
+<section class="combo-section" id="combo">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Servicio destacado</span>
+      <h2 class="section-h2">Combo verano. <em>89€.</em></h2>
+    </div>
+    <div class="combo-spread">
+      <div class="combo-img"><div class="combo-img-price">89<sub>€</sub></div></div>
+      <div class="combo-content">
+        <span class="eyebrow">Promo Verano · ahorra 50%</span>
+        <h3 class="combo-h">Reacondicionado integral.</h3>
+        <p class="combo-p">El lavado que recupera tu coche. Limpieza profunda interior y exterior, descontaminación de pintura, abrillantado y aspirado completo. Te lo entregamos en 90 minutos.</p>
+        <div class="combo-list">
+          <div class="combo-list-item">Reacondicionado exterior + interior</div>
+          <div class="combo-list-item">Descontaminación de pintura</div>
+          <div class="combo-list-item">Abrillantado de carrocería</div>
+          <div class="combo-list-item">Purificado con ozono</div>
+        </div>
+        <div class="combo-promo">Vuelves antes de 30 días → próximo mantenimiento <strong>solo 45€</strong></div>
+        <a href="reserva/?svc=combo_verano" class="btn btn-accent btn-lg">Reservar ahora <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIDEO ═══════════ -->
+<section class="video-section" id="video">
+  <div class="container">
+    <div class="video-section-head">
+      <span class="eyebrow">Mirá el proceso real</span>
+      <h2 class="section-h2">Detrás del <em>lavado.</em></h2>
+      <p class="section-sub">Un protocolo de 6 pasos. Te lo mostramos en menos de 2 minutos.</p>
+    </div>
+    <div class="video-wrap" id="videoWrap">
+      <div class="video-poster" style="background-image:url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=2000&q=85&auto=format&fit=crop')"></div>
+      <button class="play-btn" id="playBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+      <iframe id="videoPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRECIOS ═══════════ -->
+<section class="precios" id="precios">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Precios cerrados</span>
+      <h2 class="section-h2">Sin sorpresas. <em>Sin asteriscos.</em></h2>
+    </div>
+    <div class="precios-grid" id="preciosGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════ VIP ═══════════ -->
+<section class="vip-section">
+  <div class="container vip-inner">
+    <div>
+      <span class="eyebrow" style="color:var(--gold-2)">Club VIP Alvatowash</span>
+      <h2 class="section-h2" style="margin-top:16px">Cada lavado <em style="color:var(--gold-2)">suma puntos.</em></h2>
+      <p class="section-sub" style="margin-bottom:32px">Bronce, Plata, Oro o Diamante. Canjeás puntos por lavados gratis y mejoras.</p>
+      <a href="area-cliente/" class="btn btn-light btn-lg">Abrir mi área VIP</a>
+    </div>
+    <div class="vip-card">
+      <div class="vip-card-eye">Tarjeta VIP</div>
+      <div class="vip-card-name">María R.</div>
+      <div class="vip-card-tier">Nivel Oro</div>
+      <div class="vip-progress"><div class="vip-progress-fill"></div></div>
+      <div class="vip-card-points"><span><strong>720 pts</strong></span><span>280 para Diamante</span></div>
+      <div class="vip-rewards">
+        <div class="vip-reward"><div class="vip-reward-pts">100</div><div class="vip-reward-lbl">Aspirado</div></div>
+        <div class="vip-reward"><div class="vip-reward-pts">350</div><div class="vip-reward-lbl">Mantenimiento</div></div>
+        <div class="vip-reward"><div class="vip-reward-pts">800</div><div class="vip-reward-lbl">Combo Verano</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CENTROS ═══════════ -->
+<section class="centros" id="centros">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">19 centros en España y Andorra</span>
+      <h2 class="section-h2">Siempre <em>cerca de ti.</em></h2>
+    </div>
+    <div class="centros-grid" id="centrosGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════ FINAL CTA ═══════════ -->
+<section class="final-cta">
+  <div class="final-cta-bg"></div>
+  <div class="container final-cta-inner">
+    <h2>Tu coche merece <em>el mejor cuidado.</em></h2>
+    <p>Reservá en 60 segundos. Te esperamos en cualquiera de nuestros 19 centros.</p>
+    <a href="reserva/" class="btn btn-accent btn-lg">Reservar ahora <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Alvatowash</div>
+        <p class="footer-tag">Lavado premium en 19 centros. Equipo entrenado, precios cerrados, mantenimiento garantizado.</p>
+      </div>
+      <div class="footer-col"><div class="footer-col-h">Servicios</div><ul>
+        <li><a href="reserva/?svc=mantenimiento">Mantenimiento</a></li>
+        <li><a href="reserva/?svc=mantenimiento_plus">Plus</a></li>
+        <li><a href="reserva/?svc=combo_verano">Combo Verano</a></li>
+        <li><a href="reserva/?svc=nanodiamond">Nanodiamond</a></li>
+      </ul></div>
+      <div class="footer-col"><div class="footer-col-h">Empresa</div><ul>
+        <li><a href="area-cliente/">Club VIP</a></li>
+        <li><a href="#centros">Centros</a></li>
+      </ul></div>
+      <div class="footer-col"><div class="footer-col-h">Legal</div><ul>
+        <li><a href="legal/aviso-legal/">Aviso Legal</a></li>
+        <li><a href="legal/privacidad/">Privacidad</a></li>
+        <li><a href="legal/cookies/">Cookies</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><div>© 2026 Alvatowash · Todos los derechos reservados</div><div>lavadoybrillo.com</div></div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- DATOS DEL CONFIGURADOR · 6 SERVICIOS SIGUIENDO TU PROMPT          -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<script>
+const ICONS = {
+  carroceria: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15.5v-.8c0-2 1.4-3.5 3-4.3L8.5 8C9.8 7 11 6.5 12 6.5h1c1 0 2.2.5 3.5 1.5l3 2.9c1.6 1 2.5 2.5 2.5 4v.6H2Z"/><circle cx="6.5" cy="17" r="1.9"/><circle cx="17.5" cy="17" r="1.9"/></svg>`,
+  cristales: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17q0-6 3.5-7.5L9.5 7h5l3 2.5Q21 11 21 17H3Z"/><path d="M5.5 14.5L9 12.5M18.5 14.5L15 12.5"/><circle cx="10" cy="13.2" r=".9" fill="currentColor" stroke="none"/><circle cx="14" cy="13.2" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r=".9" fill="currentColor" stroke="none"/></svg>`,
+  asientos: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="8" height="11" rx="1.5"/><rect x="2" y="15" width="16" height="5" rx="1.5"/><path d="M12 7.5h6a2.5 2.5 0 012.5 2.5V20"/></svg>`,
+  plasticos: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="2"/><circle cx="7" cy="13" r="2.3"/><path d="M12.5 10.5h6M12.5 13h5M12.5 15.5h3.5"/></svg>`,
+  ozono: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3"/><circle cx="6" cy="17" r="2.5"/><circle cx="18" cy="17" r="2.5"/><path d="M9.5 10.2L7.5 14.6M14.5 10.2L16.5 14.6"/></svg>`,
+  llantas: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><circle cx="12" cy="12" r="3.5"/><path d="M12 8.5V2.8M15 10.3l5.2-3M15 13.7l5.2 3M12 15.5V21.2M9 13.7l-5.2 3M9 10.3l-5.2-3"/></svg>`
+};
+
+const SERVICIOS_3D = {
+  ozono: {
+    label: 'Ozono',
+    icon: ICONS.ozono,
+    kicker: 'Desinfección y purificación',
+    title: 'Tratamiento de Ozono',
+    zone: 'ozono',
+    img: 'imagenesprototipo/ozono.png',
+    diagnostico: 'El generador de O₃ actúa desde el interior del habitáculo, alcanzando cada rincón — <strong>asientos, tapicería, aireadores y sistema de climatización</strong>.',
+    phases: [
+      { fase: 'Fase 1', desc: 'Sellado del habitáculo y activación del generador de O₃ a concentración controlada.' },
+      { fase: 'Fase 2', desc: 'El ozono penetra en tapicerías, moqueta y conductos de climatización durante 30 min.' },
+      { fase: 'Fase 3', desc: 'Ventilación y disipación completa. El O₃ se descompone en oxígeno puro, sin residuos.' }
+    ],
+    beneficio: 'Elimina al 99,9% bacterias, virus, ácaros y malos olores (tabaco, mascotas, humedad). Habitáculo completamente saneado.'
+  },
+  plasticos: {
+    label: 'Plásticos',
+    icon: ICONS.plasticos,
+    kicker: 'Salpicadero y consola',
+    title: 'Plásticos Interiores',
+    zone: 'plasticos',
+    img: 'imagenesprototipo/plasticos interiores.png',
+    diagnostico: 'Hacemos zoom hacia el <strong>salpicadero, consola central y aireadores</strong> — las zonas que más acumulan polvo, huellas y residuos térmicos.',
+    phases: [
+      { fase: 'Fase 1', desc: 'Pinceles de cerdas suaves + limpiador APC de pH neutro en cada relieve.' },
+      { fase: 'Fase 2', desc: 'Aire comprimido para rejillas de ventilación y rincones inaccesibles.' },
+      { fase: 'Fase 3', desc: 'Acondicionador con protección UV. Acabado mate satinado original, nunca grasiento.' }
+    ],
+    beneficio: 'Plásticos protegidos del sol durante meses. Acabado de salón sin reflejos molestos al conducir.'
+  },
+  asientos: {
+    label: 'Asientos',
+    icon: ICONS.asientos,
+    kicker: 'Cuero o tela',
+    title: 'Asientos · Tapicería',
+    zone: 'asientos',
+    img: 'imagenesprototipo/asientos.jfif',
+    diagnostico: 'Aislamos visualmente las butacas y abrimos las puertas. Cada plaza recibe atención individual según el material — <strong>cuero o tela</strong>.',
+    phases: [
+      { fase: 'Si cuero', desc: 'Jabón específico para cuero + cepillo de crin de caballo. Crema nutridora hidratante de poro.' },
+      { fase: 'Si tela', desc: 'Inyección-extracción de suciedad + protector textil antimanchas.' },
+      { fase: 'Final', desc: 'Aplicación de protector según material + desinfección con ozono.' }
+    ],
+    beneficio: 'Aspecto original recuperado. Tapicería resistente a manchas durante meses. Vida útil prolongada.'
+  },
+  cristales: {
+    label: 'Cristales',
+    icon: ICONS.cristales,
+    kicker: 'Visibilidad y seguridad',
+    title: 'Cristales · Tratamiento',
+    zone: 'cristales',
+    img: 'imagenesprototipo/cristales.png',
+    diagnostico: 'Vista expandida de los <strong>6 paneles de cristal</strong> del coche — desde dentro y desde fuera. Cada uno con su tratamiento específico.',
+    phases: [
+      { fase: 'Fase 1', desc: 'Eliminación de cera, restos y suciedad incrustada con vinilo descontaminante.' },
+      { fase: 'Fase 2', desc: 'Microfibra premium + limpiacristales sin amoníaco (cero residuos).' },
+      { fase: 'Fase 3', desc: 'Tratamiento hidrofóbico que repele el agua a 90°+ y mejora visibilidad bajo lluvia.' }
+    ],
+    beneficio: 'Conducción más segura bajo lluvia. El agua perla y resbala sola. Sin manchas ni residuos durante semanas.'
+  },
+  carroceria: {
+    label: 'Carrocería',
+    icon: ICONS.carroceria,
+    kicker: 'Pintura y barniz',
+    title: 'Carrocería · Pintura',
+    zone: 'carroceria',
+    img: 'imagenesprototipo/carroceria.jfif',
+    diagnostico: 'Vista capa por capa: barniz, color, imprimación. Identificamos <strong>microrayaduras</strong> (swirl marks) y oxidación superficial.',
+    phases: [
+      { fase: 'Fase 1', desc: 'Descontaminación con barra de arcilla detail para arrancar partículas incrustadas.' },
+      { fase: 'Fase 2', desc: 'Pulido máquina con pasta de corte fino. Elimina swirl marks y recupera profundidad de color.' },
+      { fase: 'Fase 3', desc: 'Sellado con cera líquida hidrofóbica o tratamiento cerámico de larga duración.' }
+    ],
+    beneficio: 'Profundidad de color y brillo de exhibición. Pintura protegida contra UV, lluvia ácida y excrementos de aves.'
+  },
+  llantas: {
+    label: 'Llantas',
+    icon: ICONS.llantas,
+    kicker: 'Rines y neumáticos',
+    title: 'Llantas · Neumáticos',
+    zone: 'llantas',
+    img: 'imagenesprototipo/llantas.png',
+    diagnostico: 'Despiece de la rueda: <strong>llanta, neumático y pinza de freno</strong>. El polvo del freno y la suciedad acumulada se revelan en detalle.',
+    phases: [
+      { fase: 'Fase 1', desc: 'Desincrustante de polvo de freno que cambia de color al activar reacción química.' },
+      { fase: 'Fase 2', desc: 'Cepillado independiente: uno para llanta, otro para neumático. Nunca mezclamos.' },
+      { fase: 'Fase 3', desc: 'Dressing de larga duración no graso para devolver al neumático el negro profundo original.' }
+    ],
+    beneficio: 'Llantas como recién entregadas. Neumático con el negro profundo de coche nuevo, sin manchar la carrocería.'
+  }
+};
+
+/* ── Servicios y datos del negocio ── */
+window.CONFIG = window.CONFIG || {
+  services: [
+    {
+      key: 'premium_integral',
+      name: 'Limpieza Premium Integral',
+      desc: 'Cambio de temporada. Tu coche de cero por dentro y por fuera.',
+      price: 197,
+      priceWas: 257,
+      ctaHref: 'https://alvato.com/precios-alvato/',
+      badge: 'featured',
+      eyebrow: 'Más popular',
+      maintenancePromo: null,
+      includes: [
+        'Limpieza interior profunda',
+        'Tapicerías hasta 5 asientos',
+        'Lavado exterior completo',
+        'Moquetas y alfombrillas',
+        'Repaso de brillo GRATIS (30 días)',
+        'Garantía de lluvia Alvato — 48h'
+      ]
+    },
+    {
+      key: 'combo_verano',
+      name: 'Combo Verano',
+      desc: 'Interior + exterior en 90 min. Descontaminación y abrillantado incluidos.',
+      price: 89,
+      priceWas: 178,
+      ctaHref: 'reserva/?svc=combo_verano',
+      badge: 'fire',
+      eyebrow: 'Promo Verano · −50%',
+      maintenancePromo: 45,
+      includes: [
+        'Reacondicionado exterior + interior',
+        'Descontaminación de pintura',
+        'Abrillantado de carrocería',
+        'Purificado con ozono'
+      ]
+    },
+    {
+      key: 'mantenimiento',
+      name: 'Mantenimiento',
+      desc: 'Lavado de mantenimiento para quien ya tiene el coche limpio.',
+      price: 45,
+      priceWas: null,
+      ctaHref: 'reserva/?svc=mantenimiento',
+      badge: null,
+      eyebrow: 'Recurrente',
+      maintenancePromo: null,
+      includes: [
+        'Lavado exterior completo',
+        'Aspirado interior',
+        'Limpiacristales',
+        'Abrillantado rápido'
+      ]
+    },
+    {
+      key: 'nanodiamond',
+      name: 'Nanodiamond',
+      desc: 'Recubrimiento cerámico de larga duración. Protección máxima.',
+      price: 540,
+      priceWas: null,
+      ctaHref: 'reserva/?svc=nanodiamond',
+      badge: 'gold',
+      eyebrow: 'Cerámico premium',
+      maintenancePromo: null,
+      includes: [
+        'Pulido máquina con pasta de corte fino',
+        'Descontaminación química y arcilla',
+        'Recubrimiento cerámico SiO₂ 9H',
+        'Hidrofobia activa 2+ años',
+        'Certificado de aplicación'
+      ]
+    }
+  ]
+};
+
+const CFG = window.CONFIG || {};
+
+/* ─── Render chips de servicios ─── */
+function renderChips(activeKey){
+  const c = document.getElementById('configServices');
+  c.innerHTML = Object.keys(SERVICIOS_3D).map(k => {
+    const s = SERVICIOS_3D[k];
+    return `<button class="config-chip ${k===activeKey?'active':''}" data-svc="${k}">
+      <span class="config-chip-icon">${s.icon}</span>
+      <span>${s.label}</span>
+    </button>`;
+  }).join('');
+  c.querySelectorAll('.config-chip').forEach(btn => {
+    btn.addEventListener('click', () => selectService(btn.dataset.svc));
+  });
+}
+
+/* ─── Render panel info ─── */
+function renderInfo(key){
+  const s = SERVICIOS_3D[key];
+  if (!s) return;
+  const info = document.getElementById('configInfo');
+  info.classList.remove('info-fade');
+  void info.offsetWidth; /* trigger reflow */
+  info.classList.add('info-fade');
+  info.innerHTML = `
+    <div class="info-header">
+      <div class="info-icon">${s.icon}</div>
+      <div class="info-title-wrap">
+        <div class="info-kicker">${s.kicker}</div>
+        <div class="info-title">${s.title}</div>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-label">Diagnóstico Visual</div>
+      <div class="info-block-text">${s.diagnostico}</div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-label">El Proceso · Paso a Paso</div>
+      <div class="info-phases">
+        ${s.phases.map(p => `<div class="info-phase"><div class="info-phase-num">${p.fase}</div><div class="info-phase-desc">${p.desc}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="info-benefit">
+      <div class="info-block-label">El Beneficio Real</div>
+      <div class="info-benefit-text">${s.beneficio}</div>
+    </div>
+    <div class="info-cta-row">
+      <a href="reserva/" class="btn btn-accent">Reservar este servicio <span class="arrow">→</span></a>
+    </div>
+  `;
+}
+
+/* ─── Crossfade de imagen en el viewer ─── */
+let imgReady = false;
+function setImage(s){
+  const bg = document.getElementById('configImgBg');
+  const lbl = document.getElementById('configViewerLabel');
+  const fadeDur = imgReady ? 260 : 0;
+
+  bg.style.transition = `opacity ${fadeDur}ms ease, transform ${fadeDur + 180}ms ease`;
+  bg.style.opacity = '0';
+  bg.style.transform = 'scale(1.06)';
+  if(lbl) lbl.textContent = s.label;
+
+  setTimeout(() => {
+    if(s.img){
+      const tmp = new Image();
+      tmp.onload = () => {
+        bg.style.backgroundImage = `url('${s.img}')`;
+        bg.style.transition = 'opacity .5s ease, transform .75s ease';
+        bg.style.opacity = '1';
+        bg.style.transform = 'scale(1)';
+        imgReady = true;
+      };
+      tmp.onerror = () => { bg.style.opacity = '1'; bg.style.transform = 'scale(1)'; };
+      tmp.src = s.img;
+    }
+  }, fadeDur);
+}
+
+/* ─── Función principal: seleccionar servicio ─── */
+function selectService(key){
+  const s = SERVICIOS_3D[key];
+  if (!s) return;
+  renderChips(key);
+  renderInfo(key);
+  setImage(s);
+}
+
+/* Estado inicial */
+selectService('carroceria');
+
+/* ──────── Resto: precios + centros + nav + video ──────── */
+(function renderPrecios(){
+  const grid = document.getElementById('preciosGrid');
+  if (!grid || !CFG.services) return;
+  const landingServices = CFG.services.filter(s => s.showOnLanding);
+  grid.innerHTML = (landingServices.length ? landingServices : CFG.services).map(s => {
+    const badgeMap = { fire:'−50%', gold:'Premium', featured:'★ Popular' };
+    const extraMap = { fire:'featured', gold:'premium', featured:'featured' };
+    const badgeHtml = s.badge ? `<div class="price-badge ${s.badge === 'featured' ? 'recommended' : s.badge}">${badgeMap[s.badge] || ''}</div>` : '';
+    const extra = s.badge ? (extraMap[s.badge] || '') : '';
+    const wasHtml = s.priceWas ? `<span class="price-was">${s.priceWas}€</span>` : '';
+    const includes = (s.includes||[]).map(it => {
+      const isBonus = it.includes('GRATIS') || it.includes('Garantía');
+      return `<div class="price-feature${isBonus?' bonus':''}">${it}</div>`;
+    }).join('');
+    const href = s.ctaHref || `reserva/?svc=${s.key}`;
+    const target = href.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+    return `<div class="price-card ${extra}">${badgeHtml}
+      <div class="price-eye">${s.eyebrow || 'Servicio'}</div>
+      <div class="price-name">${s.name}</div>
+      <div class="price-desc">${s.desc || ''}</div>
+      <div class="price-amount-row">${wasHtml}<div class="price-amount">${s.price}<span class="price-amount-unit">€</span></div></div>
+      ${s.maintenancePromo ? `<div class="price-note">Mantenimiento a ${s.maintenancePromo}€ en los 30 días siguientes</div>` : ''}
+      <div class="price-features">${includes}</div>
+      <a href="${href}"${target} class="price-cta">Reservar este servicio →</a>
+    </div>`;
+  }).join('');
+})();
+(function renderCentros(){
+  const cg = document.getElementById('centrosGrid');
+  if (!cg || !CFG.centros) return;
+  cg.innerHTML = CFG.centros.map(c => `<a href="reserva/?centro=${c.id}" class="centro-card"><div class="centro-name">${c.nombre}</div><div class="centro-city">${c.ciudad}</div><div class="centro-addr">${c.direccion}</div><div class="centro-hours">${c.horario}</div></a>`).join('');
+})();
+
+let lastScroll = 0;
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 80);
+  if (y > lastScroll && y > 200) { nav.style.transform = 'translateY(-100%)'; }
+  else { nav.style.transform = 'translateY(0)'; }
+  lastScroll = y;
+});
+
+(function setupMute(){
+  const v = document.getElementById('heroVideo');
+  const b = document.getElementById('muteBtn');
+  if (!v || !b) return;
+  b.addEventListener('click', () => { v.muted = !v.muted; });
+})();
+
+(function setupVideo(){
+  const wrap = document.getElementById('videoWrap');
+  const btn = document.getElementById('playBtn');
+  const iframe = document.getElementById('videoPlayer');
+  const YOUTUBE_ID = 'dQw4w9WgXcQ'; /* ⚠ reemplazá por el ID del video real */
+  function play(){
+    iframe.src = `https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1`;
+    wrap.classList.add('playing');
+  }
+  btn.addEventListener('click', play);
+})();
+</script>
+
+<script src="legal/footer.js"></script>
+
+</body>
+</html>

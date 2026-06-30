@@ -1,0 +1,44 @@
+# Dependencias
+node_modules/
+.npm/
+
+# Entornos y secretos
+.env
+.env.local
+.env.*.local
+*.env
+
+# Credenciales / tokens (nunca al repo)
+config.local.js
+*credentials*
+*service-account*.json
+
+# Archivos del SO
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build / cache
+dist/
+.cache/
+.parcel-cache/
+.next/
+out/
+build/
+
+# Archivos temporales
+*.tmp
+*.bak

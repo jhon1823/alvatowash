@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Tu opinión cuenta · Alvatowash</title>
+<meta name="description" content="¿Cómo te fue en Alvatowash? Dejanos tu reseña."/>
+
+<script src="../config.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+<style>
+:root{
+  --bg:#0A0A0A; --bg-2:#121212;
+  --card:#161616; --card-hi:#1E1E1E;
+  --ink:#FFFFFF; --ink-2:#E5E5E5; --ink-3:#A1A1A1; --muted:#6B6B6B;
+  --line:rgba(255,255,255,.08);
+  --red:#DC2626; --red-2:#EF4444; --red-dk:#991B1B;
+  --yellow:#FBBF24; --green:#10B981;
+  --gradient-red:linear-gradient(135deg,#DC2626,#991B1B);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,sans-serif;
+  min-height:100dvh;line-height:1.5;letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+svg{display:block;flex-shrink:0}
+
+.nav{padding:14px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(10,10,10,.92);backdrop-filter:saturate(180%) blur(20px);z-index:50}
+.nav-inner{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.brand-mark{width:36px;height:36px;background:var(--gradient-red);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Anton',sans-serif;font-size:20px;clip-path:polygon(0 0,100% 0,100% 70%,85% 100%,0 100%)}
+.brand-name{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:2.5px;color:#fff;text-transform:uppercase}
+.brand-sub{font-size:9.5px;color:var(--red-2);letter-spacing:2.5px;text-transform:uppercase;font-weight:800;margin-top:2px}
+
+.container{max-width:560px;margin:0 auto;padding:40px 22px 60px;position:relative}
+.container::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(220,38,38,.12) 0%,transparent 60%);z-index:-1;pointer-events:none}
+
+.eyebrow{display:inline-block;font-family:'Anton',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red-2);padding:5px 12px;border:1px solid rgba(220,38,38,.3);background:rgba(220,38,38,.06);margin-bottom:18px}
+.h1{font-family:'Anton',sans-serif;font-size:clamp(40px,7vw,60px);line-height:.95;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:14px}
+.h1 em{color:var(--red-2);font-style:normal}
+.sub{font-size:15px;color:var(--ink-3);line-height:1.6;margin-bottom:30px}
+.sub strong{color:#fff;font-weight:700}
+
+.service-card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);padding:16px 18px;margin-bottom:30px;display:flex;align-items:center;gap:14px}
+.service-card svg{width:24px;height:24px;color:var(--red-2);flex-shrink:0}
+.service-card-info{flex:1;min-width:0}
+.service-name{font-family:'Anton',sans-serif;font-size:16px;color:#fff;letter-spacing:.5px;text-transform:uppercase;line-height:1.1;margin-bottom:3px}
+.service-meta{font-size:12.5px;color:var(--ink-3)}
+
+/* Estrellas */
+.stars-card{background:var(--card);border:1px solid var(--line);padding:32px 22px;text-align:center;margin-bottom:18px;position:relative;overflow:hidden}
+.stars-card::before{content:'★';position:absolute;top:-30px;right:-15px;font-size:140px;color:rgba(251,191,36,.04);line-height:1;pointer-events:none}
+.stars-q{font-family:'Anton',sans-serif;font-size:22px;color:#fff;letter-spacing:.5px;text-transform:uppercase;line-height:1.1;margin-bottom:24px}
+.stars-row{display:flex;justify-content:center;gap:6px;margin-bottom:8px}
+.star{font-size:44px;color:#3A3A3C;cursor:pointer;transition:transform .15s,color .15s;line-height:1;padding:4px;background:none;border:none}
+.star:hover{transform:scale(1.15)}
+.star.active{color:var(--yellow);text-shadow:0 0 24px rgba(251,191,36,.4)}
+.star.preview{color:var(--yellow);opacity:.5}
+.stars-lbl{font-size:13px;color:var(--ink-3);margin-top:10px;min-height:18px;font-weight:600}
+
+/* Comentario */
+.comment-block{display:none;animation:fadeIn .3s ease both;margin-bottom:18px}
+.comment-block.show{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.comment-card{background:var(--card);border:1px solid var(--line);padding:22px 20px;margin-bottom:14px}
+.comment-h{font-family:'Anton',sans-serif;font-size:18px;color:#fff;letter-spacing:.5px;text-transform:uppercase;line-height:1.1;margin-bottom:6px}
+.comment-h em{color:var(--red-2);font-style:normal}
+.comment-p{font-size:13.5px;color:var(--ink-3);line-height:1.6;margin-bottom:14px}
+.textarea{width:100%;padding:14px;background:#000;border:1.5px solid var(--line);color:#fff;font-size:14.5px;outline:none;font-family:inherit;line-height:1.55;resize:vertical;min-height:110px;transition:border-color .15s}
+.textarea:focus{border-color:var(--red)}
+
+/* Botón submit */
+.btn-submit{display:flex;width:100%;align-items:center;justify-content:center;gap:9px;background:var(--red);color:#fff;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:2.5px;text-transform:uppercase;padding:17px;clip-path:polygon(3% 0,100% 0,97% 100%,0 100%);transition:background .12s,transform .1s;border:none;cursor:pointer}
+.btn-submit:hover:not(:disabled){background:#FF1F1F}
+.btn-submit:active{transform:scale(.98)}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed}
+.btn-submit svg{width:16px;height:16px}
+
+/* Success */
+.success{display:none;text-align:center;padding:30px 16px;animation:fadeIn .4s ease both}
+.success.show{display:block}
+.success-icon{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--green),#059669);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;box-shadow:0 16px 40px rgba(16,185,129,.32);animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes popIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.success-icon svg{width:46px;height:46px;color:#fff;stroke-width:3}
+.success-h{font-family:'Anton',sans-serif;font-size:30px;color:#fff;letter-spacing:1px;text-transform:uppercase;line-height:1;margin-bottom:10px}
+.success-p{font-size:15px;color:var(--ink-2);line-height:1.6;margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto}
+.success-p strong{color:var(--yellow);font-weight:700}
+
+.btn-google{display:inline-flex;align-items:center;justify-content:center;gap:11px;background:#fff;color:#1D1D1F;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;padding:15px 28px;transition:background .12s,transform .1s;text-decoration:none}
+.btn-google:hover{background:#FFD700;transform:translateY(-1px)}
+.btn-google svg{width:18px;height:18px}
+
+/* Loading */
+.loading{text-align:center;padding:60px 20px;color:var(--ink-3);font-size:14px}
+.spinner{display:inline-block;width:28px;height:28px;border:2.5px solid var(--line);border-top-color:var(--red);border-radius:50%;animation:spin .9s linear infinite;margin-bottom:14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Error */
+.error-block{display:none;text-align:center;padding:40px 22px}
+.error-block.show{display:block}
+.error-icon{font-size:42px;margin-bottom:14px}
+.error-h{font-family:'Anton',sans-serif;font-size:20px;color:#fff;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.error-p{font-size:14px;color:var(--ink-3);line-height:1.55}
+
+.footer{padding:24px 22px;text-align:center;color:var(--muted);font-size:12px}
+.footer-brand{color:var(--red-2);font-family:'Anton',sans-serif;font-size:14px;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand-mark">A</div>
+    <div>
+      <div class="brand-name">Alvatowash</div>
+      <div class="brand-sub">Tu opinión</div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ESTADO: CARGANDO -->
+  <div class="loading" id="stateLoading">
+    <div class="spinner"></div>
+    <div>Cargando tu reserva…</div>
+  </div>
+
+  <!-- ESTADO: ERROR -->
+  <div class="error-block" id="stateError">
+    <div class="error-icon">⚠</div>
+    <div class="error-h" id="errorTitle">No encontramos tu reserva</div>
+    <div class="error-p" id="errorText">El link puede estar incorrecto o haber expirado.</div>
+  </div>
+
+  <!-- ESTADO: FORMULARIO -->
+  <div id="stateForm" style="display:none">
+    <div class="eyebrow">Tu opinión cuenta</div>
+    <h1 class="h1">¿Cómo te fue,<br/><em id="clientName">cliente</em>?</h1>
+    <p class="sub">Acabamos de terminar tu servicio. Tu reseña nos ayuda a mejorar y a otros clientes a confiar en nosotros. <strong>Toma 30 segundos</strong>.</p>
+
+    <div class="service-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <div class="service-card-info">
+        <div class="service-name" id="serviceName">Servicio</div>
+        <div class="service-meta" id="serviceMeta">—</div>
+      </div>
+    </div>
+
+    <div class="stars-card">
+      <div class="stars-q">¿Qué nota nos das?</div>
+      <div class="stars-row" id="starsRow">
+        <button class="star" data-star="1">★</button>
+        <button class="star" data-star="2">★</button>
+        <button class="star" data-star="3">★</button>
+        <button class="star" data-star="4">★</button>
+        <button class="star" data-star="5">★</button>
+      </div>
+      <div class="stars-lbl" id="starsLbl">Toca las estrellas</div>
+    </div>
+
+    <div class="comment-block" id="commentBlock">
+      <div class="comment-card">
+        <div class="comment-h">¿Qué <em>podemos mejorar</em>?</div>
+        <p class="comment-p">Contanos qué pasó. Lo leemos personalmente y te respondemos en 24h.</p>
+        <textarea class="textarea" id="iComment" placeholder="Ej: tardaron más de lo previsto, el aspirado quedó incompleto, el cliente que me atendió…"></textarea>
+      </div>
+    </div>
+
+    <button class="btn-submit" id="bSubmit" disabled>
+      <span id="submitLbl">Elegí una nota primero</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- ESTADO: ÉXITO -->
+  <div class="success" id="stateSuccess">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="success-h" id="successH">¡Gracias!</div>
+    <p class="success-p" id="successP">Tu reseña ya está guardada. Ayudás a que sigamos mejorando.</p>
+    <a class="btn-google" id="googleBtn" href="#" target="_blank" style="display:none">
+      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Compartir en Google
+    </a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-brand">Alvatowash</div>
+  <div>© 2026 · Luxury detailing</div>
+</footer>
+
+<script>
+const CFG = window.CONFIG || {};
+const params = new URLSearchParams(window.location.search);
+const BOOKING_ID = params.get('id') || '';
+let SELECTED_RATING = 0;
+let BOOKING_DATA = null;
+
+function $(id){return document.getElementById(id)}
+function showState(name){
+  ['stateLoading','stateError','stateForm','stateSuccess'].forEach(s => {
+    const el = $(s);
+    if (s === 'state'+name.charAt(0).toUpperCase()+name.slice(1)) el.style.display = name === 'success' ? '' : 'block';
+    else el.style.display = 'none';
+  });
+  if (name === 'success') $('stateSuccess').classList.add('show');
+  if (name === 'error') $('stateError').classList.add('show');
+}
+
+function bgCall(action, paramsObj={}){
+  return new Promise((resolve, reject) => {
+    const cbName = '_rcb_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+    window[cbName] = (data) => { delete window[cbName]; s.remove(); resolve(data); };
+    const qs = new URLSearchParams({ action, token: CFG.script_token || '', callback: cbName, ...paramsObj });
+    const s = document.createElement('script');
+    s.src = CFG.script_url + '?' + qs.toString();
+    s.onerror = () => { delete window[cbName]; s.remove(); reject(new Error('Network error')); };
+    document.head.appendChild(s);
+    setTimeout(() => { if (window[cbName]) { delete window[cbName]; s.remove(); reject(new Error('Timeout')); } }, 15000);
+  });
+}
+
+/* Cargar datos del booking */
+async function init(){
+  if (!BOOKING_ID) {
+    $('errorTitle').textContent = 'Link incompleto';
+    $('errorText').textContent = 'Falta el identificador de la reserva en la URL.';
+    showState('error');
+    return;
+  }
+  if (!CFG.script_url) {
+    $('errorTitle').textContent = 'Configuración pendiente';
+    $('errorText').textContent = 'El backend no está conectado. Avisá al admin.';
+    showState('error');
+    return;
+  }
+  try {
+    const r = await bgCall('getBookingForReview', { id: BOOKING_ID });
+    if (r.error) {
+      $('errorTitle').textContent = 'No encontramos tu reserva';
+      $('errorText').textContent = r.error;
+      showState('error');
+      return;
+    }
+    BOOKING_DATA = r.booking;
+    $('clientName').textContent = (r.booking.name || 'cliente').split(' ')[0];
+    $('serviceName').textContent = r.booking.service || 'Servicio Alvatowash';
+    $('serviceMeta').textContent = (r.booking.date || '') + (r.booking.employee ? ' · Atendido por ' + r.booking.employee : '');
+    if (r.googleReviewUrl) $('googleBtn').href = r.googleReviewUrl;
+    showState('form');
+  } catch(e){
+    $('errorTitle').textContent = 'Error de conexión';
+    $('errorText').textContent = 'No pudimos cargar los datos. Probá de nuevo en un minuto.';
+    showState('error');
+  }
+}
+
+/* Estrellas interactivas */
+document.querySelectorAll('.star').forEach(b => {
+  b.addEventListener('mouseenter', () => {
+    const n = parseInt(b.dataset.star);
+    document.querySelectorAll('.star').forEach(s => {
+      const sn = parseInt(s.dataset.star);
+      s.classList.remove('preview','active');
+      if (sn <= SELECTED_RATING) s.classList.add('active');
+      else if (sn <= n) s.classList.add('preview');
+    });
+  });
+  b.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.star').forEach(s => {
+      const sn = parseInt(s.dataset.star);
+      s.classList.remove('preview','active');
+      if (sn <= SELECTED_RATING) s.classList.add('active');
+    });
+  });
+  b.addEventListener('click', () => {
+    SELECTED_RATING = parseInt(b.dataset.star);
+    document.querySelectorAll('.star').forEach(s => {
+      const sn = parseInt(s.dataset.star);
+      s.classList.remove('preview','active');
+      if (sn <= SELECTED_RATING) s.classList.add('active');
+    });
+    const labels = ['', 'Muy mal', 'Mal', 'Regular', 'Bien', '¡Excelente!'];
+    $('starsLbl').textContent = labels[SELECTED_RATING];
+    $('starsLbl').style.color = SELECTED_RATING >= 4 ? '#FFD700' : (SELECTED_RATING >= 3 ? '#A1A1A1' : '#EF4444');
+
+    /* Mostrar comentario si rating < 4 */
+    if (SELECTED_RATING > 0 && SELECTED_RATING < 4) {
+      $('commentBlock').classList.add('show');
+    } else {
+      $('commentBlock').classList.remove('show');
+    }
+
+    /* Botón */
+    $('bSubmit').disabled = false;
+    if (SELECTED_RATING === 5) $('submitLbl').textContent = 'Compartir en Google';
+    else if (SELECTED_RATING === 4) $('submitLbl').textContent = 'Enviar reseña';
+    else $('submitLbl').textContent = 'Enviar y ayudarnos a mejorar';
+  });
+});
+
+/* Submit */
+$('bSubmit').addEventListener('click', async () => {
+  if (!SELECTED_RATING) return;
+  $('bSubmit').disabled = true;
+  $('submitLbl').textContent = 'Enviando…';
+
+  const comment = $('iComment') ? $('iComment').value.trim() : '';
+  try {
+    const r = await bgCall('submitReview', {
+      bookingId: BOOKING_ID,
+      rating: SELECTED_RATING,
+      comment: comment
+    });
+    if (r.error) {
+      $('bSubmit').disabled = false;
+      $('submitLbl').textContent = 'Reintentar';
+      alert('Error: ' + r.error);
+      return;
+    }
+    /* Si 5★ y hay URL de Google, redirigir directamente */
+    if (r.redirectToGoogle && r.googleReviewUrl) {
+      /* Mostramos success rápido + redirigimos en 1.5s */
+      $('successH').textContent = '¡Gracias!';
+      $('successP').innerHTML = 'Tu reseña ya está guardada. <br/><strong>Te llevamos a Google</strong> para que la dejes pública…';
+      $('googleBtn').style.display = '';
+      showState('success');
+      setTimeout(() => { window.location.href = r.googleReviewUrl; }, 1800);
+    } else {
+      /* < 5 estrellas */
+      $('successH').textContent = SELECTED_RATING >= 4 ? '¡Gracias!' : 'Tu mensaje llegó';
+      $('successP').innerHTML = SELECTED_RATING >= 4
+        ? 'Tu reseña ya está guardada. <strong>Gracias por tu tiempo</strong>.'
+        : 'El admin va a leer tu mensaje y te va a contactar en menos de 24h para resolver lo que pasó.';
+      showState('success');
+    }
+  } catch(e){
+    $('bSubmit').disabled = false;
+    $('submitLbl').textContent = 'Reintentar';
+    alert('Error de conexión. Probá de nuevo.');
+  }
+});
+
+init();
+</script>
+</body>
+</html>
